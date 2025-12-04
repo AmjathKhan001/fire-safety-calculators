@@ -41,9 +41,10 @@
             color: white;
             padding: 0.25rem 0.5rem;
             border-radius: 5px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
-        .coming-soon {
+        .status.coming-soon {
             background: #f97316;
         }
     </style>
@@ -51,10 +52,10 @@
 <body>
     <header>
         <h1>📚 Fire Safety Resources</h1>
-        <p>Advanced Tools, Books, and Standards</p>
-        <nav class="main-nav">
+        <p>A categorized index of all calculators and external resources</p>
+        <nav class="main-nav secondary-nav">
             <a href="/index.html" class="nav-btn">Home</a>
-            <a href="/resources.html" class="nav-btn active" style="background: white; color: #dc2626;">Resources</a>
+            <a href="/resources.html" class="nav-btn active">Resources</a>
             <a href="/privacy.html" class="nav-btn">Privacy</a>
             <a href="/terms.html" class="nav-btn">Terms</a>
             <a href="/affiliate.html" class="nav-btn">Affiliate</a>
@@ -64,33 +65,37 @@
 
     <main>
         <div class="container">
-            <h2>NFPA Standards and Reference</h2>
-            <p>A list of external tools and recommended learning materials for fire protection engineers.</p>
-
             <div class="resource-grid">
+                
                 <div class="resource-card">
-                    <h3>🔥 Fire Alarm Systems</h3>
+                    <h3>📢 Fire Alarm & Detection</h3>
                     <ul class="resource-list">
                         <li><a href="/index.html#battery-calculator">Battery Standby Calculator <span class="status">Active</span></a></li>
-                        <li><a href="/index.html#voltage-calculator">Voltage Drop Calculator <span class="status">Active</span></a></li>
-                        <li><a href="https://amzn.to/48k5Upd" target="_blank">NFPA 72 Fire Alarm Code Book <span class="status coming-soon">Affiliate</span></a></li> 
+                        <li><a href="/index.html#smoke-calculator">Smoke Detector Spacing <span class="status">Active</span></a></li>
+                        <li><a href="#coming-soon">Voltage Drop Calculator <span class="status coming-soon">Soon</span></a></li>
+                        <li><a href="#coming-soon">NAC Load Calculator <span class="status coming-soon">Soon</span></a></li>
+                        <li><a href="https://amzn.to/48k5Upd" target="_blank">NFPA 72 Fire Alarm Code <span class="status coming-soon">Affiliate</span></a></li>
                     </ul>
                 </div>
 
                 <div class="resource-card">
-                    <h3>💦 Hydraulic & Sprinkler</h3>
+                    <h3>💧 Water-Based Suppression</h3>
                     <ul class="resource-list">
-                        <li><a href="/index.html#friction-calculator">Friction Loss Calculator <span class="status">Active</span></a></li>
-                        <li><a href="/index.html#waterdemand-calculator">Sprinkler Demand Calculator <span class="status">Active</span></a></li>
+                        <li><a href="/index.html#friction-loss-calculator">Hazen-Williams Friction Loss <span class="status">Active</span></a></li>
+                        <li><a href="/index.html#pump-calculator">Fire Pump Sizing <span class="status">Active</span></a></li>
+                        <li><a href="/index.html#fireflow-calculator">Required Fire Flow <span class="status">Active</span></a></li>
+                        <li><a href="#coming-soon">Water Demand Calculator <span class="status coming-soon">Soon</span></a></li>
                         <li><a href="https://amzn.to/48k5Upd" target="_blank">NFPA 13 Sprinkler Code Book <span class="status coming-soon">Affiliate</span></a></li>
                     </ul>
                 </div>
 
                 <div class="resource-card">
-                    <h3>🏢 Building Code & Life Safety</h3>
-                    <ul class="calculator-list">
+                    <h3>💨 Other Systems & Hazards</h3>
+                    <ul class="resource-list">
                         <li><a href="/index.html#occupant-calculator">Occupant Load Calculator <span class="status">Active</span></a></li>
-                        <li><a href="/index.html#fireflow-calculator">Required Fire Flow Calculator <span class="status">Active</span></a></li>
+                        <li><a href="#coming-soon">Foam System Calculator <span class="status coming-soon">Soon</span></a></li>
+                        <li><a href="#coming-soon">Clean Agent Calculator <span class="status coming-soon">Soon</span></a></li>
+                        <li><a href="#coming-soon">Water Mist Calculator <span class="status coming-soon">Soon</span></a></li>
                         <li><a href="https://amzn.to/48k5Upd" target="_blank">NFPA 101 Life Safety Code <span class="status coming-soon">Affiliate</span></a></li>
                     </ul>
                 </div>
@@ -109,7 +114,7 @@
             <a href="/affiliate.html">Affiliate</a>
             <a href="/contact.html">Contact</a>
         </div>
-        <p>© 2024 FireSafetyTool.com</p>
+        <p>© 2025 FireSafetyTool.com</p>
     </footer>
 </body>
 </html>
