@@ -147,7 +147,7 @@ button[type="submit"]:hover {
     transform: translateY(-2px);
 }
 
-/* Results */
+/* Results (Crucial for showing the hidden results) */
 .result {
     margin-top: 2rem;
     padding: 1.5rem;
