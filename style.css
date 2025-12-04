@@ -50,59 +50,54 @@ header p {
     padding: 0.75rem 1.5rem;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none; /* For links */
     font-size: 1rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    text-align: center;
+    font-weight: 500;
+    transition: background 0.3s ease;
+    flex-grow: 1; /* New: To help with wrapping */
+    min-width: 120px; /* New: Prevent excessive shrinking */
 }
 
 .nav-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.35);
 }
 
 .nav-btn.active {
     background: white;
     color: #dc2626;
+    font-weight: 700;
 }
 
 /* Main Content */
 main {
     flex: 1;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-    width: 100%;
+    padding: 2rem 1rem;
 }
 
 .container {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    overflow: hidden;
-    margin-top: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* Calculator Box */
 .calculator-box {
+    background: white;
     padding: 2rem;
-}
-
-.calculator-box.hidden {
-    display: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
 }
 
 .calculator-box h2 {
-    color: #dc2626;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid #f0f0f0;
+    color: #1f2937;
+    border-bottom: 2px solid #e5e5e5;
     padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
 }
 
 .calculator-box p {
-    margin-bottom: 1.5rem;
-    color: #666;
+    margin-bottom: 1rem;
+    color: #6b7280;
 }
 
 /* Forms */
@@ -110,23 +105,25 @@ main {
     margin-bottom: 1.5rem;
 }
 
-label {
+.input-group label {
     display: block;
-    margin-bottom: 0.5rem;
     font-weight: 600;
-    color: #555;
+    margin-bottom: 0.5rem;
+    color: #374151;
 }
 
-input, select {
+.input-group input[type="number"],
+.input-group select {
     width: 100%;
     padding: 0.75rem;
-    border: 2px solid #e5e5e5;
+    border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
 }
 
-input:focus, select:focus {
+.input-group input[type="number"]:focus,
+.input-group select:focus {
     outline: none;
     border-color: #dc2626;
 }
@@ -186,38 +183,11 @@ footer {
 }
 
 .footer-links a {
-    color: white;
+    color: #9ca3af;
     text-decoration: none;
-    opacity: 0.8;
+    transition: color 0.3s ease;
 }
 
 .footer-links a:hover {
-    opacity: 1;
-    text-decoration: underline;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 2rem;
-    }
-    
-    .main-nav {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .nav-btn {
-        width: 100%;
-        margin-bottom: 0.5rem;
-    }
-    
-    .footer-links {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .calculator-box {
-        padding: 1rem;
-    }
+    color: white;
 }
