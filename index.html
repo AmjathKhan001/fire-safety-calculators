@@ -6,7 +6,7 @@
     <title>Fire Safety Calculators | Professional NFPA Tools</title>
     
     <meta name="description" content="Free fire safety calculators for engineers. Battery standby, occupant load, smoke detector spacing, hydrant flow, friction loss, clean agent systems, voltage drop, NAC load, water mist, foam systems.">
-    <meta name="keywords" content="fire safety calculator, NFPA calculator, fire protection, sprinkler calculation, fire alarm battery, occupant load, friction loss, hydrant flow, NAC load, water demand, fire pump sizing, sprinkler spacing, required fire flow">
+    <meta name="keywords" content="fire safety calculator, NFPA calculator, fire protection, sprinkler calculation, fire alarm battery, occupant load, friction loss, hydrant flow, NAC load, water demand, fire pump sizing, sprinkler spacing, required fire flow, smoke detector spacing, Hazen-Williams">
     <meta name="author" content="FireSafetyTool.com">
     
     <link rel="canonical" href="https://www.firesafetytool.com/"> 
@@ -14,382 +14,237 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-376208036"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag(){dataLayer.push(arguments);}\n      gtag('js', new Date());
       gtag('config', 'G-376208036');
     </script>
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
     
     <link rel="stylesheet" href="/style.css">
-    </head>
+    
+</head>
 <body>
     <header>
-        <h1>🚒 Fire Safety Calculators</h1>
-        <p>Professional Tools for NFPA Compliance</p>
+        <h1>🔥 Fire Safety Calculators</h1>
+        <p>NFPA-based estimation tools for professionals</p>
         
         <div class="unit-toggle-container">
             <label for="unit-switch">Units:</label>
-            <button id="unit-switch" data-unit="imperial">Imperial (Ft, PSI, GPM)</button>
+            <select id="unit-switch" onchange="switchUnit(this.value)">
+                <option value="imperial">Imperial (GPM, PSI, Ft)</option>
+                <option value="metric">Metric (L/s, Bar, m)</option>
+            </select>
         </div>
-
+        
         <nav class="main-nav">
-            <button class="nav-btn active" data-calculator="battery">🔋 Battery Standby</button>
-            <button class="nav-btn" data-calculator="smoke">⚡️ Smoke Spacing</button>
-            <button class="nav-btn" data-calculator="voltage">⚡️ Voltage Drop</button>
-            <button class="nav-btn" data-calculator="nac">📣 NAC Load</button>
-        </nav>
-        <nav class="main-nav" style="margin-top: 10px;">
-            <button class="nav-btn" data-calculator="waterdemand">💦 Sprinkler Demand</button>
-            <button class="nav-btn" data-calculator="fireflow">🔥 Required Fire Flow</button>
-            <button class="nav-btn" data-calculator="hydrant">💧 Hydrant Flow</button>
-            <button class="nav-btn" data-calculator="friction">📐 Friction Loss</button>
-        </nav>
-        <nav class="main-nav" style="margin-top: 10px;">
-            <button class="nav-btn" data-calculator="occupant">👥 Occupant Load</button>
-            <button class="nav-btn" data-calculator="headspacing">🌐 Head Spacing</button>
-            <button class="nav-btn" data-calculator="pump">⚙️ Pump Sizing</button>
-            <a href="/resources.html" class="nav-btn" style="background: #1e40af;">Resources</a>
-            <a href="/contact.html" class="nav-btn" style="background: #047857;">Contact</a>
+            <button class="nav-btn active" data-calculator="battery">Battery Standby</button>
+            <button class="nav-btn" data-calculator="occupant">Occupant Load</button>
+            <button class="nav-btn" data-calculator="smoke">Smoke Detector</button>
+            <button class="nav-btn" data-calculator="friction-loss">Friction Loss</button>
+            <button class="nav-btn" data-calculator="fireflow">Required Fire Flow</button>
+            <button class="nav-btn" data-calculator="pump">Fire Pump Sizing</button>
+            </nav>
+        
+        <nav class="main-nav secondary-nav">
+            <a href="/index.html" class="nav-btn active">Home</a>
+            <a href="/resources.html" class="nav-btn">Resources</a>
+            <a href="/privacy.html" class="nav-btn">Privacy</a>
+            <a href="/terms.html" class="nav-btn">Terms</a>
+            <a href="/affiliate.html" class="nav-btn">Affiliate</a>
+            <a href="/contact.html" class="nav-btn">Contact</a>
         </nav>
     </header>
 
     <main>
-        <div class="ad-placeholder ad-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-6687860250561653"
-                 data-ad-slot="YOUR_AD_SLOT_ID_HERE"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-            <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #6b7280;">Advertisement Space</p>
-        </div>
-        
-        <div class="support-links-container">
-            <p class="support-text">Support this free tool by using our affiliate links or buying us a coffee:</p>
-            <a href="/affiliate.html" class="support-btn affiliate-btn">
-                🛒 Using Our Affiliate Links
-            </a>
-            <a href="https://buymeacoffee.com/s.amjathkhan" target="_blank" class="support-btn coffee-btn"> 
-                ☕ Buying Us a Coffee
-            </a>
-        </div>
-        
         <div class="container">
+            
+            <div class="support-header">
+                <p>Support our free tools! Check out our recommended <a href="/resources.html">NFPA Code Books & Tools</a>.</p>
+            </div>
+
+            <div class="ad-container">
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-6687860250561653"
+                    data-ad-slot="1234567890"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            
             <div id="battery-calculator" class="calculator-box">
-                <h2>🔋 Battery Standby Calculator</h2>
-                <p>Calculates the required Amp-Hour (Ah) capacity for a fire alarm system battery (NFPA 72).</p>
+                <h2>🔋 Battery Standby Calculator (NFPA 72)</h2>
+                <p>Calculate the required amp-hour (Ah) rating for fire alarm control panel batteries.</p>
+                
                 <form id="battery-form">
                     <div class="input-group">
-                        <label for="standby-current" data-label-imperial="Standby Current (Amps):" data-label-metric="Standby Current (Amps):">Standby Current (Amps):</label>
-                        <input type="number" id="standby-current" step="0.001" placeholder="e.g., 0.5" required>
+                        <label for="standby-current">Standby Current Draw (Amps):</label>
+                        <input type="number" id="standby-current" step="0.01" min="0" placeholder="e.g., 0.5" required>
                     </div>
                     <div class="input-group">
-                        <label for="alarm-current" data-label-imperial="Alarm Current (Amps):" data-label-metric="Alarm Current (Amps):">Alarm Current (Amps):</label>
-                        <input type="number" id="alarm-current" step="0.001" placeholder="e.g., 2.3" required>
+                        <label for="alarm-current">Alarm Current Draw (Amps):</label>
+                        <input type="number" id="alarm-current" step="0.01" min="0" placeholder="e.g., 5.0" required>
                     </div>
                     <div class="input-group">
-                        <label for="standby-hours" data-label-imperial="Required Standby Time (Hours):" data-label-metric="Required Standby Time (Hours):">Required Standby Time (Hours):</label>
-                        <input type="number" id="standby-hours" step="1" min="1" value="24" required>
+                        <label for="standby-hours">Required Standby Time (Hours):</label>
+                        <input type="number" id="standby-hours" step="1" min="24" placeholder="e.g., 24 (or 60 for NYC/Chicago)" required>
                     </div>
                     <div class="input-group">
-                        <label for="alarm-minutes" data-label-imperial="Required Alarm Time (Minutes):" data-label-metric="Required Alarm Time (Minutes):">Required Alarm Time (Minutes):</label>
-                        <input type="number" id="alarm-minutes" step="1" min="1" value="5" required>
+                        <label for="alarm-minutes">Required Alarm Time (Minutes):</label>
+                        <input type="number" id="alarm-minutes" step="1" min="5" placeholder="e.g., 5" required>
                     </div>
-                    <button type="submit">Calculate Battery Ah</button>
+
+                    <button type="submit">Calculate Required Ah</button>
                 </form>
 
                 <div id="battery-result" class="result hidden">
                     </div>
             </div>
 
-            <div id="smoke-calculator" class="calculator-box hidden">
-                <h2>⚡️ Smoke Detector Spacing</h2>
-                <p>Calculate the maximum area a spot-type smoke detector can cover (NFPA 72).</p>
-                
-                <form id="smoke-form">
-                    <div class="input-group">
-                        <label for="ceiling-height" data-label-imperial="Ceiling Height (Feet):" data-label-metric="Ceiling Height (Meters):">Ceiling Height (Feet):</label>
-                        <input type="number" id="ceiling-height" step="1" min="2.5" placeholder="e.g., 10" required>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="air-movement">Air Movement:</label>
-                        <select id="air-movement" required>
-                            <option value="30">Normal Air Movement (Max 30 ft spacing)</option>
-                            <option value="21">High Air Movement (Reduced spacing)</option>
-                        </select>
-                    </div>
-
-                    <button type="submit">Calculate Coverage Area</button>
-                </form>
-
-                <div id="smoke-result" class="result hidden">
-                    </div>
-            </div>
-
-            <div id="voltage-calculator" class="calculator-box hidden">
-                <h2>⚡️ Voltage Drop Calculator</h2>
-                <p>Calculate the voltage drop along a fire alarm circuit (NFPA 72).</p>
-                
-                <form id="voltage-form">
-                    <div class="input-group">
-                        <label for="wire-length" data-label-imperial="Wire Length (Feet) of the longest circuit run:" data-label-metric="Wire Length (Meters) of the longest circuit run:">Wire Length (Feet) of the longest circuit run:</label>
-                        <input type="number" id="wire-length" step="1" min="1" placeholder="e.g., 500" required>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="circuit-current" data-label-imperial="Total Circuit Current (Amps) in Alarm:" data-label-metric="Total Circuit Current (Amps) in Alarm:">Total Circuit Current (Amps) in Alarm:</label>
-                        <input type="number" id="circuit-current" step="0.001" min="0.001" placeholder="e.g., 1.2" required>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="wire-gauge">Wire Gauge (AWG):</label>
-                        <select id="wire-gauge" required>
-                            <option value="1.62">18 AWG (1.62 Ω/1000ft)</option>
-                            <option value="1.02">16 AWG (1.02 Ω/1000ft)</option>
-                            <option value="0.64">14 AWG (0.64 Ω/1000ft)</option>
-                            <option value="0.40">12 AWG (0.40 Ω/1000ft)</option>
-                        </select>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="system-voltage">System Voltage (VDC):</label>
-                        <select id="system-voltage" required>
-                            <option value="24" selected>24 VDC (Common Fire Alarm)</option>
-                            <option value="12">12 VDC</option>
-                        </select>
-                    </div>
-
-                    <button type="submit">Calculate Voltage Drop</button>
-                </form>
-
-                <div id="voltage-result" class="result hidden">
-                    </div>
-            </div>
-
-            <div id="nac-calculator" class="calculator-box hidden">
-                <h2>📣 NAC Load Calculator</h2>
-                <p>Calculate the total alarm current draw for a Notification Appliance Circuit (NAC) to verify panel capacity.</p>
-                
-                <form id="nac-form">
-                    <div class="input-group">
-                        <label for="horn-qty">Quantity of Horns/Speakers:</label>
-                        <input type="number" id="horn-qty" step="1" min="0" value="0" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="horn-current">Current per Horn/Speaker (Alarm Amps):</label>
-                        <input type="number" id="horn-current" step="0.001" min="0" value="0.050" placeholder="e.g., 0.050" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="strobe-qty">Quantity of Strobes:</label>
-                        <input type="number" id="strobe-qty" step="1" min="0" value="0" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="strobe-current">Current per Strobe (Alarm Amps):</label>
-                        <input type="number" id="strobe-current" step="0.001" min="0" value="0.120" placeholder="e.g., 0.120" required>
-                    </div>
-
-                    <button type="submit">Calculate Total NAC Current</button>
-                </form>
-
-                <div id="nac-result" class="result hidden">
-                    </div>
-            </div>
-
-            <div id="waterdemand-calculator" class="calculator-box hidden">
-                <h2>💦 Sprinkler Water Demand (NFPA 13)</h2>
-                <p>Calculates the required flow (GPM) for a sprinkler system based on Area/Density method.</p>
-                
-                <form id="waterdemand-form">
-                    <div class="input-group">
-                        <label for="density" data-label-imperial="Required Design Density (GPM/Sq Ft):" data-label-metric="Required Design Density (LPM/m²):">Required Design Density (GPM/Sq Ft):</label>
-                        <input type="number" id="density" step="0.01" min="0.05" placeholder="e.g., 0.15" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="design-area" data-label-imperial="Required Design Area (Sq Ft):" data-label-metric="Required Design Area (m²):">Required Design Area (Sq Ft):</label>
-                        <input type="number" id="design-area" step="1" min="100" placeholder="e.g., 1500" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="hose-stream" data-label-imperial="Required Hose Stream Allowance (GPM):" data-label-metric="Required Hose Stream Allowance (L/s):">Required Hose Stream Allowance (GPM):</label>
-                        <select id="hose-stream" required>
-                            <option value="0">0 GPM</option>
-                            <option value="100">100 GPM</option>
-                            <option value="250">250 GPM</option>
-                        </select>
-                    </div>
-
-                    <button type="submit">Calculate Total Water Demand</button>
-                </form>
-
-                <div id="waterdemand-result" class="result hidden">
-                    </div>
-            </div>
-            
-            <div id="fireflow-calculator" class="calculator-box hidden">
-                <h2>🔥 Required Fire Flow (NFPA 1/IBC)</h2>
-                <p>Calculates the minimum required fire department water supply for site planning.</p>
-                
-                <form id="fireflow-form">
-                    <div class="input-group">
-                        <label for="building-area" data-label-imperial="Largest Building Area (Sq Ft):" data-label-metric="Largest Building Area (m²):">Largest Building Area (Sq Ft):</label>
-                        <input type="number" id="building-area" step="1" min="100" placeholder="e.g., 10000" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="construction-type">Construction Type (Affects multiplier):</label>
-                        <select id="construction-type" required>
-                            <option value="1.0" selected>Type III, IV, V (No Sprinklers/Standard)</option>
-                            <option value="0.5">Fully Sprinklered (NFPA 13/IBC)</option>
-                            <option value="0.6">Type I or II-A (Non-Combustible)</option>
-                        </select>
-                    </div>
-
-                    <button type="submit">Calculate Required Fire Flow</button>
-                </form>
-
-                <div id="fireflow-result" class="result hidden">
-                    </div>
-            </div>
-
-            <div id="hydrant-calculator" class="calculator-box hidden">
-                <h2>💧 Hydrant Flow Calculator</h2>
-                <p>Estimate the flow rate (GPM) from a fire hydrant using the Pitot Gauge method (NFPA 291).</p>
-                
-                <form id="hydrant-form">
-                    <div class="input-group">
-                        <label for="pitot-pressure" data-label-imperial="Measured Pitot Pressure (PSI):" data-label-metric="Measured Pitot Pressure (Bar):">Measured Pitot Pressure (PSI):</label>
-                        <input type="number" id="pitot-pressure" step="0.1" min="1" placeholder="e.g., 25" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="nozzle-diameter" data-label-imperial="Nozzle Diameter (Inches):" data-label-metric="Nozzle Diameter (mm):">Nozzle Diameter (Inches):</label>
-                        <input type="number" id="nozzle-diameter" step="0.01" min="1" placeholder="e.g., 2.5" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="discharge-coefficient">Discharge Coefficient (C-Factor):</label>
-                        <select id="discharge-coefficient" required>
-                            <option value="0.90" selected>0.90 (Good Condition, Smooth)</option>
-                            <option value="0.80">0.80 (Average Condition, Rough)</option>
-                            <option value="0.70">0.70 (Poor Condition, Very Rough)</option>
-                        </select>
-                    </div>
-
-                    <button type="submit">Calculate Hydrant Flow</button>
-                </form>
-
-                <div id="hydrant-result" class="result hidden">
-                    </div>
-            </div>
-
-            <div id="friction-calculator" class="calculator-box hidden">
-                <h2>📐 Friction Loss Calculator (Hazen-Williams)</h2>
-                <p>Calculates pressure loss due to friction in a pipe section.</p>
-                
-                <form id="friction-form">
-                    <div class="input-group">
-                        <label for="flow-rate" data-label-imperial="Water Flow Rate (GPM):" data-label-metric="Water Flow Rate (L/s):">Water Flow Rate (GPM):</label>
-                        <input type="number" id="flow-rate" step="1" min="1" placeholder="e.g., 500" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="pipe-length" data-label-imperial="Pipe Length (Feet):" data-label-metric="Pipe Length (Meters):">Pipe Length (Feet):</label>
-                        <input type="number" id="pipe-length" step="1" min="1" placeholder="e.g., 100" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="pipe-diameter" data-label-imperial="Pipe Diameter (Inches):" data-label-metric="Pipe Diameter (mm):">Pipe Diameter (Inches):</label>
-                        <input type="number" id="pipe-diameter" step="0.01" min="0.5" placeholder="e.g., 6" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="c-factor">Hazen-Williams C-Factor (Roughness):</label>
-                        <select id="c-factor" required>
-                            <option value="140">140 (New, Smooth Plastic/Copper)</option>
-                            <option value="120" selected>120 (New Steel / Common)</option>
-                            <option value="100">100 (Existing Steel Pipe)</option>
-                            <option value="90">90 (Existing Cast Iron)</option>
-                        </select>
-                    </div>
-
-                    <button type="submit">Calculate Friction Loss</button>
-                </form>
-
-                <div id="friction-result" class="result hidden">
-                    </div>
-            </div>
-
             <div id="occupant-calculator" class="calculator-box hidden">
-                <h2>👥 Occupant Load Calculator</h2>
-                <p>Calculate the maximum number of people allowed in a space based on area and use group (NFPA 101 / IBC).</p>
-                
+                <h2>👥 Occupant Load Calculator (NFPA 101/IBC)</h2>
+                <p>Determine the maximum number of occupants based on NFPA 101 (or IBC) load factors.</p>
                 <form id="occupant-form">
                     <div class="input-group">
-                        <label for="area" data-label-imperial="Area of Space (Sq Ft):" data-label-metric="Area of Space (m²):">Area of Space (Sq Ft):</label>
-                        <input type="number" id="area" step="0.1" placeholder="Enter floor area" required>
+                        <label for="area-input" data-label-imperial="Total Floor Area (Sq Ft):" data-label-metric="Total Floor Area (m²):">Total Floor Area (Sq Ft):</label>
+                        <input type="number" id="area-input" step="1" min="1" placeholder="e.g., 10000" required>
                     </div>
-
                     <div class="input-group">
-                        <label for="occupancy-type">Use/Occupancy Group:</label>
-                        <select id="occupancy-type" required>
-                            <option value="">-- Select an Occupancy Type --</option>
-                            <option value="5">Assembly - Concentrated (5 Sq Ft/Person)</option>
-                            <option value="7">Educational - Classroom Area (7 Sq Ft/Person)</option>
-                            <option value="15">Assembly - Unconcentrated (15 Sq Ft/Person)</option>
-                            <option value="30">Mercantile - Sales Floor (Ground Floor: 30 Sq Ft/Person)</option>
-                            <option value="50">Business/Office Area (50 Sq Ft/Person)</option>
-                            <option value="60">Mercantile - Sales Floor (Upper Floors: 60 Sq Ft/Person)</option>
-                            <option value="100">Storage, Mechanical Equipment (100 Sq Ft/Person)</option>
-                            <option value="200">Residential Unit (200 Sq Ft/Person)</option>
+                        <label for="load-factor">Occupancy Type / Load Factor:</label>
+                        <select id="load-factor" required>
+                            <option value="">-- Select Occupancy Type --</option>
+                            <option value="15">Assembly (Concentrated - tables/chairs): 15 gross Sq Ft/person</option>
+                            <option value="50">Assembly (Unconcentrated - waiting areas): 50 gross Sq Ft/person</option>
+                            <option value="100">Business/Office: 100 gross Sq Ft/person</option>
+                            <option value="200">Storage/Warehouse: 200 gross Sq Ft/person</option>
+                            <option value="40">Educational (Classrooms): 40 net Sq Ft/person</option>
+                            <option value="30">Mercantile (Ground Floor): 30 gross Sq Ft/person</option>
                         </select>
                     </div>
-
                     <button type="submit">Calculate Occupant Load</button>
                 </form>
-
                 <div id="occupant-result" class="result hidden">
                     </div>
             </div>
 
-            <div id="headspacing-calculator" class="calculator-box hidden">
-                <h2>🌐 Sprinkler Head Spacing (NFPA 13)</h2>
-                <p>Calculates maximum coverage area and wall distance for standard sprinklers.</p>
-                
-                <form id="headspacing-form">
+            <div id="smoke-calculator" class="calculator-box hidden">
+                <h2> ⚡ Smoke Detector Spacing (NFPA 72)</h2>
+                <p>Calculate maximum coverage area and required quantity of smoke detectors for flat ceilings.</p>
+                <form id="smoke-form">
                     <div class="input-group">
-                        <label for="hazard-class">Occupancy Hazard Classification:</label>
-                        <select id="hazard-class" required>
-                            <option value="225" selected>Light Hazard (Max 225 Sq Ft)</option>
-                            <option value="130">Ordinary Hazard (Max 130 Sq Ft)</option>
-                            <option value="100">Extra Hazard (Max 100 Sq Ft)</option>
+                        <label for="room-width" data-label-imperial="Room Width (ft):" data-label-metric="Room Width (m):">Room Width (ft):</label>
+                        <input type="number" id="room-width" step="1" min="1" placeholder="e.g., 50" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="room-length" data-label-imperial="Room Length (ft):" data-label-metric="Room Length (m):">Room Length (m):</label>
+                        <input type="number" id="room-length" step="1" min="1" placeholder="e.g., 120" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="detector-type">Detector Type:</label>
+                        <select id="detector-type" required>
+                            <option value="30">Spot-Type Smoke Detector (30 ft / 9.1m spacing)</option>
+                            <option value="60">Beam-Type Smoke Detector (60 ft / 18.3m spacing)</option>
+                        </select>
+                    </div>
+                    <button type="submit">Calculate Spacing</button>
+                </form>
+                <div id="smoke-result" class="result hidden">
+                    </div>
+            </div>
+
+            <div id="friction-loss-calculator" class="calculator-box hidden">
+                <h2>💧 Hazen-Williams Friction Loss (NFPA 13)</h2>
+                <p>Calculate pressure loss in a single pipe section using the Hazen-Williams formula (P = 4.52 * Q^1.85 * C^-1.85 * D^-4.87 * L).</p>
+                <form id="friction-loss-form">
+                    <div class="input-group">
+                        <label for="flow-rate" data-label-imperial="Flow Rate (GPM):" data-label-metric="Flow Rate (L/s):">Flow Rate (GPM):</label>
+                        <input type="number" id="flow-rate" step="0.1" min="1" placeholder="e.g., 250" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="pipe-length" data-label-imperial="Pipe Length (Ft):" data-label-metric="Pipe Length (m):">Pipe Length (Ft):</label>
+                        <input type="number" id="pipe-length" step="1" min="1" placeholder="e.g., 150" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="pipe-diameter" data-label-imperial="Internal Pipe Diameter (Inches):" data-label-metric="Internal Pipe Diameter (mm):">Internal Pipe Diameter (Inches):</label>
+                        <input type="number" id="pipe-diameter" step="0.01" min="0.5" placeholder="e.g., 3.068 (4&quot; Sch 40)" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="c-factor">Hazen-Williams C-Factor:</label>
+                        <input type="number" id="c-factor" step="1" min="100" max="150" placeholder="e.g., 120 (Steel pipe)" required>
+                    </div>
+                    <button type="submit">Calculate Pressure Loss</button>
+                </form>
+                <div id="friction-loss-result" class="result hidden">
+                    </div>
+            </div>
+
+            <div id="fireflow-calculator" class="calculator-box hidden">
+                <h2>🚒 Required Fire Flow Calculator (NFPA / ISO)</h2>
+                <p>Estimates the minimum required fire flow for a building.</p>
+                <form id="fireflow-form">
+                    <div class="input-group">
+                        <label for="area-floor" data-label-imperial="Total Floor Area (Sq Ft):" data-label-metric="Total Floor Area (m²):">Total Floor Area (Sq Ft):</label>
+                        <input type="number" id="area-floor" step="1" min="1" placeholder="e.g., 20000" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="construction-type">Construction Type Factor (C):</label>
+                        <select id="construction-type" required>
+                            <option value="">-- Select Construction Type --</option>
+                            <option value="1.5">Type I (Fire Resistive)</option>
+                            <option value="1.0">Type II, III, IV (Protected/Non-Combustible)</option>
+                            <option value="0.8">Type V (Wood Frame/Ordinary)</option>
                         </select>
                     </div>
                     <div class="input-group">
-                        <label for="max-spacing" data-label-imperial="Maximum Spacing Allowed (Feet):" data-label-metric="Maximum Spacing Allowed (Meters):">Maximum Spacing Allowed (Feet):</label>
-                        <input type="number" id="max-spacing" step="1" min="3" value="15" placeholder="e.g., 15" required>
+                        <label for="occupancy-factor">Occupancy/Use Factor (O):</label>
+                        <select id="occupancy-factor" required>
+                            <option value="">-- Select Occupancy/Use --</option>
+                            <option value="1.5">High Hazard (Storage, Heavy Mfg)</option>
+                            <option value="1.0">Moderate Hazard (Office, Retail)</option>
+                            <option value="0.5">Low Hazard (Residential, Light Office)</option>
+                        </select>
                     </div>
-
-                    <button type="submit">Calculate Spacing Limits</button>
+                    <div class="input-group">
+                        <label for="exposure-factor">Exposure Factor (X):</label>
+                        <input type="number" id="exposure-factor" step="0.01" min="1.0" max="1.3" placeholder="e.g., 1.0 (or 1.15 if adjacent buildings)" required>
+                        <small>Value typically between 1.0 (None) and 1.3 (Severe)</small>
+                    </div>
+                    <button type="submit">Calculate Required Flow</button>
                 </form>
-
-                <div id="headspacing-result" class="result hidden">
+                <div id="fireflow-result" class="result hidden">
                     </div>
             </div>
 
             <div id="pump-calculator" class="calculator-box hidden">
-                <h2>⚙️ Fire Pump Sizing (Simplified)</h2>
-                <p>Calculates the required flow and pressure rating for a centrifugal fire pump.</p>
-                
+                <h2>⚙️ Fire Pump Sizing (NFPA 20)</h2>
+                <p>Calculate the minimum flow (GPM/L/s) and required pressure boost for a fire pump.</p>
                 <form id="pump-form">
                     <div class="input-group">
-                        <label for="system-flow" data-label-imperial="Required System Flow (GPM) (from calculation):" data-label-metric="Required System Flow (L/s) (from calculation):">Required System Flow (GPM) (from calculation):</label>
-                        <input type="number" id="system-flow" step="1" min="100" placeholder="e.g., 500" required>
+                        <label for="required-flow" data-label-imperial="Required System Flow (GPM):" data-label-metric="Required System Flow (L/s):">Required System Flow (GPM):</label>
+                        <input type="number" id="required-flow" step="1" min="250" placeholder="e.g., 750" required>
+                        <small>System demand flow at the pump discharge, typically the most demanding sprinkler or hydrant requirement.</small>
                     </div>
                     <div class="input-group">
                         <label for="system-pressure" data-label-imperial="Required System Pressure (PSI) (at system demand point):" data-label-metric="Required System Pressure (Bar) (at system demand point):">Required System Pressure (PSI):</label>
                         <input type="number" id="system-pressure" step="1" min="20" placeholder="e.g., 125" required>
+                        <small>Pressure required to satisfy the most demanding sprinkler or hose station.</small>
+                    </div>
+                    <div class="input-group">
+                        <label for="pressure-loss" data-label-imperial="Total Friction Loss between Pump & Demand Point (PSI):" data-label-metric="Total Friction Loss between Pump & Demand Point (Bar):">Total Friction Loss between Pump & Demand Point (PSI):</label>
+                        <input type="number" id="pressure-loss" step="1" min="0" placeholder="e.g., 20" required>
+                        <small>Total friction loss in the main pipes (including fittings) from the pump to the point of system demand.</small>
+                    </div>
+                    <div class="input-group">
+                        <label for="static-head" data-label-imperial="Static Head (Elevation) Loss (PSI):" data-label-metric="Static Head (Elevation) Loss (Bar):">Static Head (Elevation) Loss (PSI):</label>
+                        <input type="number" id="static-head" step="1" min="0" placeholder="e.g., 15" required>
+                        <small>Pressure needed to overcome height difference between the pump and the demand point.</small>
                     </div>
                     <div class="input-group">
                         <label for="available-pressure" data-label-imperial="Minimum Available Suction Pressure (PSI):" data-label-metric="Minimum Available Suction Pressure (Bar):">Minimum Available Suction Pressure (PSI):</label>
                         <input type="number" id="available-pressure" step="1" min="0" placeholder="e.g., 40" required>
+                        <small>Pressure supplied to the pump from the city water main or tank.</small>
                     </div>
 
                     <button type="submit">Determine Pump Rating</button>
