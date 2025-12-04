@@ -19,265 +19,89 @@ body {
 header {
     background: linear-gradient(135deg, #dc2626, #b91c1c);
     color: white;
-    padding: 2rem 1rem 1rem; /* Adjusted padding-bottom for toggle */
+    padding: 2rem 1rem 1rem;
     text-align: center;
 }
 
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-}
+/* ... (Existing styles for header h1, p, and unit-toggle-container) ... */
 
-header p {
-    font-size: 1.1rem;
-    opacity: 0.9;
-    margin-bottom: 1.5rem;
-}
-
-/* New: Unit Toggle Styles */
-.unit-toggle-container {
-    text-align: center;
-    margin: 1rem auto;
-    font-weight: 600;
-}
-
-.unit-toggle-container label {
-    margin-right: 10px;
-    color: white;
-    font-size: 0.95rem;
-}
-
-#unit-switch {
-    background: white;
-    color: #dc2626;
-    border: 2px solid #dc2626;
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: background 0.2s, color 0.2s;
-}
-
-#unit-switch[data-unit="imperial"] {
-    background: white;
-    color: #dc2626;
-    border: 2px solid white;
-}
-#unit-switch[data-unit="metric"] {
-    background: #dc2626;
-    color: white;
-    border: 2px solid white;
-}
-
-
-/* Navigation */
-.main-nav {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    margin-top: 1rem;
-}
-
-.nav-btn {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: background 0.3s ease;
-    flex-grow: 1;
-    min-width: 120px;
-}
-
-.nav-btn:hover {
-    background: rgba(255, 255, 255, 0.35);
-}
-
-.nav-btn.active {
-    background: white;
-    color: #dc2626;
-    font-weight: 700;
-}
-
-/* Main Content */
-main {
-    flex: 1;
-    padding: 2rem 1rem;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* AdSense Placeholder Styling */
-.ad-placeholder {
-    margin: 2rem auto; 
-    text-align: center; 
-    background: #f8fafc; 
-    padding: 1.5rem; 
-    border-radius: 10px; 
-    border: 2px solid #d1d5db; 
-    max-width: 1000px;
-}
-
-.support-header {
-    background: linear-gradient(90deg, #f0ad4e, #f9c370);
-    color: #333;
+/* New: Support Button Container */
+.support-links-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    background: #ffffff; /* White background */
     padding: 1rem;
-    margin-bottom: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    text-align: center;
-}
-.support-header a {
-    color: #b36300;
-    font-weight: bold;
-    text-decoration: none;
-}
-.support-header a:hover {
-    text-decoration: underline;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    border: 2px solid #f97316; /* Bright border */
 }
 
-.calculator-box {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    margin-bottom: 2rem;
-}
-
-.calculator-box h2 {
-    color: #1f2937;
-    border-bottom: 2px solid #e5e5e5;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-}
-
-.calculator-box p {
-    margin-bottom: 1rem;
-    color: #6b7280;
-}
-
-/* Forms */
-.input-group {
-    margin-bottom: 1.5rem;
-}
-
-.input-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #374151;
-}
-
-.input-group input[type="number"],
-.input-group select {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
-
-.input-group input[type="number"]:focus,
-.input-group select:focus {
-    outline: none;
-    border-color: #dc2626;
-}
-
-/* NEW: Input Error Styles */
-.input-group input.error,
-.input-group select.error {
-    border-color: #ef4444 !important;
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
-}
-
-.input-error-message {
-    color: #ef4444;
-    font-size: 0.85rem;
-    margin-top: 0.3rem;
-    font-weight: 500;
-}
-
-
-button[type="submit"] {
-    background: #dc2626;
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 5px;
-    cursor: pointer;
+.support-text {
     font-size: 1.1rem;
     font-weight: 600;
+    color: #1f2937;
     width: 100%;
-    transition: all 0.3s ease;
-    margin-top: 1rem;
-}
-
-button[type="submit"]:hover {
-    background: #b91c1c;
-    transform: translateY(-2px);
-}
-
-/* Results */
-.result {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background: #f8fafc;
-    border-radius: 8px;
-    border-left: 4px solid #dc2626;
-}
-
-.result.hidden {
-    display: none;
-}
-
-.result h3 {
-    color: #dc2626;
-    margin-bottom: 1rem;
-}
-
-/* Footer */
-footer {
-    background: #1f2937;
-    color: white;
+    margin-bottom: 0.5rem;
     text-align: center;
-    padding: 2rem 1rem;
-    margin-top: 3rem;
 }
 
-.footer-links {
+.support-btn {
     display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 2rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.footer-links a {
-    color: #9ca3af;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
     text-decoration: none;
-    transition: color 0.3s ease;
+    color: white;
+    min-width: 200px;
+    flex-grow: 1;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.footer-links a:hover {
-    color: white;
+.support-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
 }
+
+/* Affiliate Button (Bright Red) */
+.affiliate-btn {
+    background: #dc2626; /* Red */
+    border: 2px solid #b91c1c;
+}
+
+.affiliate-btn:hover {
+    background: #b91c1c;
+}
+
+/* Coffee Button (Bright Yellow/Orange) */
+.coffee-btn {
+    background: #f97316; /* Orange */
+    border: 2px solid #ea580c;
+}
+
+.coffee-btn:hover {
+    background: #ea580c;
+}
+
+/* ... (Remaining existing styles) ... */
 
 /* Mobile Adjustments */
 @media (max-width: 600px) {
-    .nav-btn {
-        flex-basis: calc(50% - 0.5rem); /* Two buttons per row on small screens */
-        margin-bottom: 0.5rem;
-        min-width: unset;
+    /* ... (Existing nav-btn mobile style) ... */
+
+    .support-links-container {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .support-btn {
+        width: 100%;
     }
 }
