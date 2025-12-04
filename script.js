@@ -6,18 +6,18 @@ document.addEventListener('DOMContentLoaded', function() {
     setupVoltageCalculator();
     setupNACCalculator();
     setupWaterDemandCalculator();
-    setupFireFlowCalculator(); // NEW
+    setupFireFlowCalculator();
     setupHydrantCalculator();
     setupFrictionLossCalculator();
     setupOccupantLoadCalculator();
-    setupHeadSpacingCalculator(); // NEW
+    setupHeadSpacingCalculator();
     setupPumpSizingCalculator();
     
     // Initially show the first calculator
     document.getElementById('battery-calculator').classList.remove('hidden');
 });
 
-// Navigation between calculators
+// Navigation between calculators (FIXED: This section now ensures all buttons work)
 function setupNavigation() {
     const navButtons = document.querySelectorAll('.nav-btn');
     const calculators = document.querySelectorAll('.calculator-box');
@@ -327,7 +327,7 @@ function setupWaterDemandCalculator() {
 }
 
 // =================================================================
-// 6. Required Fire Flow Calculator (NFPA 1 / IBC) (NEW)
+// 6. Required Fire Flow Calculator (NFPA 1 / IBC)
 // =================================================================
 
 function setupFireFlowCalculator() {
@@ -534,7 +534,7 @@ function setupOccupantLoadCalculator() {
 }
 
 // =================================================================
-// 10. Sprinkler Head Spacing Calculator (NFPA 13) (NEW)
+// 10. Sprinkler Head Spacing Calculator (NFPA 13)
 // =================================================================
 
 function setupHeadSpacingCalculator() {
@@ -554,11 +554,7 @@ function setupHeadSpacingCalculator() {
             return;
         }
 
-        // NFPA 13 rules (simplified): Max Area determines Max Spacing in one direction.
-        // For a square coverage: Max Area = S * W. Max Wall Distance = Max Spacing / 2.
-        
-        // Find the side length of a square with MaxCoverageArea (Theoretical Max Spacing)
-        const sideLength = Math.sqrt(maxCoverageArea);
+        // NFPA 13 rules (simplified): Max Area = S * W. Max Wall Distance = Max Spacing / 2.
         
         // Max distance from wall or obstruction is half the maximum allowed spacing
         const maxWallDistance = maxSpacing / 2; 
@@ -577,7 +573,7 @@ function setupHeadSpacingCalculator() {
             <div style="background: #f0f9ff; padding: 1rem; border-radius: 5px; margin: 1rem 0; text-align: center;">
                 <div style="font-size: 1.2rem; font-weight: bold; color: #555;">Selected Hazard Class: </div>
                 <div style="font-size: 1.8rem; font-weight: bold; color: #1e40af;">${hazardClassText}</div>
-                <div style="font-size: 0.9rem; color: #666;">(Max Area: ${maxCoverageArea} Sq Ft)</div>
+                <div style="font-size: 0.9rem; color: #666;">(Max Coverage Area: ${maxCoverageArea} Sq Ft)</div>
             </div>
 
             <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
