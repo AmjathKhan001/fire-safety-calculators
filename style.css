@@ -19,7 +19,7 @@ body {
 header {
     background: linear-gradient(135deg, #dc2626, #b91c1c);
     color: white;
-    padding: 2rem 1rem;
+    padding: 2rem 1rem 1rem; /* Adjusted padding-bottom for toggle */
     text-align: center;
 }
 
@@ -33,6 +33,43 @@ header p {
     opacity: 0.9;
     margin-bottom: 1.5rem;
 }
+
+/* New: Unit Toggle Styles */
+.unit-toggle-container {
+    text-align: center;
+    margin: 1rem auto;
+    font-weight: 600;
+}
+
+.unit-toggle-container label {
+    margin-right: 10px;
+    color: white;
+    font-size: 0.95rem;
+}
+
+#unit-switch {
+    background: white;
+    color: #dc2626;
+    border: 2px solid #dc2626;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+}
+
+#unit-switch[data-unit="imperial"] {
+    background: white;
+    color: #dc2626;
+    border: 2px solid white;
+}
+#unit-switch[data-unit="metric"] {
+    background: #dc2626;
+    color: white;
+    border: 2px solid white;
+}
+
 
 /* Navigation */
 .main-nav {
@@ -50,12 +87,12 @@ header p {
     padding: 0.75rem 1.5rem;
     border-radius: 5px;
     cursor: pointer;
-    text-decoration: none; /* For links */
+    text-decoration: none;
     font-size: 1rem;
     font-weight: 500;
     transition: background 0.3s ease;
-    flex-grow: 1; /* New: To help with wrapping */
-    min-width: 120px; /* New: Prevent excessive shrinking */
+    flex-grow: 1;
+    min-width: 120px;
 }
 
 .nav-btn:hover {
@@ -77,6 +114,35 @@ main {
 .container {
     max-width: 1200px;
     margin: 0 auto;
+}
+
+/* AdSense Placeholder Styling */
+.ad-placeholder {
+    margin: 2rem auto; 
+    text-align: center; 
+    background: #f8fafc; 
+    padding: 1.5rem; 
+    border-radius: 10px; 
+    border: 2px solid #d1d5db; 
+    max-width: 1000px;
+}
+
+.support-header {
+    background: linear-gradient(90deg, #f0ad4e, #f9c370);
+    color: #333;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    text-align: center;
+}
+.support-header a {
+    color: #b36300;
+    font-weight: bold;
+    text-decoration: none;
+}
+.support-header a:hover {
+    text-decoration: underline;
 }
 
 .calculator-box {
@@ -128,6 +194,21 @@ main {
     border-color: #dc2626;
 }
 
+/* NEW: Input Error Styles */
+.input-group input.error,
+.input-group select.error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.input-error-message {
+    color: #ef4444;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    font-weight: 500;
+}
+
+
 button[type="submit"] {
     background: #dc2626;
     color: white;
@@ -147,7 +228,7 @@ button[type="submit"]:hover {
     transform: translateY(-2px);
 }
 
-/* Results (Crucial for showing the hidden results) */
+/* Results */
 .result {
     margin-top: 2rem;
     padding: 1.5rem;
@@ -190,4 +271,13 @@ footer {
 
 .footer-links a:hover {
     color: white;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+    .nav-btn {
+        flex-basis: calc(50% - 0.5rem); /* Two buttons per row on small screens */
+        margin-bottom: 0.5rem;
+        min-width: unset;
+    }
 }
