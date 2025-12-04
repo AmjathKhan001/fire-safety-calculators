@@ -136,7 +136,7 @@ function setupSmokeCalculator() {
         const maxCoverageArea = spacing * spacing;
 
         resultDiv.innerHTML = `
-            <h3>🚬 Smoke Detector Spacing Results (NFPA 72, Chapter 17)</h3>
+            <h3> Smoke Detector Spacing Results (NFPA 72, Chapter 17)</h3>
             
             <div style="background: #f0f9ff; padding: 1rem; border-radius: 5px; margin: 1rem 0; text-align: center;">
                 <div style="font-size: 1.2rem; font-weight: bold; color: #555;">Maximum Center-to-Center Spacing: </div>
