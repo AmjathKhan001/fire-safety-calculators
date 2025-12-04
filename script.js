@@ -4,7 +4,7 @@
 
 window.currentUnit = 'imperial';
 
-// CONSTANT for the new universal Amazon Affiliate Link (REQUEST 1)
+// CONSTANT for the new universal Amazon Affiliate Link
 const AMAZON_AFFILIATE_LINK = 'https://amzn.to/48k5Upd'; 
 
 const unitConversions = {
@@ -18,788 +18,570 @@ const unitConversions = {
     area: { imperial: 1, metric: 0.0929, unit: { imperial: 'Sq Ft', metric: 'm²' } },
     // Diameter: 1 Inch = 25.4 mm
     diameter: { imperial: 1, metric: 25.4, unit: { imperial: 'Inches', metric: 'mm' } },
-    // Density (GPM/SqFt to LPM/m²): 1 GPM/Sq Ft = 40.746 LPM/m²
-    density: { imperial: 1, metric: 40.746, unit: { imperial: 'GPM/Sq Ft', metric: 'LPM/m²' } },
-    // Non-convertible items (Amps, Hours, Minutes, Ah) are 1:1
-    nonconvertible: { imperial: 1, metric: 1 }
+    // Density (GPM/SqFt to LPM/m²): 1 GPM/Sq Ft = 40.743 LPM/m²
+    density: { imperial: 1, metric: 40.743, unit: { imperial: 'GPM/Sq Ft', metric: '(L/min)/m²' } },
+    // Pump Flow Standard Sizes
+    pumpFlowStandard: [25, 50, 100, 200, 250, 300, 400, 450, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000] // GPM standard sizes
 };
 
-/** Converts a value from the current display unit to the calculation unit (Imperial). */
-function convertToCalcUnit(value, type) {
-    if (window.currentUnit === 'imperial' || !unitConversions[type]) {
-        return value;
+/**
+ * Converts a value from Imperial to Metric, or vice versa.
+ * @param {number} value - The value in the original unit.
+ * @param {string} type - The type of conversion ('length', 'flow', 'pressure', etc.).
+ * @param {string} toUnit - The target unit ('imperial' or 'metric').
+ * @returns {number} The converted value.
+ */
+function convert(value, type, toUnit) {
+    if (toUnit === 'imperial') {
+        return value / unitConversions[type].metric;
+    } else {
+        return value * unitConversions[type].metric;
     }
-    const factor = unitConversions[type].metric / unitConversions[type].imperial;
-    return value / factor;
 }
 
-/** Converts a value from the calculation unit (Imperial) to the current display unit. */
-function convertToDisplayUnit(value, type) {
-    if (window.currentUnit === 'imperial' || !unitConversions[type]) {
-        return value;
-    }
-    const factor = unitConversions[type].metric / unitConversions[type].imperial;
-    return value * factor;
+/**
+ * Formats a number for display.
+ */
+function formatNumber(number, decimals = 1) {
+    if (typeof number !== 'number' || isNaN(number)) return 'N/A';
+    return number.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-/** Gets the unit string for the current display unit. */
-function getUnit(type) {
-    if (!unitConversions[type] || !unitConversions[type].unit) {
-        return '';
-    }
-    return unitConversions[type].unit[window.currentUnit];
-}
-
-function formatNumber(value, decimals = 2) {
-    // Ensure value is a number before calling toFixed
-    if (isNaN(value)) return 'N/A';
-    return value.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-function updateTitle(calculatorId) {
-    const map = {
-        'battery': 'Battery Standby Calculator (NFPA 72)',
-        'smoke': 'Smoke Detector Spacing (NFPA 72)',
-        'voltage': 'Voltage Drop Calculator (NFPA 72)',
-        'nac': 'NAC Load Calculator (NFPA 72)',
-        'waterdemand': 'Sprinkler Water Demand (NFPA 13)',
-        'fireflow': 'Required Fire Flow (NFPA 1 / IBC)',
-        'hydrant': 'Hydrant Flow Calculator (NFPA 291)',
-        'friction': 'Friction Loss Calculator (Hazen-Williams)',
-        'occupant': 'Occupant Load Calculator (NFPA 101 / IBC)',
-        'headspacing': 'Sprinkler Head Spacing (NFPA 13)',
-        'pump': 'Fire Pump Sizing (NFPA 20)',
-    };
-    const title = map[calculatorId] || 'Fire Safety Calculators';
-    document.title = `${title} | FireSafetyTool.com`;
-}
-
-/** Validates inputs for non-negative, numeric values and shows error feedback. */
-function validateInput(form) {
-    let isValid = true;
-    const inputs = form.querySelectorAll('input[type="number"][required]');
-
-    // Clear previous errors
-    form.querySelectorAll('.input-error-message').forEach(el => el.remove());
-    form.querySelectorAll('input.error').forEach(el => el.classList.remove('error'));
-
-    inputs.forEach(input => {
-        const value = parseFloat(input.value);
-        
-        // Custom validation for inputs that can be 0 (like qty or available pressure)
-        if (input.id === 'horn-qty' || input.id === 'strobe-qty' || input.id === 'horn-current' || input.id === 'strobe-current' || input.id === 'available-pressure') {
-            if (value < 0 || isNaN(value)) {
-                isValid = false;
-                input.classList.add('error');
-                const msg = document.createElement('p');
-                msg.className = 'input-error-message';
-                msg.textContent = 'Please enter a valid, non-negative number.';
-                input.parentNode.appendChild(msg);
-            }
-            return;
-        }
-        
-        // Default: Must be positive
-        if (isNaN(value) || value <= 0) {
-            isValid = false;
-            input.classList.add('error');
-            const msg = document.createElement('p');
-            msg.className = 'input-error-message';
-            msg.textContent = 'Please enter a valid, positive number.';
-            input.parentNode.appendChild(msg);
-        }
-    });
-
-    // Check required selects
-    form.querySelectorAll('select[required]').forEach(select => {
-        if (!select.value) {
-            isValid = false;
-            select.classList.add('error');
-            const msg = document.createElement('p');
-            msg.className = 'input-error-message';
-            msg.textContent = 'Please select an option.';
-            select.parentNode.appendChild(msg);
-        }
-    });
-    
-    return isValid;
-}
-
-function updateLabels() {
-    const labels = document.querySelectorAll('[data-label-imperial], [data-label-metric]');
-    const unitButton = document.getElementById('unit-switch');
-    const unitText = window.currentUnit === 'imperial' ? 'Imperial (Ft, PSI, GPM)' : 'Metric (m, Bar, L/s)';
-    unitButton.setAttribute('data-unit', window.currentUnit);
-    unitButton.textContent = unitText;
+/**
+ * Updates all labels and placeholders based on the current unit selection.
+ */
+function updateUnitLabels() {
+    const labels = document.querySelectorAll('[data-label-imperial]');
+    const inputs = document.querySelectorAll('input[placeholder]');
+    const unit = window.currentUnit;
 
     labels.forEach(label => {
-        const key = `data-label-${window.currentUnit}`;
-        if (label.hasAttribute(key)) {
-            label.textContent = label.getAttribute(key);
+        const imperialText = label.getAttribute('data-label-imperial');
+        const metricText = label.getAttribute('data-label-metric');
+        if (unit === 'imperial') {
+            label.textContent = imperialText;
+        } else {
+            label.textContent = metricText;
         }
     });
-}
 
-function setupUnitToggle() {
-    const unitSwitch = document.getElementById('unit-switch');
-    if (!unitSwitch) return;
-
-    unitSwitch.addEventListener('click', function() {
-        window.currentUnit = window.currentUnit === 'imperial' ? 'metric' : 'imperial';
-        updateLabels();
+    // Update placeholders for numeric inputs (optional, but good UX)
+    // NOTE: This does not convert the actual placeholder number, only the text.
+    inputs.forEach(input => {
+        const parent = input.closest('.input-group');
+        const label = parent ? parent.querySelector('label') : null;
+        if (label && label.textContent.includes('Bar')) {
+            input.placeholder = input.placeholder.replace('PSI', 'Bar').replace('e.g., 40', 'e.g., 2.8'); // Example conversion
+        } else if (label && label.textContent.includes('GPM')) {
+            input.placeholder = input.placeholder.replace('GPM', 'L/s').replace('e.g., 750', 'e.g., 47.3');
+        } else if (label && label.textContent.includes('ft')) {
+            input.placeholder = input.placeholder.replace('ft', 'm').replace('e.g., 50', 'e.g., 15');
+        } else if (label && label.textContent.includes('Inches')) {
+             input.placeholder = input.placeholder.replace('Inches', 'mm').replace('e.g., 3.068', 'e.g., 77.9');
+        }
     });
+
+    // Re-run calculator logic to update results if possible
+    try {
+        if (document.getElementById('battery-result').classList.contains('hidden') === false) calculateBattery();
+        if (document.getElementById('occupant-result').classList.contains('hidden') === false) calculateOccupant();
+        if (document.getElementById('smoke-result').classList.contains('hidden') === false) calculateSmokeDetectorSpacing();
+        if (document.getElementById('friction-loss-result').classList.contains('hidden') === false) calculateFrictionLoss();
+        if (document.getElementById('fireflow-result').classList.contains('hidden') === false) calculateFireFlow();
+        if (document.getElementById('pump-result').classList.contains('hidden') === false) calculatePumpSizing();
+    } catch (e) {
+        // Ignore errors if forms haven't been submitted yet
+    }
+}
+
+/**
+ * Handles the unit switch logic.
+ */
+function switchUnit(unit) {
+    if (unit !== 'imperial' && unit !== 'metric') return;
+    window.currentUnit = unit;
+    updateUnitLabels();
 }
 
 // =================================================================
-// INITIALIZATION
+// NAVIGATION
 // =================================================================
 
-document.addEventListener('DOMContentLoaded', function() {
-    setupUnitToggle();
-    setupNavigation();
-    
-    // Setup all 11 calculators (FIXES THE "TABS NOT WORKING" ISSUE)
-    setupBatteryCalculator();
-    setupSmokeCalculator();
-    setupVoltageCalculator();
-    setupNACCalculator();
-    setupWaterDemandCalculator();
-    setupFireFlowCalculator();
-    setupHydrantCalculator();
-    setupFrictionLossCalculator();
-    setupOccupantLoadCalculator();
-    setupHeadSpacingCalculator();
-    setupPumpSizingCalculator();
-    
-    // Initially show the first calculator
-    const initialCalculator = document.getElementById('battery-calculator');
-    if (initialCalculator) initialCalculator.classList.remove('hidden');
-    updateTitle('battery');
-    updateLabels(); 
-});
-
-// Navigation logic (FIXES NAVIGATION ISSUES)
 function setupNavigation() {
     const navButtons = document.querySelectorAll('.nav-btn');
     const calculators = document.querySelectorAll('.calculator-box');
     
+    // Set up click handlers for calculator buttons
     navButtons.forEach(button => {
         button.addEventListener('click', function(e) {
-            // Only handle calculator buttons, not the link buttons (Resources/Contact)
+            // Only handle buttons with a data-calculator attribute
             if (this.tagName === 'BUTTON' && this.dataset.calculator) {
                 e.preventDefault();
                 const targetCalculator = this.dataset.calculator;
                 
-                navButtons.forEach(btn => btn.classList.remove('active'));
+                // Update active button
+                document.querySelectorAll('.main-nav .nav-btn').forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
                 
+                // Show target calculator, hide others
                 calculators.forEach(calc => calc.classList.add('hidden'));
                 const targetElement = document.getElementById(targetCalculator + '-calculator');
-                
                 if (targetElement) {
                     targetElement.classList.remove('hidden');
-                    updateTitle(targetCalculator); 
+                    
+                    // Scroll to calculator smoothly
                     targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             }
         });
     });
-}
 
-
-// =================================================================
-// 1. Battery Standby Calculator (FIXED & COMPLETE)
-// =================================================================
-
-function setupBatteryCalculator() {
-    const form = document.getElementById('battery-form');
-    if (!form) return;
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (!validateInput(form)) return;
-
-        const standbyCurrent = parseFloat(document.getElementById('standby-current').value);
-        const alarmCurrent = parseFloat(document.getElementById('alarm-current').value);
-        const standbyHours = parseFloat(document.getElementById('standby-hours').value);
-        const alarmMinutes = parseFloat(document.getElementById('alarm-minutes').value);
-        const resultDiv = document.getElementById('battery-result');
-        
-        const standbyAH = standbyCurrent * standbyHours;
-        const alarmHours = alarmMinutes / 60;
-        const alarmAH = alarmCurrent * alarmHours;
-        const totalAH = standbyAH + alarmAH;
-
-        const deratingFactor = 1.25; 
-        const deratedAH = totalAH * deratingFactor;
-        
-        resultDiv.innerHTML = `
-            <h3>🔋 Battery Calculation Results (NFPA 72)</h3>
-            <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
-                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Minimum Required Battery Capacity:</div>
-                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${formatNumber(deratedAH, 2)} Ah</div>
-                <small style="color: #666; display: block; margin-top: 5px;">Always select a battery size above calculated requirement</small>
-            </div>
-            
-            <div style="margin-top: 2rem;">
-                <strong>Calculation Breakdown:</strong>
-                <div style="background: white; padding: 0.75rem; border-radius: 3px; margin-top: 0.5rem; font-size: 0.9rem;">
-                    1. Standby Ah: ${formatNumber(standbyCurrent, 2)}A × ${standbyHours}h = **${formatNumber(standbyAH, 2)} Ah**<br>
-                    2. Alarm Ah: ${formatNumber(alarmCurrent, 2)}A × ${formatNumber(alarmHours, 2)}h = **${formatNumber(alarmAH, 2)} Ah**<br>
-                    3. Total Ah: **${formatNumber(totalAH, 2)} Ah**<br>
-                    4. With Derating (×1.25): **${formatNumber(deratedAH, 2)} Ah**
-                </div>
-            </div>
-
-            <div style="margin-top: 2rem; padding: 1rem; background: #fffbe6; border: 1px solid #f97316; border-radius: 5px; text-align: center;">
-                <p style="margin-bottom: 0.5rem; font-weight: bold; color: #f97316;">Need a new battery or fire alarm supplies?</p>
-                <a href="${AMAZON_AFFILIATE_LINK}" target="_blank" style="color: #dc2626; font-weight: 600;">Shop Fire Safety Products on Amazon (Affiliate Link)</a>
-            </div>
-        `;
-        
-        resultDiv.classList.remove('hidden');
-        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+    // Initialize the unit labels on load
+    updateUnitLabels();
 }
 
 // =================================================================
-// 2. Smoke Detector Spacing Calculator (COMPLETE)
+// CALCULATOR LOGIC
 // =================================================================
 
-function setupSmokeCalculator() {
-    const form = document.getElementById('smoke-form');
-    if (!form) return;
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (!validateInput(form)) return;
-        
-        const heightInput = parseFloat(document.getElementById('ceiling-height').value);
-        const maxSpacing = parseFloat(document.getElementById('air-movement').value);
-        const resultDiv = document.getElementById('smoke-result');
-
-        const H_ft = convertToCalcUnit(heightInput, 'length');
-        
-        let S_max = maxSpacing;
-        
-        if (H_ft > 10) {
-            S_max = maxSpacing - (H_ft - 10) * 3;
-            if (S_max < 0) S_max = 0;
+// Helper function to find the next highest NFPA standard pump flow size
+function getNextStandardPumpFlow(gpm) {
+    const standards = unitConversions.pumpFlowStandard;
+    for (let i = 0; i < standards.length; i++) {
+        if (standards[i] >= gpm) {
+            return standards[i];
         }
-
-        const coverageArea_sqft = S_max * S_max;
-        const wallDistance_ft = S_max / 2;
-        
-        const coverageArea_display = convertToDisplayUnit(coverageArea_sqft, 'area');
-        const wallDistance_display = convertToDisplayUnit(wallDistance_ft, 'length');
-
-        const lengthUnit = getUnit('length');
-        const areaUnit = getUnit('area');
-        
-        resultDiv.innerHTML = `
-            <h3>⚡️ Smoke Detector Spacing Results (NFPA 72)</h3>
-            <p>Based on a ceiling height of ${formatNumber(heightInput, 1)} ${lengthUnit}.</p>
-            
-            <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
-                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Maximum Detector Spacing:</div>
-                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${formatNumber(convertToDisplayUnit(S_max, 'length'), 1)} ${lengthUnit}</div>
-            </div>
-            
-            <div style="margin-top: 1.5rem; background: #f0f9ff; padding: 1rem; border-radius: 5px;">
-                <p>Maximum Coverage Area: **${formatNumber(coverageArea_display, 1)} ${areaUnit}**</p>
-                <p>Maximum Wall Distance: **${formatNumber(wallDistance_display, 1)} ${lengthUnit}**</p>
-                ${H_ft > 10 ? '<p style="color: #f97316; font-weight: bold;">Note: Spacing was reduced due to ceiling height exceeding 10 ft.</p>' : ''}
-            </div>
-        `;
-        
-        resultDiv.classList.remove('hidden');
-        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+    }
+    // Return the largest standard if the required GPM is higher
+    return standards[standards.length - 1]; 
 }
 
-// =================================================================
-// 3. Voltage Drop Calculator (COMPLETE)
-// =================================================================
-
-function setupVoltageCalculator() {
-    const form = document.getElementById('voltage-form');
-    if (!form) return;
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (!validateInput(form)) return;
-        
-        const lengthInput = parseFloat(document.getElementById('wire-length').value);
-        const current = parseFloat(document.getElementById('circuit-current').value);
-        const resistanceFactor = parseFloat(document.getElementById('wire-gauge').value);
-        const voltage = parseFloat(document.getElementById('system-voltage').value);
-        const resultDiv = document.getElementById('voltage-result');
-
-        const L_ft = convertToCalcUnit(lengthInput, 'length');
-
-        // Calculation: V_drop = 2 * L * R * I / 1000
-        const voltageDrop = (2 * L_ft * resistanceFactor * current) / 1000;
-        const voltageRemaining = voltage - voltageDrop;
-        const percentageDrop = (voltageDrop / voltage) * 100;
-
-        const maxRecommendedDrop = 10; // 10% is a common design limit
-        const dropPass = percentageDrop < maxRecommendedDrop;
-
-        const lengthUnit = getUnit('length');
-        
-        resultDiv.innerHTML = `
-            <h3>⚡️ Voltage Drop Results (NFPA 72)</h3>
-            <p>Calculated for a ${voltage}VDC circuit over ${formatNumber(lengthInput, 0)} ${lengthUnit} of wire.</p>
-            
-            <div style="background: ${dropPass ? '#ecfdf5' : '#fef3c7'}; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid ${dropPass ? '#047857' : '#f97316'};">
-                <div style="font-size: 1.8rem; font-weight: bold; color: ${dropPass ? '#047857' : '#dc2626'};">Calculated Voltage Drop:</div>
-                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${formatNumber(voltageDrop, 2)} V</div>
-                <small style="color: #666; display: block; margin-top: 5px;">Percentage Drop: **${formatNumber(percentageDrop, 1)}%**</small>
-            </div>
-            
-            <div style="margin-top: 1.5rem; background: #f0f9ff; padding: 1rem; border-radius: 5px;">
-                <p>Voltage Remaining at End of Line: **${formatNumber(voltageRemaining, 2)} V**</p>
-                <p style="font-weight: bold; color: ${dropPass ? '#047857' : '#dc2626'};">${dropPass ? '✅ Result is within the 10% voltage drop limit.' : `❌ Result exceeds the ${maxRecommendedDrop}% voltage drop limit.`}</p>
-            </div>
-        `;
-        
-        resultDiv.classList.remove('hidden');
-        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-}
-
-// =================================================================
-// 4. NAC Load Calculator (COMPLETE)
-// =================================================================
-
-function setupNACCalculator() {
-    const form = document.getElementById('nac-form');
-    if (!form) return;
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (!validateInput(form)) return;
-        
-        const hornQty = parseFloat(document.getElementById('horn-qty').value);
-        const hornCurrent = parseFloat(document.getElementById('horn-current').value);
-        const strobeQty = parseFloat(document.getElementById('strobe-qty').value);
-        const strobeCurrent = parseFloat(document.getElementById('strobe-current').value);
-        const resultDiv = document.getElementById('nac-result');
-
-        const hornTotalCurrent = hornQty * hornCurrent;
-        const strobeTotalCurrent = strobeQty * strobeCurrent;
-        const totalNACCurrent = hornTotalCurrent + strobeTotalCurrent;
-        
-        resultDiv.innerHTML = `
-            <h3>📣 NAC Load Results</h3>
-            <p>Calculated total alarm current draw for the Notification Appliance Circuit.</p>
-            
-            <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
-                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Total NAC Alarm Current:</div>
-                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${formatNumber(totalNACCurrent, 2)} Amps</div>
-            </div>
-            
-            <div style="margin-top: 1.5rem; background: #f0f9ff; padding: 1rem; border-radius: 5px;">
-                <p>Horns/Speakers Total: **${formatNumber(hornTotalCurrent, 2)} Amps** (${hornQty} units @ ${formatNumber(hornCurrent, 3)}A each)</p>
-                <p>Strobes Total: **${formatNumber(strobeTotalCurrent, 2)} Amps** (${strobeQty} units @ ${formatNumber(strobeCurrent, 3)}A each)</p>
-                <p style="margin-top: 0.75rem; font-weight: bold;">⚠️ Ensure your FACP NAC output capacity exceeds this value.</p>
-            </div>
-        `;
-        
-        resultDiv.classList.remove('hidden');
-        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-}
-
-// =================================================================
-// 5. Water Demand Calculator (COMPLETE)
-// =================================================================
-
-function setupWaterDemandCalculator() {
-    const form = document.getElementById('waterdemand-form');
-    if (!form) return;
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (!validateInput(form)) return;
-        
-        const densityInput = parseFloat(document.getElementById('density').value);
-        const areaInput = parseFloat(document.getElementById('design-area').value);
-        const hoseStreamInput = parseFloat(document.getElementById('hose-stream').value);
-        const resultDiv = document.getElementById('waterdemand-result');
-
-        const D_gpm_sqft = convertToCalcUnit(densityInput, 'density');
-        const A_sqft = convertToCalcUnit(areaInput, 'area');
-        const H_gpm = convertToCalcUnit(hoseStreamInput, 'flow');
-
-        const sprinklerFlowGPM = D_gpm_sqft * A_sqft;
-        const totalWaterDemandGPM = sprinklerFlowGPM + H_gpm;
-        
-        const sprinklerFlowDisplay = convertToDisplayUnit(sprinklerFlowGPM, 'flow');
-        const totalWaterDemandDisplay = convertToDisplayUnit(totalWaterDemandGPM, 'flow');
-
-        const densityUnit = getUnit('density');
-        const areaUnit = getUnit('area');
-        const flowUnit = getUnit('flow');
-        
-        resultDiv.innerHTML = `
-            <h3>💦 Sprinkler Water Demand Results (NFPA 13)</h3>
-            <p>Based on Area/Density Method.</p>
-            
-            <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
-                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Total Required Water Demand:</div>
-                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${Math.round(totalWaterDemandDisplay)} ${flowUnit}</div>
-            </div>
-            
-            <div style="margin-top: 1.5rem; background: #f0f9ff; padding: 1rem; border-radius: 5px;">
-                <p>Sprinkler Flow (D×A): **${Math.round(sprinklerFlowDisplay)} ${flowUnit}** (${formatNumber(densityInput, 3)} ${densityUnit} × ${formatNumber(areaInput, 0)} ${areaUnit})</p>
-                <p>Hose Stream Allowance: **${Math.round(convertToDisplayUnit(H_gpm, 'flow'))} ${flowUnit}**</p>
-                <p style="margin-top: 0.75rem; font-weight: bold;">Note: This is the flow rate at the calculated demand pressure.</p>
-            </div>
-        `;
-        
-        resultDiv.classList.remove('hidden');
-        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-}
-
-// =================================================================
-// 6. Required Fire Flow Calculator (COMPLETE)
-// =================================================================
-
-function setupFireFlowCalculator() {
-    const form = document.getElementById('fireflow-form');
-    if (!form) return;
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (!validateInput(form)) return;
-        
-        const areaInput = parseFloat(document.getElementById('building-area').value);
-        const factor = parseFloat(document.getElementById('construction-type').value);
-        const resultDiv = document.getElementById('fireflow-result');
-
-        const A_sqft = convertToCalcUnit(areaInput, 'area');
-        
-        // Calculation: F (GPM) = 102 * sqrt(A) * factor
-        const rawFlowGPM = 102 * Math.sqrt(A_sqft);
-        const adjustedFlowGPM = rawFlowGPM * factor;
-        
-        const finalFlowGPM = Math.min(adjustedFlowGPM, 3000); 
-        
-        const finalFlowDisplay = convertToDisplayUnit(finalFlowGPM, 'flow');
-
-        const areaUnit = getUnit('area');
-        const flowUnit = getUnit('flow');
-
-        const constructionText = document.getElementById('construction-type').options[document.getElementById('construction-type').selectedIndex].text;
-        
-        resultDiv.innerHTML = `
-            <h3>🔥 Required Fire Flow Results (NFPA 1/IBC)</h3>
-            <p>Minimum fire flow based on the largest contiguous building area and construction type.</p>
-            
-            <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
-                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Minimum Required Fire Flow:</div>
-                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${Math.round(finalFlowDisplay)} ${flowUnit}</div>
-            </div>
-            
-            <div style="margin-top: 1.5rem; background: #f0f9ff; padding: 1rem; border-radius: 5px;">
-                <p>Building Area: **${formatNumber(areaInput, 0)} ${areaUnit}**</p>
-                <p>Construction Type: **${constructionText}** (Multiplier: ${factor})</p>
-                <p style="margin-top: 0.75rem; font-weight: bold;">⚠️ This result may be capped. Always check local fire code limits.</p>
-            </div>
-        `;
-        
-        resultDiv.classList.remove('hidden');
-        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-}
-
-// =================================================================
-// 7. Hydrant Flow Calculator (COMPLETE)
-// =================================================================
-
-function setupHydrantCalculator() {
-    const form = document.getElementById('hydrant-form');
-    if (!form) return;
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (!validateInput(form)) return;
-        
-        const pressureInput = parseFloat(document.getElementById('pitot-pressure').value);
-        const diameterInput = parseFloat(document.getElementById('nozzle-diameter').value);
-        const coefficient = parseFloat(document.getElementById('discharge-coefficient').value);
-        const resultDiv = document.getElementById('hydrant-result');
-
-        const P_psi = convertToCalcUnit(pressureInput, 'pressure');
-        const d_in = convertToCalcUnit(diameterInput, 'diameter');
-        
-        // NFPA 291 Formula: Q (GPM) = 29.83 * C * d² * sqrt(P)
-        const flowRateGPM = 29.83 * coefficient * Math.pow(d_in, 2) * Math.sqrt(P_psi);
-        
-        const flowDisplay = convertToDisplayUnit(flowRateGPM, 'flow');
-        
-        const pressureUnit = getUnit('pressure');
-        const diameterUnit = getUnit('diameter');
-        const flowUnit = getUnit('flow');
-        
-        resultDiv.innerHTML = `
-            <h3>💧 Hydrant Flow Results (NFPA 291)</h3>
-            <div style="background: #f0f9ff; padding: 1rem; border-radius: 5px; margin: 1rem 0; text-align: center;">
-                <div style="font-size: 1.2rem; font-weight: bold; color: #555;">Pitot Pressure: ${formatNumber(pressureInput, 1)} ${pressureUnit} | Nozzle Diameter: ${formatNumber(diameterInput, 2)} ${diameterUnit}</div>
-            </div>
-            
-            <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
-                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Estimated Flow Rate:</div>
-                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${Math.round(flowDisplay)} ${flowUnit}</div>
-            </div>
-            <p style="margin-top: 1rem; color: #6b7280; text-align: center;">Coefficient used: ${coefficient}</p>
-        `;
-        
-        resultDiv.classList.remove('hidden');
-        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-}
-
-// =================================================================
-// 8. Friction Loss Calculator (COMPLETE with Affiliate Update)
-// =================================================================
-
-function setupFrictionLossCalculator() {
-    const form = document.getElementById('friction-form');
-    if (!form) return;
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (!validateInput(form)) return;
-        
-        const flowRateInput = parseFloat(document.getElementById('flow-rate').value);
-        const lengthInput = parseFloat(document.getElementById('pipe-length').value);
-        const diameterInput = parseFloat(document.getElementById('pipe-diameter').value);
-        const cFactor = parseFloat(document.getElementById('c-factor').value);
-        const resultDiv = document.getElementById('friction-result');
-
-        const Q_gpm = convertToCalcUnit(flowRateInput, 'flow');
-        const L_ft = convertToCalcUnit(lengthInput, 'length');
-        const d_in = convertToCalcUnit(diameterInput, 'diameter');
-
-        // Hazen-Williams Formula for Pressure Loss (psi/ft)
-        const flowTerm = Math.pow(Q_gpm, 1.85);
-        const cTerm = Math.pow(cFactor, 1.85);
-        const dTerm = Math.pow(d_in, 4.87);
-        
-        const lossPerFoot = 4.52 * (flowTerm / (cTerm * dTerm));
-        
-        const totalFrictionLoss_psi = lossPerFoot * L_ft;
-        
-        const totalFrictionLoss_display = convertToDisplayUnit(totalFrictionLoss_psi, 'pressure');
-        const lossPerFoot_display = convertToDisplayUnit(lossPerFoot, 'pressure');
-
-        const flowUnit = getUnit('flow');
-        const lengthUnit = getUnit('length');
-        const diameterUnit = getUnit('diameter');
-        const pressureUnit = getUnit('pressure');
-        
-        resultDiv.innerHTML = `
-            <h3>📐 Friction Loss Results (Hazen-Williams)</h3>
-            <div style="background: #f0f9ff; padding: 1rem; border-radius: 5px; margin: 1rem 0; text-align: center;">
-                <div style="font-size: 1.2rem; font-weight: bold; color: #555;">Hazen-Williams C-Factor: ${cFactor}</div>
-                <div style="font-size: 1.8rem; font-weight: bold; color: #1e40af;">Loss Per Unit Length: ${formatNumber(lossPerFoot_display, 4)} ${pressureUnit}/${lengthUnit}</div>
-            </div>
-            
-            <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
-                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Total Friction Pressure Loss:</div>
-                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${formatNumber(totalFrictionLoss_display, 2)} ${pressureUnit}</div>
-                <div style="font-size: 0.9rem; color: #666;">(Calculated over ${formatNumber(lengthInput, 0)} ${lengthUnit} of pipe)</div>
-            </div>
-
-            <div style="margin-top: 2rem; padding: 1rem; background: #fffbe6; border: 1px solid #f97316; border-radius: 5px; text-align: center;">
-                <p style="margin-bottom: 0.5rem; font-weight: bold; color: #f97316;">Need a reliable reference book or supplies for hydraulics?</p>
-                <a href="${AMAZON_AFFILIATE_LINK}" target="_blank" style="color: #dc2626; font-weight: 600;">Shop Fire Safety Products on Amazon (Affiliate Link)</a>
-            </div>
-        `;
-        
-        resultDiv.classList.remove('hidden');
-        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-}
-
-// =================================================================
-// 9. Occupant Load Calculator (COMPLETE)
-// =================================================================
-
-function setupOccupantLoadCalculator() {
-    const form = document.getElementById('occupant-form');
-    if (!form) return;
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (!validateInput(form)) return;
-        
-        const areaInput = parseFloat(document.getElementById('area').value);
-        const factor_sqft_per_person = parseFloat(document.getElementById('occupancy-type').value);
-        const resultDiv = document.getElementById('occupant-result');
-
-        if (isNaN(factor_sqft_per_person)) {
-             alert("Please select a valid Occupancy Group.");
-             return;
-        }
-
-        const A_sqft = convertToCalcUnit(areaInput, 'area');
-        
-        const occupantLoad = Math.floor(A_sqft / factor_sqft_per_person);
-        
-        const areaUnit = getUnit('area');
-        const occupancyText = document.getElementById('occupancy-type').options[document.getElementById('occupancy-type').selectedIndex].text;
-
-        resultDiv.innerHTML = `
-            <h3>👥 Occupant Load Results (NFPA 101/IBC)</h3>
-            <p>Calculated for **${occupancyText}** at ${formatNumber(factor_sqft_per_person, 0)} Sq Ft/Person.</p>
-            
-            <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
-                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Maximum Allowed Occupant Load:</div>
-                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${occupantLoad} People</div>
-            </div>
-            
-            <div style="margin-top: 1.5rem; background: #f0f9ff; padding: 1rem; border-radius: 5px;">
-                <p>Total Area Used: **${formatNumber(areaInput, 1)} ${areaUnit}**</p>
-                <p style="margin-top: 0.75rem; font-weight: bold;">Note: This result determines exit width requirements.</p>
-            </div>
-        `;
-        
-        resultDiv.classList.remove('hidden');
-        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-}
-
-// =================================================================
-// 10. Sprinkler Head Spacing Calculator (COMPLETE)
-// =================================================================
-
-function setupHeadSpacingCalculator() {
-    const form = document.getElementById('headspacing-form');
-    if (!form) return;
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (!validateInput(form)) return;
-        
-        const maxCoverageSqFt = parseFloat(document.getElementById('hazard-class').value);
-        const maxSpacingFt = parseFloat(document.getElementById('max-spacing').value);
-        const resultDiv = document.getElementById('headspacing-result');
-
-        const S_max = Math.sqrt(maxCoverageSqFt);
-        
-        const maxSideLength = Math.min(S_max, maxSpacingFt);
-        
-        const sideS = maxSideLength;
-        const sideL = Math.min(maxSideLength * 1.5, maxCoverageSqFt / maxSideLength); 
-
-        const wallDistance_ft = sideL / 2;
-        
-        const actualCoverageSqFt = sideS * sideL;
-
-        const sideS_display = convertToDisplayUnit(sideS, 'length');
-        const sideL_display = convertToDisplayUnit(sideL, 'length');
-        const wallDistance_display = convertToDisplayUnit(wallDistance_ft, 'length');
-        const coverageArea_display = convertToDisplayUnit(actualCoverageSqFt, 'area');
-
-        const lengthUnit = getUnit('length');
-        const areaUnit = getUnit('area');
-        const hazardText = document.getElementById('hazard-class').options[document.getElementById('hazard-class').selectedIndex].text;
-        
-        resultDiv.innerHTML = `
-            <h3>🌐 Sprinkler Head Spacing Results (NFPA 13)</h3>
-            <p>Calculated for **${hazardText}** (Max ${maxCoverageSqFt} Sq Ft per head).</p>
-            
-            <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
-                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Max Spacing Configuration (L × S):</div>
-                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${formatNumber(sideL_display, 1)} ${lengthUnit} × ${formatNumber(sideS_display, 1)} ${lengthUnit}</div>
-                <small style="color: #666; display: block; margin-top: 5px;">Actual Max Coverage: **${formatNumber(coverageArea_display, 1)} ${areaUnit}**</small>
-            </div>
-            
-            <div style="margin-top: 1.5rem; background: #f0f9ff; padding: 1rem; border-radius: 5px;">
-                <p>Max Distance to Wall: **${formatNumber(wallDistance_display, 1)} ${lengthUnit}** (Half of the longest side)</p>
-                <p style="margin-top: 0.75rem; font-weight: bold;">Rule Check: Ratio L/S is ${formatNumber(sideL / sideS, 2)} (Must be ≤ 1.5)</p>
-            </div>
-        `;
-        
-        resultDiv.classList.remove('hidden');
-        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-}
-
-// =================================================================
-// 11. Fire Pump Sizing Calculator (COMPLETE)
-// =================================================================
-
-function setupPumpSizingCalculator() {
+// Fire Pump Sizing Calculator
+function calculatePumpSizing() {
     const form = document.getElementById('pump-form');
-    if (!form) return;
+    const resultDiv = document.getElementById('pump-result');
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        resultDiv.classList.add('hidden');
+        return;
+    }
+
+    const requiredFlow = parseFloat(document.getElementById('required-flow').value);
+    const systemPressure = parseFloat(document.getElementById('system-pressure').value);
+    const pressureLoss = parseFloat(document.getElementById('pressure-loss').value);
+    const staticHead = parseFloat(document.getElementById('static-head').value);
+    const availablePressure = parseFloat(document.getElementById('available-pressure').value);
     
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (!validateInput(form)) return;
-        
-        const flowInput = parseFloat(document.getElementById('system-flow').value);
-        const pressureInput = parseFloat(document.getElementById('system-pressure').value);
-        const availablePressureInput = parseFloat(document.getElementById('available-pressure').value);
-        const resultDiv = document.getElementById('pump-result');
+    const unit = window.currentUnit;
+    const pressureUnit = unitConversions.pressure.unit[unit];
+    const flowUnit = unitConversions.flow.unit[unit];
 
-        const Q_gpm = convertToCalcUnit(flowInput, 'flow');
-        const P_req_psi = convertToCalcUnit(pressureInput, 'pressure');
-        const P_avail_psi = convertToCalcUnit(availablePressureInput, 'pressure');
-        
-        const pumpHead_psi = P_req_psi - P_avail_psi;
+    // Convert inputs to Imperial for calculation (or keep as is if Imperial)
+    const requiredFlow_gpm = unit === 'imperial' ? requiredFlow : convert(requiredFlow, 'flow', 'imperial');
+    const systemPressure_psi = unit === 'imperial' ? systemPressure : convert(systemPressure, 'pressure', 'imperial');
+    const pressureLoss_psi = unit === 'imperial' ? pressureLoss : convert(pressureLoss, 'pressure', 'imperial');
+    const staticHead_psi = unit === 'imperial' ? staticHead : convert(staticHead, 'pressure', 'imperial');
+    const availablePressure_psi = unit === 'imperial' ? availablePressure : convert(availablePressure, 'pressure', 'imperial');
+    
+    // 1. Determine Required Pump Flow (NFPA 20)
+    // Pump flow must be the system demand flow (NFPA 20, 4.14.1.2)
+    let requiredPumpFlow_gpm = requiredFlow_gpm;
+    
+    // 2. Determine Required Pump Pressure/Head (NFPA 20, 4.15)
+    // Required Pump Head (PSI) = Required Pressure + Loss + Static Head - Available Suction Pressure
+    const requiredPumpHead_psi = systemPressure_psi + pressureLoss_psi + staticHead_psi - availablePressure_psi;
+    
+    // 3. Round Flow to Standard Size
+    const standardPumpFlow_gpm = getNextStandardPumpFlow(requiredPumpFlow_gpm);
 
-        const standardPumpFlows = [250, 500, 750, 1000, 1250, 1500, 2000, 2500, 3000];
-        let requiredPumpGPM = 0;
-        for (let flow of standardPumpFlows) {
-            if (flow >= Q_gpm) {
-                requiredPumpGPM = flow;
-                break;
-            }
-            if (flow === standardPumpFlows[standardPumpFlows.length - 1] && Q_gpm > flow) {
-                 requiredPumpGPM = Math.ceil(Q_gpm / 100) * 100;
-            }
-        }
-        
-        if (requiredPumpGPM === 0) {
-            requiredPumpGPM = Math.ceil(Q_gpm / 100) * 100;
-        }
+    // Convert results back to display units
+    const requiredPumpHeadDisplay = unit === 'imperial' ? requiredPumpHead_psi : convert(requiredPumpHead_psi, 'pressure', 'metric');
+    const requiredPumpFlowDisplay = unit === 'imperial' ? requiredPumpFlow_gpm : convert(requiredPumpFlow_gpm, 'flow', 'metric');
+    const standardPumpFlowDisplay = unit === 'imperial' ? standardPumpFlow_gpm : convert(standardPumpFlow_gpm, 'flow', 'metric');
 
-        const requiredPumpFlowDisplay = convertToDisplayUnit(requiredPumpGPM, 'flow');
-        const requiredPumpHeadDisplay = convertToDisplayUnit(pumpHead_psi, 'pressure');
-
-        const flowUnit = getUnit('flow');
-        const pressureUnit = getUnit('pressure');
-
-        let pumpHeadText = '';
-        let pass = true;
-        if (pumpHead_psi < 0) {
-            pumpHeadText = `Available pressure (${formatNumber(availablePressureInput, 0)} ${pressureUnit}) is higher than required pressure! No pump needed.`;
-            pass = false;
-        } else {
-            pumpHeadText = `Required Pump Pressure (Head): **${formatNumber(requiredPumpHeadDisplay, 0)} ${pressureUnit}**`;
-        }
+    let pumpHeadText = '';
+    let pass = true;
+    
+    if (requiredPumpHead_psi <= 0) {
+        pumpHeadText = `Available pressure (${formatNumber(availablePressure, 1)} ${pressureUnit}) is higher than required pressure (${formatNumber(systemPressure + pressureLoss + staticHead, 1)} ${pressureUnit}). **No pump needed** (or a small jockey pump may be used).`;
+        pass = false;
+    } else {
+        pumpHeadText = `Required Pump Pressure (Head): **${formatNumber(requiredPumpHeadDisplay, 1)} ${pressureUnit}**`;
+    }
+    
+    resultDiv.innerHTML = `
+        <h3>⚙️ Fire Pump Sizing Results (NFPA 20)</h3>
+        <p>Calculates the required flow and pressure boost for the fire pump.</p>
         
-        resultDiv.innerHTML = `
-            <h3>⚙️ Fire Pump Sizing Results (NFPA 20)</h3>
-            <p>Calculates the required flow and pressure boost for the fire pump.</p>
-            
-            <div style="background: ${pass ? '#ecfdf5' : '#fef3c7'}; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid ${pass ? '#047857' : '#f97316'};">
-                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Minimum Pump Flow Rating:</div>
-                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${Math.round(requiredPumpFlowDisplay)} ${flowUnit}</div>
-            </div>
-            
-            <div style="margin-top: 1.5rem; background: #f0f9ff; padding: 1rem; border-radius: 5px;">
-                <p>${pumpHeadText}</p>
-                <p style="margin-top: 0.75rem; font-weight: bold;">⚠️ Always use the next available standard pump size and pressure rating greater than this result.</p>
-            </div>
-        `;
+        <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
+            <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Minimum Pump Flow Rating:</div>
+            <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${Math.round(requiredPumpFlowDisplay)} ${flowUnit}</div>
+            <div style="font-size: 1.2rem; font-weight: bold; color: #1e40af;">Standard Pump Size: ${Math.round(standardPumpFlowDisplay)} ${flowUnit}</div>
+        </div>
         
-        resultDiv.classList.remove('hidden');
-        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+        <div style="margin-top: 1.5rem; background: ${pass ? '#f0f9ff' : '#fef3c7'}; padding: 1rem; border-radius: 5px;">
+            <p>${pumpHeadText}</p>
+            <p style="margin-top: 0.75rem; font-weight: bold;">⚠️ Always use the next available standard pump size from the manufacturer. ${standardPumpFlowDisplay > requiredPumpFlowDisplay ? `The minimum standard size is ${Math.round(standardPumpFlowDisplay)} ${flowUnit}` : ''}</p>
+        </div>
+        
+        <div style="margin-top: 1rem; padding: 1rem; background: #f8fafc; border-radius: 5px;">
+            <strong>Calculation Steps:</strong>
+            <ul style="margin-top: 0.5rem; list-style-type: none; padding-left: 0;">
+                <li>Required Flow = System Demand Flow (${formatNumber(requiredFlow, 1)} ${flowUnit})</li>
+                <li>Required Head = Required Pressure + Loss + Head - Available Pressure</li>
+                <li>Required Head (PSI) = ${formatNumber(systemPressure_psi, 1)} + ${formatNumber(pressureLoss_psi, 1)} + ${formatNumber(staticHead_psi, 1)} - ${formatNumber(availablePressure_psi, 1)} = ${formatNumber(requiredPumpHead_psi, 1)} PSI</li>
+            </ul>
+        </div>
+    `;
+    
+    resultDiv.classList.remove('hidden');
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+
+
+// Hazen-Williams Friction Loss Calculator
+function calculateFrictionLoss() {
+    const form = document.getElementById('friction-loss-form');
+    const resultDiv = document.getElementById('friction-loss-result');
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        resultDiv.classList.add('hidden');
+        return;
+    }
+
+    const flowRate = parseFloat(document.getElementById('flow-rate').value);
+    const pipeLength = parseFloat(document.getElementById('pipe-length').value);
+    const pipeDiameter = parseFloat(document.getElementById('pipe-diameter').value);
+    const cFactor = parseInt(document.getElementById('c-factor').value);
+
+    const unit = window.currentUnit;
+    const pressureUnit = unitConversions.pressure.unit[unit];
+
+    // Convert inputs to Imperial (GPM, Ft, Inches) for Hazen-Williams formula (P = 4.52 * Q^1.85 * C^-1.85 * D^-4.87 * L)
+    const Q_gpm = unit === 'imperial' ? flowRate : convert(flowRate, 'flow', 'imperial');
+    const L_ft = unit === 'imperial' ? pipeLength : convert(pipeLength, 'length', 'imperial');
+    const D_in = unit === 'imperial' ? pipeDiameter : convert(pipeDiameter, 'diameter', 'imperial');
+
+    // Hazen-Williams Formula (Imperial: Loss in PSI)
+    // P = 4.52 * (Q^1.85 / (C^1.85 * D^4.87)) * L
+    const P_psi = 4.52 * (Math.pow(Q_gpm, 1.85) / 
+                  (Math.pow(cFactor, 1.85) * Math.pow(D_in, 4.87))) * L_ft;
+
+    // Convert result back to display units
+    const P_display = unit === 'imperial' ? P_psi : convert(P_psi, 'pressure', 'metric');
+
+    // Calculate Loss per 100 ft (Imperial)
+    const lossPer100Ft_psi = P_psi / (L_ft / 100);
+    const lossPer100Ft_display = unit === 'imperial' ? lossPer100Ft_psi : convert(lossPer100Ft_psi, 'pressure', 'metric');
+
+    resultDiv.innerHTML = `
+        <h3>💧 Friction Loss Results (Hazen-Williams)</h3>
+        <p>Calculated pressure loss for ${formatNumber(pipeLength, 0)} ${unitConversions.length.unit[unit]} of pipe.</p>
+        
+        <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #1e40af;">
+            <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Total Pressure Loss:</div>
+            <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${formatNumber(P_display, 2)} ${pressureUnit}</div>
+        </div>
+        
+        <div style="margin-top: 1.5rem; background: #f8fafc; padding: 1rem; border-radius: 5px;">
+            <p>Loss Per 100 ${unitConversions.length.unit.imperial}: **${formatNumber(lossPer100Ft_display, 2)} ${pressureUnit}**</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #6b7280;">(NFPA 13 requires using the Hazen-Williams formula for pipe sizing and hydraulic calculations.)</p>
+        </div>
+    `;
+
+    resultDiv.classList.remove('hidden');
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+
+// Smoke Detector Spacing Calculator
+function calculateSmokeDetectorSpacing() {
+    const form = document.getElementById('smoke-form');
+    const resultDiv = document.getElementById('smoke-result');
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        resultDiv.classList.add('hidden');
+        return;
+    }
+
+    const roomWidth = parseFloat(document.getElementById('room-width').value);
+    const roomLength = parseFloat(document.getElementById('room-length').value);
+    const spacingFactor_ft = parseInt(document.getElementById('detector-type').value); // 30ft or 60ft
+    
+    const unit = window.currentUnit;
+    const lengthUnit = unitConversions.length.unit[unit];
+    const areaUnit = unitConversions.area.unit[unit];
+
+    // Convert inputs to Imperial (ft) for calculation
+    const roomWidth_ft = unit === 'imperial' ? roomWidth : convert(roomWidth, 'length', 'imperial');
+    const roomLength_ft = unit === 'imperial' ? roomLength : convert(roomLength, 'length', 'imperial');
+    
+    const totalArea_sqFt = roomWidth_ft * roomLength_ft;
+    
+    // Max distance from a wall is half the spacing factor (NFPA 72, 17.7.3.2.3)
+    const maxWallDistance_ft = spacingFactor_ft / 2;
+    
+    // Max coverage area per detector (Spacing * Spacing)
+    const maxCoverageArea_sqFt = spacingFactor_ft * spacingFactor_ft;
+    
+    // Required quantity (always round up)
+    const requiredQuantity = Math.ceil(totalArea_sqFt / maxCoverageArea_sqFt);
+
+    // Convert results back to display units
+    const totalArea_display = unit === 'imperial' ? totalArea_sqFt : convert(totalArea_sqFt, 'area', 'metric');
+    const maxCoverageArea_display = unit === 'imperial' ? maxCoverageArea_sqFt : convert(maxCoverageArea_sqFt, 'area', 'metric');
+    const maxWallDistance_display = unit === 'imperial' ? maxWallDistance_ft : convert(maxWallDistance_ft, 'length', 'metric');
+    const spacingFactor_display = unit === 'imperial' ? spacingFactor_ft : convert(spacingFactor_ft, 'length', 'metric');
+    
+    resultDiv.innerHTML = `
+        <h3> ⚡ Smoke Detector Results (NFPA 72, 17.7.3)</h3>
+        <p>Calculations for a room size of ${formatNumber(roomWidth, 1)} x ${formatNumber(roomLength, 1)} ${lengthUnit} (${formatNumber(totalArea_display, 0)} ${areaUnit}).</p>
+        
+        <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
+            <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Minimum Detectors Required:</div>
+            <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${requiredQuantity}</div>
+        </div>
+        
+        <div style="margin-top: 1.5rem; background: #f0f9ff; padding: 1rem; border-radius: 5px;">
+            <p>Maximum Coverage Per Detector: **${formatNumber(maxCoverageArea_display, 0)} ${areaUnit}**</p>
+            <p>Maximum Spacing Between Detectors: **${formatNumber(spacingFactor_display, 1)} ${lengthUnit}**</p>
+            <p>Maximum Distance from Wall/Partition: **${formatNumber(maxWallDistance_display, 1)} ${lengthUnit}**</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #6b7280;">(Note: This does not account for beams, high ceilings, or airflow. Consult NFPA 72 for complex layouts.)</p>
+        </div>
+    `;
+
+    resultDiv.classList.remove('hidden');
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+
+// Occupant Load Calculator
+function calculateOccupant() {
+    const form = document.getElementById('occupant-form');
+    const resultDiv = document.getElementById('occupant-result');
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        resultDiv.classList.add('hidden');
+        return;
+    }
+
+    const areaInput = parseFloat(document.getElementById('area-input').value);
+    const loadFactor = parseFloat(document.getElementById('load-factor').value);
+    const selectedOption = document.getElementById('load-factor').options[document.getElementById('load-factor').selectedIndex];
+    const occupancyType = selectedOption.text.split(':')[0].trim();
+    
+    const unit = window.currentUnit;
+    const areaUnit = unitConversions.area.unit[unit];
+    
+    // The load factor is always in Sq Ft/person (Imperial), so convert area to Sq Ft for calculation
+    const area_sqFt = unit === 'imperial' ? areaInput : convert(areaInput, 'area', 'imperial');
+    
+    // Calculation: Occupant Load = Area / Load Factor
+    const occupantLoad = Math.floor(area_sqFt / loadFactor);
+
+    // Convert load factor to metric for display only
+    const loadFactor_metric = loadFactor * unitConversions.area.metric; // m² per person
+    const loadFactor_display = unit === 'imperial' ? loadFactor : loadFactor_metric;
+    const loadFactorUnit = unit === 'imperial' ? 'Sq Ft/person' : 'm²/person';
+
+    resultDiv.innerHTML = `
+        <h3>👥 Occupant Load Results (NFPA 101/IBC)</h3>
+        <p>Calculated for **${occupancyType}** with a total area of ${formatNumber(areaInput, 0)} ${areaUnit}.</p>
+        
+        <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
+            <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Maximum Occupant Load:</div>
+            <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${occupantLoad}</div>
+        </div>
+        
+        <div style="margin-top: 1.5rem; background: #f8fafc; padding: 1rem; border-radius: 5px;">
+            <p>Load Factor Used: **${formatNumber(loadFactor_display, 2)} ${loadFactorUnit}**</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #6b7280;">(Result is rounded down to the nearest whole number as per code requirements.)</p>
+        </div>
+    `;
+    
+    resultDiv.classList.remove('hidden');
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+
+// Required Fire Flow Calculator
+function calculateFireFlow() {
+    const form = document.getElementById('fireflow-form');
+    const resultDiv = document.getElementById('fireflow-result');
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        resultDiv.classList.add('hidden');
+        return;
+    }
+
+    const areaFloor = parseFloat(document.getElementById('area-floor').value);
+    const constructionFactor = parseFloat(document.getElementById('construction-type').value);
+    const occupancyFactor = parseFloat(document.getElementById('occupancy-factor').value);
+    const exposureFactor = parseFloat(document.getElementById('exposure-factor').value);
+    
+    const unit = window.currentUnit;
+    const flowUnit = unitConversions.flow.unit[unit];
+
+    // Convert area to Imperial (Sq Ft) for formula
+    const area_sqFt = unit === 'imperial' ? areaFloor : convert(areaFloor, 'area', 'imperial');
+    
+    // Basic Fire Flow Formula (Q = C * O * sqrt(Area) * X) - Simplified approximation
+    // Q is in GPM, Area is in Sq Ft
+    const requiredFlow_gpm = constructionFactor * occupancyFactor * Math.sqrt(area_sqFt) * exposureFactor * 100; // Multiplier is estimate for GPM based on simplified formula
+    
+    // Round to the nearest 250 GPM increment, max 12,000 GPM (Simplified NFPA 17.3.3.3)
+    let finalFlow_gpm = Math.ceil(requiredFlow_gpm / 250) * 250;
+    
+    // NFPA 17.3.3.3 sets max at 12,000 GPM
+    if (finalFlow_gpm > 12000) {
+        finalFlow_gpm = 12000;
+    }
+    
+    // Convert final result to display units
+    const finalFlow_display = unit === 'imperial' ? finalFlow_gpm : convert(finalFlow_gpm, 'flow', 'metric');
+
+    resultDiv.innerHTML = `
+        <h3>🚒 Required Fire Flow Results (Approximation)</h3>
+        <p>Estimates the minimum required fire flow (Q) based on simplified area and hazard factors.</p>
+        
+        <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #1e40af;">
+            <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Minimum Required Fire Flow (Q):</div>
+            <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${formatNumber(finalFlow_display, 0)} ${flowUnit}</div>
+        </div>
+        
+        <div style="margin-top: 1.5rem; background: #f8fafc; padding: 1rem; border-radius: 5px;">
+            <p>Formula Used (Simplified Imperial): Q = 100 * C * O * &radic;Area * X</p>
+            <ul style="margin-top: 0.5rem; font-size: 0.9rem; color: #6b7280; padding-left: 20px;">
+                <li>Q: ${formatNumber(requiredFlow_gpm, 0)} GPM (Unrounded)</li>
+                <li>Rounded to nearest 250 GPM increment, capped at 12,000 GPM.</li>
+                <li>Final Calculated Flow: ${formatNumber(finalFlow_display, 0)} ${flowUnit}</li>
+            </ul>
+        </div>
+    `;
+    
+    resultDiv.classList.remove('hidden');
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+
+// Battery Calculator
+function calculateBattery() {
+    const form = document.getElementById('battery-form');
+    const resultDiv = document.getElementById('battery-result');
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        resultDiv.classList.add('hidden');
+        return;
+    }
+
+    const standbyCurrent = parseFloat(document.getElementById('standby-current').value);
+    const alarmCurrent = parseFloat(document.getElementById('alarm-current').value);
+    const standbyHours = parseFloat(document.getElementById('standby-hours').value);
+    const alarmMinutes = parseFloat(document.getElementById('alarm-minutes').value);
+    
+    // Convert alarm minutes to hours
+    const alarmHours = alarmMinutes / 60;
+    
+    // Calculate Amp-Hours (Ah) for standby and alarm
+    const standbyAH = standbyCurrent * standbyHours;
+    const alarmAH = alarmCurrent * alarmHours;
+    
+    // Total Ah required before derating
+    const totalAH = standbyAH + alarmAH;
+    
+    // Apply 1.25 derating factor as required by NFPA 72 (or other common standards)
+    const deratedAH = totalAH * 1.25;
+    
+    resultDiv.innerHTML = `
+        <h3>🔋 Battery Calculation Results (NFPA 72)</h3>
+        <p>Calculated based on a **${standbyHours} hour** standby and **${alarmMinutes} minute** alarm period.</p>
+        
+        <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #1e40af;">
+            <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Minimum Required Battery Capacity:</div>
+            <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${deratedAH.toFixed(1)} Ah</div>
+            <small>Always use a battery size above calculated requirement</small>
+        </div>
+        
+        <div style="margin-top: 1rem;">
+            <strong>Calculation Steps:</strong>
+            <div style="background: white; padding: 0.75rem; border-radius: 3px; margin-top: 0.5rem;">
+                1. Standby: ${standbyCurrent}A × ${standbyHours}h = ${standbyAH.toFixed(1)} Ah<br>
+                2. Alarm: ${alarmCurrent}A × ${alarmHours.toFixed(2)}h = ${alarmAH.toFixed(1)} Ah<br>
+                3. Total: ${standbyAH.toFixed(1)} + ${alarmAH.toFixed(1)} = ${totalAH.toFixed(1)} Ah<br>
+                4. With derating (×1.25): ${totalAH.toFixed(1)} × 1.25 = ${deratedAH.toFixed(1)} Ah
+            </div>
+        </div>
+        
+        <div style="margin-top: 1rem; padding: 1rem; background: #f8fafc; border-radius: 5px;">
+            <strong>⚠️ Important Notes:</strong>
+            <ul style="margin-top: 0.5rem;">
+                <li>Always verify with battery manufacturer specifications</li>
+                <li>Consider temperature derating if applicable</li>
+                <li>Account for battery aging (typically add 20% margin)</li>
+                <li>Consult NFPA 72 for complete requirements</li>
+            </ul>
+        </div>
+    `;
+    
+    resultDiv.classList.remove('hidden');
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// =================================================================
+// EVENT LISTENERS
+// =================================================================
+
+// Wait for page to load
+document.addEventListener('DOMContentLoaded', function() {
+    setupNavigation();
+    
+    // Attach event listeners to all forms
+    document.getElementById('battery-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        calculateBattery();
+    });
+    
+    document.getElementById('occupant-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        calculateOccupant();
+    });
+
+    document.getElementById('smoke-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        calculateSmokeDetectorSpacing();
+    });
+    
+    document.getElementById('friction-loss-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        calculateFrictionLoss();
+    });
+
+    document.getElementById('fireflow-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        calculateFireFlow();
+    });
+    
+    document.getElementById('pump-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        calculatePumpSizing();
+    });
+    
+    // Initialize the current calculator based on URL hash (optional)
+    const urlHash = window.location.hash.substring(1); // Remove '#'
+    if (urlHash) {
+        const targetElement = document.getElementById(urlHash + '-calculator');
+        const targetButton = document.querySelector(`button[data-calculator="${urlHash}"]`);
+        
+        if (targetElement && targetButton) {
+            // Hide all first
+            document.querySelectorAll('.calculator-box').forEach(calc => calc.classList.add('hidden'));
+            document.querySelectorAll('.main-nav .nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // Show target
+            targetElement.classList.remove('hidden');
+            targetButton.classList.add('active');
+            
+            // Scroll to the calculator (optional, handled by click event anyway)
+        }
+    }
+});
