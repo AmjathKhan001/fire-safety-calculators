@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fire Safety Calculators | Professional NFPA Tools</title>
     
-    <!-- SEO Meta Tags -->
     <meta name="description" content="Free fire safety calculators for engineers. Battery standby, occupant load, smoke detector spacing, hydrant flow, friction loss, clean agent systems, voltage drop, NAC load, water mist, foam systems.">
     <meta name="keywords" content="fire safety calculator, NFPA calculator, fire protection, sprinkler calculation, fire alarm battery, occupant load">
     <meta name="author" content="FireSafetyTool.com">
     
-    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-376208036"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -19,153 +17,180 @@
       gtag('config', 'G-376208036');
     </script>
     
-    <!-- AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
     
     <link rel="stylesheet" href="/style.css">
     <style>
         .support-header {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: white;
-            padding: 1.5rem;
-            text-align: center;
-            border-radius: 10px;
-            margin: 1rem auto 2rem auto;
-            max-width: 1000px;
-        }
-        .support-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-        .support-btn {
-            padding: 0.75rem 1.5rem;
+            background: linear-gradient(90deg, #f0ad4e, #f9c370);
+            color: #333;
+            padding: 1rem;
+            margin-bottom: 2rem;
             border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .support-header a {
+            color: #b36300;
             font-weight: bold;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
         }
-        .amazon-btn {
-            background: #FF9900;
-            color: #232F3E;
-        }
-        .coffee-btn {
-            background: #FFDD00;
-            color: #000;
-        }
-        .ad-container {
-            margin: 2rem auto;
-            text-align: center;
-            background: #f8fafc;
-            padding: 1.5rem;
-            border-radius: 10px;
-            border: 2px solid #d1d5db;
-            max-width: 1000px;
+        .support-header a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>🔥 Fire Safety Calculators</h1>
-        <p>Professional tools for fire protection engineers and contractors</p>
-        
+        <h1>🚒 Fire Safety Calculators</h1>
+        <p>Professional Tools for NFPA Compliance</p>
         <nav class="main-nav">
-            <button class="nav-btn active" data-calculator="battery">Battery</button>
-            <button class="nav-btn" data-calculator="occupant">Occupant Load</button>
-            <button class="nav-btn" data-calculator="smoke">Smoke Detector</button>
-            <button class="nav-btn" data-calculator="hydrant">Hydrant Flow</button>
-            <button class="nav-btn" data-calculator="friction">Friction Loss</button>
-            <button class="nav-btn" data-calculator="cleanagent">Clean Agent</button>
-            <button class="nav-btn" data-calculator="voltage">Voltage Drop</button>
-            <button class="nav-btn" data-calculator="nac">NAC Load</button>
-            <button class="nav-btn" data-calculator="watermist">Water Mist</button>
-            <button class="nav-btn" data-calculator="foam">Foam System</button>
-            <a href="/categories.html" class="nav-btn">All Categories</a>
+            <button class="nav-btn active" data-calculator="battery">🔋 Battery Standby</button>
+            <button class="nav-btn" data-calculator="occupant">👥 Occupant Load</button>
+            <button class="nav-btn" data-calculator="smoke">🚬 Smoke Detector Spacing</button>
+            <button class="nav-btn" data-calculator="voltage">⚡️ Voltage Drop</button>
+        </nav>
+        <nav class="main-nav" style="margin-top: 10px;">
+            <a href="/categories.html" class="nav-btn" style="background: #1e40af;">More Categories</a>
+            <a href="/contact.html" class="nav-btn" style="background: #047857;">Contact</a>
         </nav>
     </header>
 
     <main>
-        <!-- Support Header -->
-        <div class="support-header">
-            <h2>🔧 Support Free Fire Safety Tools</h2>
-            <p>These professional tools are free thanks to supporters like you</p>
-            <div class="support-buttons">
-                <a href="https://amzn.to/49YYGrJ" target="_blank" class="support-btn amazon-btn">
-                    🛒 Fire Safety Products
-                </a>
-                <a href="https://buymeacoffee.com/s.amjathkhan" target="_blank" class="support-btn coffee-btn">
-                    ☕ Buy Me a Coffee
-                </a>
-            </div>
-        </div>
-
-        <!-- Ad Container -->
-        <div class="ad-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-6687860250561653"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-
         <div class="container">
-            <!-- Battery Calculator -->
+            <div class="support-header">
+                <p>Support this free tool by using our <a href="/affiliate.html">affiliate links</a> or <a href="#" target="_blank">buying us a coffee</a>.</p>
+            </div>
+            
             <div id="battery-calculator" class="calculator-box">
                 <h2>🔋 Battery Standby Calculator</h2>
-                <p>Calculate backup battery requirements for fire alarm systems (NFPA 72)</p>
-                
+                <p>Calculates the required Amp-Hour (Ah) capacity for a fire alarm system battery (NFPA 72).</p>
                 <form id="battery-form">
                     <div class="input-group">
-                        <label for="alarm-current">Total Alarm Current (Amps):</label>
-                        <input type="number" id="alarm-current" step="0.1" placeholder="Enter alarm current" required>
+                        <label for="standby-current">Standby Current (Amps):</label>
+                        <input type="number" id="standby-current" step="0.001" placeholder="e.g., 0.5" required>
                     </div>
-
                     <div class="input-group">
-                        <label for="standby-current">Total Standby Current (Amps):</label>
-                        <input type="number" id="standby-current" step="0.01" placeholder="Enter standby current" required>
+                        <label for="alarm-current">Alarm Current (Amps):</label>
+                        <input type="number" id="alarm-current" step="0.001" placeholder="e.g., 2.3" required>
                     </div>
-
                     <div class="input-group">
-                        <label for="standby-hours">Standby Time (Hours):</label>
-                        <input type="number" id="standby-hours" value="24" required>
+                        <label for="standby-hours">Required Standby Time (Hours):</label>
+                        <input type="number" id="standby-hours" step="1" min="1" value="24" required>
                     </div>
-
                     <div class="input-group">
-                        <label for="alarm-minutes">Alarm Time (Minutes):</label>
-                        <input type="number" id="alarm-minutes" value="5" required>
+                        <label for="alarm-minutes">Required Alarm Time (Minutes):</label>
+                        <input type="number" id="alarm-minutes" step="1" min="1" value="5" required>
                     </div>
-
-                    <button type="submit">Calculate Battery Size</button>
+                    <button type="submit">Calculate Battery Ah</button>
                 </form>
 
                 <div id="battery-result" class="result hidden">
-                    <!-- Results will appear here -->
-                </div>
+                    </div>
             </div>
 
-            <!-- Other calculators (hidden by default) -->
             <div id="occupant-calculator" class="calculator-box hidden">
                 <h2>👥 Occupant Load Calculator</h2>
-                <!-- Add your occupant calculator form here -->
-                <p>Occupant load calculator will be added soon.</p>
+                <p>Calculate the maximum number of people allowed in a space based on area and use group (NFPA 101 / IBC).</p>
+                
+                <form id="occupant-form">
+                    <div class="input-group">
+                        <label for="area">Area of Space (Sq Ft):</label>
+                        <input type="number" id="area" step="0.1" placeholder="Enter floor area in square feet" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="occupancy-type">Use/Occupancy Group:</label>
+                        <select id="occupancy-type" required>
+                            <option value="">-- Select an Occupancy Type --</option>
+                            <option value="5">Assembly - Concentrated (e.g., Theater, Auditorium, Fixed Seats)</option>
+                            <option value="7">Educational - Classroom Area</option>
+                            <option value="15">Assembly - Unconcentrated (e.g., Dining, Lobbies, Exhibit Halls)</option>
+                            <option value="30">Mercantile - Sales Floor (Ground Floor)</option>
+                            <option value="50">Business/Office Area</option>
+                            <option value="60">Mercantile - Sales Floor (Upper Floors)</option>
+                            <option value="100">Storage, Mechanical Equipment</option>
+                            <option value="200">Residential (Hotel/Apartment Unit)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit">Calculate Occupant Load</button>
+                </form>
+
+                <div id="occupant-result" class="result hidden">
+                    </div>
             </div>
 
             <div id="smoke-calculator" class="calculator-box hidden">
                 <h2>🚬 Smoke Detector Spacing</h2>
-                <!-- Add your smoke detector calculator form here -->
-                <p>Smoke detector calculator will be added soon.</p>
+                <p>Calculate the maximum area a spot-type smoke detector can cover (NFPA 72).</p>
+                
+                <form id="smoke-form">
+                    <div class="input-group">
+                        <label for="ceiling-height">Ceiling Height (Feet):</label>
+                        <input type="number" id="ceiling-height" step="1" min="8" placeholder="Enter ceiling height (e.g., 10)" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="air-movement">Air Movement:</label>
+                        <select id="air-movement" required>
+                            <option value="30">Normal Air Movement</option>
+                            <option value="21">High Air Movement (e.g., Forced Ventilation)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit">Calculate Coverage Area</button>
+                </form>
+
+                <div id="smoke-result" class="result hidden">
+                    </div>
             </div>
 
-            <!-- Add similar divs for other calculators -->
-            <!-- Keep them hidden with class="calculator-box hidden" -->
+            <div id="voltage-calculator" class="calculator-box hidden">
+                <h2>⚡️ Voltage Drop Calculator</h2>
+                <p>Calculate the voltage drop along a fire alarm circuit to ensure devices operate reliably (NFPA 72).</p>
+                
+                <form id="voltage-form">
+                    <div class="input-group">
+                        <label for="wire-length">Wire Length (Feet) of the entire circuit:</label>
+                        <input type="number" id="wire-length" step="1" min="1" placeholder="e.g., 500" required>
+                    </div>
 
+                    <div class="input-group">
+                        <label for="circuit-current">Total Circuit Current (Amps) in Alarm:</label>
+                        <input type="number" id="circuit-current" step="0.001" min="0.001" placeholder="e.g., 1.2" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="wire-gauge">Wire Gauge (AWG):</label>
+                        <select id="wire-gauge" required>
+                            <option value="1.62">18 AWG (Approx 1.62 Ohms/1000 ft)</option>
+                            <option value="1.02">16 AWG (Approx 1.02 Ohms/1000 ft)</option>
+                            <option value="0.64">14 AWG (Approx 0.64 Ohms/1000 ft)</option>
+                            <option value="0.40">12 AWG (Approx 0.40 Ohms/1000 ft)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="system-voltage">System Voltage (VDC):</label>
+                        <select id="system-voltage" required>
+                            <option value="24" selected>24 VDC (Common Fire Alarm)</option>
+                            <option value="12">12 VDC</option>
+                        </select>
+                    </div>
+
+                    <button type="submit">Calculate Voltage Drop</button>
+                </form>
+
+                <div id="voltage-result" class="result hidden">
+                    </div>
+            </div>
+
+            <div id="nac-calculator" class="calculator-box hidden">
+                <h2>📣 NAC Load Calculator</h2>
+                <p>NAC Load calculator will be added soon.</p>
+            </div>
+            
         </div>
     </main>
 
@@ -182,6 +207,6 @@
         <p>© 2024 FireSafetyTool.com. All rights reserved.</p>
     </footer>
 
-    <script src="/script.js"></script>
+    <script src="/script.js.js"></script>
 </body>
 </html>
