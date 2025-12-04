@@ -1,0 +1,13 @@
+{
+  "name": "fire-safety-calculators",
+  "version": "3.0.0",
+  "description": "Free fire safety calculation tools for professionals",
+  "main": "index.html",
+  "scripts": {
+    "start": "echo 'Open index.html in browser'",
+    "test": "echo 'No tests required'"
+  },
+  "keywords": ["fire-safety", "calculators", "nfpa", "fire-protection"],
+  "author": "FireSafetyTool.com",
+  "license": "MIT"
+}
