@@ -5,9 +5,11 @@ document.addEventListener('DOMContentLoaded', function() {
     setupOccupantLoadCalculator();
     setupSmokeCalculator();
     setupVoltageCalculator();
-    setupNACCalculator(); // NEW
-    setupHydrantCalculator(); // NEW
-    setupFrictionLossCalculator(); // NEW
+    setupNACCalculator();
+    setupHydrantCalculator();
+    setupFrictionLossCalculator();
+    setupWaterDemandCalculator(); // NEW
+    setupPumpSizingCalculator(); // NEW
 
     // Initially show the first calculator
     document.getElementById('battery-calculator').classList.remove('hidden');
@@ -236,7 +238,7 @@ function setupVoltageCalculator() {
         
         const finalVoltage = systemVoltage - voltageDrop;
         const maxDropAllowed = 0.1 * systemVoltage; // Generally 10% is max allowed drop 
-        const status = voltageDrop < maxDropAllowed ? "PASS" ✅ : "FAIL ❌";
+        const status = voltageDrop < maxDropAllowed ? "PASS ✅" : "FAIL ❌";
         const statusColor = voltageDrop < maxDropAllowed ? "#047857" : "#dc2626";
         const statusText = voltageDrop < maxDropAllowed ? "Voltage drop is acceptable (less than 10% of system voltage)." : "Voltage drop is too high! Increase wire gauge or shorten the run.";
 
@@ -269,7 +271,7 @@ function setupVoltageCalculator() {
 }
 
 // =================================================================
-// 5. NAC Load Calculator (NEW)
+// 5. NAC Load Calculator
 // =================================================================
 
 function setupNACCalculator() {
@@ -291,14 +293,10 @@ function setupNACCalculator() {
             return;
         }
 
-        // Calculate total current draw for each type
         const totalHornCurrent = hornQty * hornCurrent;
         const totalStrobeCurrent = strobeQty * strobeCurrent;
         
-        // NFPA 72 requires that only the device with the highest current draw on the circuit 
-        // be calculated when strobes flash synchronously (common in modern systems).
-        // Since we are calculating the total load *before* considering simultaneous flash reduction,
-        // we use the sum. For worst-case, maximum possible load:
+        // Use sum for worst-case, maximum possible load (conservative calculation)
         const totalNACCurrent = totalHornCurrent + totalStrobeCurrent;
         
         resultDiv.innerHTML = `
@@ -327,7 +325,7 @@ function setupNACCalculator() {
 }
 
 // =================================================================
-// 6. Hydrant Flow Calculator (NEW)
+// 6. Hydrant Flow Calculator
 // =================================================================
 
 function setupHydrantCalculator() {
@@ -375,7 +373,7 @@ function setupHydrantCalculator() {
 }
 
 // =================================================================
-// 7. Friction Loss Calculator (NEW)
+// 7. Friction Loss Calculator
 // =================================================================
 
 function setupFrictionLossCalculator() {
@@ -397,7 +395,7 @@ function setupFrictionLossCalculator() {
             return;
         }
 
-        // Hazen-Williams Formula for Pressure Loss (psi per foot)
+        // Hazen-Williams Formula for Pressure Loss (psi)
         // P_L = 4.52 * (Q^1.85 / (C^1.85 * d^4.87)) * L
         const flowTerm = Math.pow(flowRate, 1.85);
         const cTerm = Math.pow(cFactor, 1.85);
@@ -422,6 +420,125 @@ function setupFrictionLossCalculator() {
 
             <div style="margin-top: 1.5rem; padding: 1rem; background: #fffbeb; border-radius: 5px; border-left: 4px solid #f97316;">
                 <strong>💡 Note:</strong> This does not include pressure loss from fittings (equivalent lengths). Add those separately for total system loss.
+            </div>
+        `;
+        
+        resultDiv.classList.remove('hidden');
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+}
+
+// =================================================================
+// 8. Water Demand Calculator (NEW)
+// =================================================================
+
+function setupWaterDemandCalculator() {
+    const form = document.getElementById('waterdemand-form');
+    if (!form) return;
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const density = parseFloat(document.getElementById('density').value);
+        const designArea = parseFloat(document.getElementById('design-area').value);
+        const hoseStream = parseFloat(document.getElementById('hose-stream').value);
+        const resultDiv = document.getElementById('waterdemand-result');
+
+        if (!density || density <= 0 || !designArea || designArea <= 0 || isNaN(hoseStream)) {
+            resultDiv.classList.remove('hidden');
+            resultDiv.innerHTML = `<h3>⚠️ Calculation Error</h3><p style="color: #a94442;">Please enter valid, positive numbers for all fields.</p>`;
+            return;
+        }
+
+        // Calculation: Sprinkler Flow = Density * Design Area
+        const sprinklerFlow = density * designArea;
+        
+        // Total Demand = Sprinkler Flow + Hose Stream
+        const totalWaterDemand = sprinklerFlow + hoseStream;
+        
+        resultDiv.innerHTML = `
+            <h3>💦 Sprinkler Water Demand Results (NFPA 13)</h3>
+            
+            <div style="background: #f0f9ff; padding: 1rem; border-radius: 5px; margin: 1rem 0; text-align: center;">
+                <div style="font-size: 1.2rem; font-weight: bold; color: #555;">Required Sprinkler Flow (System): </div>
+                <div style="font-size: 2.5rem; font-weight: bold; color: #1e40af;">${sprinklerFlow.toFixed(1)} GPM</div>
+                <div style="font-size: 0.9rem; color: #666;">(${density} GPM/ft² × ${designArea} ft²)</div>
+            </div>
+
+            <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
+                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Total Required Water Demand:</div>
+                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${totalWaterDemand.toFixed(1)} GPM</div>
+                <div style="font-size: 0.9rem; color: #666;">(System Flow + ${hoseStream} GPM Hose Stream)</div>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding: 1rem; background: #fffbeb; border-radius: 5px; border-left: 4px solid #f97316;">
+                <strong>💡 Note:</strong> This is the flow requirement. Pressure requirement must be determined via hydraulic calculations (Hazen-Williams).
+            </div>
+        `;
+        
+        resultDiv.classList.remove('hidden');
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+}
+
+// =================================================================
+// 9. Fire Pump Sizing Calculator (NEW)
+// =================================================================
+
+function setupPumpSizingCalculator() {
+    const form = document.getElementById('pump-form');
+    if (!form) return;
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const systemFlow = parseFloat(document.getElementById('system-flow').value);
+        const systemPressure = parseFloat(document.getElementById('system-pressure').value);
+        const availablePressure = parseFloat(document.getElementById('available-pressure').value);
+        const resultDiv = document.getElementById('pump-result');
+
+        if (!systemFlow || systemFlow <= 0 || !systemPressure || systemPressure <= 0 || availablePressure < 0) {
+            resultDiv.classList.remove('hidden');
+            resultDiv.innerHTML = `<h3>⚠️ Calculation Error</h3><p style="color: #a94442;">Please enter valid, positive numbers for required flow and pressure.</p>`;
+            return;
+        }
+
+        // Calculation: Required Pump Pressure = Required System Pressure - Available Pressure
+        const requiredPumpPressure = systemPressure - availablePressure;
+
+        let statusText = "Pump selection looks acceptable for the given parameters.";
+        let statusColor = "#047857";
+        
+        if (requiredPumpPressure <= 0) {
+            statusText = "A pump is likely not needed. The available water supply pressure is greater than the required system pressure. (P_Avail > P_Req)";
+            statusColor = "#1e40af";
+        }
+        
+        // Find the next standard NFPA 20 flow size
+        const pumpFlowOptions = [25, 50, 100, 250, 500, 750, 1000, 1250, 1500, 2000, 2500, 3000];
+        let requiredPumpFlow = pumpFlowOptions.find(flow => flow >= systemFlow) || 3000;
+        
+        // Round pressure up to the nearest 5 PSI for a conservative rating selection
+        const pressureMargin = 5; 
+        const requiredPumpPressureRating = Math.ceil(requiredPumpPressure / pressureMargin) * pressureMargin;
+
+
+        resultDiv.innerHTML = `
+            <h3>⚙️ Fire Pump Selection Guide (NFPA 20)</h3>
+            <div style="background: #f0f9ff; padding: 1rem; border-radius: 5px; margin: 1rem 0; text-align: center;">
+                <div style="font-size: 1.2rem; font-weight: bold; color: #555;">Required Pump Head (Pressure): </div>
+                <div style="font-size: 2.5rem; font-weight: bold; color: #1e40af;">${requiredPumpPressure.toFixed(1)} PSI</div>
+                <div style="font-size: 0.9rem; color: #666;">(${systemPressure} PSI Required - ${availablePressure} PSI Available)</div>
+            </div>
+
+            <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid ${statusColor};">
+                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Minimum Pump Rating:</div>
+                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${requiredPumpFlow} GPM @ ${requiredPumpPressureRating} PSI</div>
+                <div style="font-size: 0.9rem; color: #666; margin-top: 10px;">(Flow selected is the next standard size above ${systemFlow} GPM)</div>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding: 1rem; background: #fffbeb; border-radius: 5px; border-left: 4px solid #f97316;">
+                <strong>💡 Note:</strong> ${statusText} Always refer to NFPA 20 and manufacturer's pump curves for final selection.
             </div>
         `;
         
