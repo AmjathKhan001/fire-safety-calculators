@@ -6,7 +6,7 @@
     <title>Fire Safety Calculators | Professional NFPA Tools</title>
     
     <meta name="description" content="Free fire safety calculators for engineers. Battery standby, occupant load, smoke detector spacing, hydrant flow, friction loss, clean agent systems, voltage drop, NAC load, water mist, foam systems.">
-    <meta name="keywords" content="fire safety calculator, NFPA calculator, fire protection, sprinkler calculation, fire alarm battery, occupant load">
+    <meta name="keywords" content="fire safety calculator, NFPA calculator, fire protection, sprinkler calculation, fire alarm battery, occupant load, friction loss, hydrant flow, NAC load">
     <meta name="author" content="FireSafetyTool.com">
     
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-376208036"></script>
@@ -21,6 +21,7 @@
     
     <link rel="stylesheet" href="/style.css">
     <style>
+        /* This style block remains for the header support note */
         .support-header {
             background: linear-gradient(90deg, #f0ad4e, #f9c370);
             color: #333;
@@ -38,6 +39,14 @@
         .support-header a:hover {
             text-decoration: underline;
         }
+        /* Ensure all buttons fit on smaller screens */
+        .main-nav {
+            justify-content: space-around;
+        }
+        .main-nav .nav-btn {
+            font-size: 0.9rem;
+            padding: 0.6rem 1rem;
+        }
     </style>
 </head>
 <body>
@@ -47,8 +56,13 @@
         <nav class="main-nav">
             <button class="nav-btn active" data-calculator="battery">🔋 Battery Standby</button>
             <button class="nav-btn" data-calculator="occupant">👥 Occupant Load</button>
-            <button class="nav-btn" data-calculator="smoke">🚬 Smoke Detector Spacing</button>
+            <button class="nav-btn" data-calculator="smoke">🚬 Smoke Spacing</button>
             <button class="nav-btn" data-calculator="voltage">⚡️ Voltage Drop</button>
+        </nav>
+        <nav class="main-nav" style="margin-top: 10px;">
+            <button class="nav-btn" data-calculator="nac">📣 NAC Load</button>
+            <button class="nav-btn" data-calculator="hydrant">💧 Hydrant Flow</button>
+            <button class="nav-btn" data-calculator="friction">📐 Friction Loss</button>
         </nav>
         <nav class="main-nav" style="margin-top: 10px;">
             <a href="/categories.html" class="nav-btn" style="background: #1e40af;">More Categories</a>
@@ -134,8 +148,8 @@
                     <div class="input-group">
                         <label for="air-movement">Air Movement:</label>
                         <select id="air-movement" required>
-                            <option value="30">Normal Air Movement</option>
-                            <option value="21">High Air Movement (e.g., Forced Ventilation)</option>
+                            <option value="30">Normal Air Movement (Max 30 ft spacing)</option>
+                            <option value="21">High Air Movement (Reduced spacing)</option>
                         </select>
                     </div>
 
@@ -148,11 +162,11 @@
 
             <div id="voltage-calculator" class="calculator-box hidden">
                 <h2>⚡️ Voltage Drop Calculator</h2>
-                <p>Calculate the voltage drop along a fire alarm circuit to ensure devices operate reliably (NFPA 72).</p>
+                <p>Calculate the voltage drop along a fire alarm circuit (NFPA 72).</p>
                 
                 <form id="voltage-form">
                     <div class="input-group">
-                        <label for="wire-length">Wire Length (Feet) of the entire circuit:</label>
+                        <label for="wire-length">Wire Length (Feet) of the longest circuit run:</label>
                         <input type="number" id="wire-length" step="1" min="1" placeholder="e.g., 500" required>
                     </div>
 
@@ -164,10 +178,10 @@
                     <div class="input-group">
                         <label for="wire-gauge">Wire Gauge (AWG):</label>
                         <select id="wire-gauge" required>
-                            <option value="1.62">18 AWG (Approx 1.62 Ohms/1000 ft)</option>
-                            <option value="1.02">16 AWG (Approx 1.02 Ohms/1000 ft)</option>
-                            <option value="0.64">14 AWG (Approx 0.64 Ohms/1000 ft)</option>
-                            <option value="0.40">12 AWG (Approx 0.40 Ohms/1000 ft)</option>
+                            <option value="1.62">18 AWG (1.62 Ohms/1000 ft)</option>
+                            <option value="1.02">16 AWG (1.02 Ohms/1000 ft)</option>
+                            <option value="0.64">14 AWG (0.64 Ohms/1000 ft)</option>
+                            <option value="0.40">12 AWG (0.40 Ohms/1000 ft)</option>
                         </select>
                     </div>
 
@@ -188,7 +202,99 @@
 
             <div id="nac-calculator" class="calculator-box hidden">
                 <h2>📣 NAC Load Calculator</h2>
-                <p>NAC Load calculator will be added soon.</p>
+                <p>Calculate the total alarm current draw for a Notification Appliance Circuit (NAC) to verify panel capacity.</p>
+                
+                <form id="nac-form">
+                    <div class="input-group">
+                        <label for="horn-qty">Quantity of Horns/Speakers:</label>
+                        <input type="number" id="horn-qty" step="1" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="horn-current">Current per Horn/Speaker (Alarm Amps):</label>
+                        <input type="number" id="horn-current" step="0.001" min="0" value="0.050" placeholder="e.g., 0.050" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="strobe-qty">Quantity of Strobes:</label>
+                        <input type="number" id="strobe-qty" step="1" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="strobe-current">Current per Strobe (Alarm Amps):</label>
+                        <input type="number" id="strobe-current" step="0.001" min="0" value="0.120" placeholder="e.g., 0.120" required>
+                    </div>
+
+                    <button type="submit">Calculate Total NAC Current</button>
+                </form>
+
+                <div id="nac-result" class="result hidden">
+                    </div>
+            </div>
+
+            <div id="hydrant-calculator" class="calculator-box hidden">
+                <h2>💧 Hydrant Flow Calculator</h2>
+                <p>Estimate the flow rate (GPM) from a fire hydrant using the Pitot Gauge method (NFPA 291).</p>
+                
+                <form id="hydrant-form">
+                    <div class="input-group">
+                        <label for="pitot-pressure">Measured Pitot Pressure (PSI):</label>
+                        <input type="number" id="pitot-pressure" step="0.1" min="1" placeholder="e.g., 25" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="nozzle-diameter">Nozzle Diameter (Inches):</label>
+                        <input type="number" id="nozzle-diameter" step="0.01" min="1" placeholder="e.g., 2.5" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="discharge-coefficient">Discharge Coefficient (C-Factor):</label>
+                        <select id="discharge-coefficient" required>
+                            <option value="0.90" selected>0.90 (Good Condition, Smooth)</option>
+                            <option value="0.80">0.80 (Average Condition, Rough)</option>
+                            <option value="0.70">0.70 (Poor Condition, Very Rough)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit">Calculate Hydrant Flow</button>
+                </form>
+
+                <div id="hydrant-result" class="result hidden">
+                    </div>
+            </div>
+
+            <div id="friction-calculator" class="calculator-box hidden">
+                <h2>📐 Friction Loss Calculator (Hazen-Williams)</h2>
+                <p>Calculates pressure loss due to friction in a pipe section.</p>
+                
+                <form id="friction-form">
+                    <div class="input-group">
+                        <label for="flow-rate">Water Flow Rate (GPM):</label>
+                        <input type="number" id="flow-rate" step="1" min="1" placeholder="e.g., 500" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="pipe-length">Pipe Length (Feet):</label>
+                        <input type="number" id="pipe-length" step="1" min="1" placeholder="e.g., 100" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="pipe-diameter">Pipe Diameter (Inches):</label>
+                        <input type="number" id="pipe-diameter" step="0.01" min="0.5" placeholder="e.g., 6" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="c-factor">Hazen-Williams C-Factor (Roughness):</label>
+                        <select id="c-factor" required>
+                            <option value="140">140 (New, Smooth Plastic/Copper)</option>
+                            <option value="120" selected>120 (New Steel / Common)</option>
+                            <option value="100">100 (Existing Steel Pipe)</option>
+                            <option value="90">90 (Existing Cast Iron)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit">Calculate Friction Loss</button>
+                </form>
+
+                <div id="friction-result" class="result hidden">
+                    </div>
+            </div>
+            
+            <div id="categories-info" class="calculator-box hidden">
+                <h2>Category Information</h2>
+                <p>This section is available via the **More Categories** link in the navigation bar.</p>
             </div>
             
         </div>
