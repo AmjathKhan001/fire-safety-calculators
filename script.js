@@ -2,15 +2,17 @@
 document.addEventListener('DOMContentLoaded', function() {
     setupNavigation();
     setupBatteryCalculator();
-    setupOccupantLoadCalculator();
     setupSmokeCalculator();
     setupVoltageCalculator();
     setupNACCalculator();
+    setupWaterDemandCalculator();
+    setupFireFlowCalculator(); // NEW
     setupHydrantCalculator();
     setupFrictionLossCalculator();
-    setupWaterDemandCalculator(); // NEW
-    setupPumpSizingCalculator(); // NEW
-
+    setupOccupantLoadCalculator();
+    setupHeadSpacingCalculator(); // NEW
+    setupPumpSizingCalculator();
+    
     // Initially show the first calculator
     document.getElementById('battery-calculator').classList.remove('hidden');
 });
@@ -46,7 +48,7 @@ function setupNavigation() {
 }
 
 // =================================================================
-// 1. Battery Standby Calculator
+// 1. Battery Standby Calculator (NFPA 72)
 // =================================================================
 
 function setupBatteryCalculator() {
@@ -101,53 +103,7 @@ function setupBatteryCalculator() {
 }
 
 // =================================================================
-// 2. Occupant Load Calculator
-// =================================================================
-
-function setupOccupantLoadCalculator() {
-    const form = document.getElementById('occupant-form');
-    if (!form) return;
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const area = parseFloat(document.getElementById('area').value);
-        const occupancyType = document.getElementById('occupancy-type').value;
-        const resultDiv = document.getElementById('occupant-result');
-
-        if (!area || area <= 0 || !occupancyType) {
-            resultDiv.classList.remove('hidden');
-            resultDiv.innerHTML = `<h3>⚠️ Calculation Error</h3><p style="color: #a94442;">Please enter a valid Area and select an Occupancy Type.</p>`;
-            return;
-        }
-
-        const loadFactor = parseFloat(occupancyType);
-        let calculatedLoad = area / loadFactor;
-
-        // NFPA/IBC requires rounding UP to the next whole number
-        const finalOccupantLoad = Math.ceil(calculatedLoad);
-        
-        resultDiv.innerHTML = `
-            <h3>👥 Occupant Load Results (NFPA 101/IBC)</h3>
-            <div style="background: #f0f9ff; padding: 1rem; border-radius: 5px; margin: 1rem 0; text-align: center;">
-                <div style="font-size: 1.2rem; font-weight: bold; color: #555;">Required Occupancy Factor: </div>
-                <div style="font-size: 1.8rem; font-weight: bold; color: #1e40af;">${loadFactor} sq ft / person</div>
-            </div>
-            
-            <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
-                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Maximum Allowed Occupants:</div>
-                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${finalOccupantLoad} People</div>
-                <div style="font-size: 0.9rem; color: #666;">(Area ${area.toFixed(1)} / Factor ${loadFactor} = ${calculatedLoad.toFixed(2)}, rounded up)</div>
-            </div>
-        `;
-        
-        resultDiv.classList.remove('hidden');
-        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-}
-
-// =================================================================
-// 3. Smoke Detector Spacing Calculator
+// 2. Smoke Detector Spacing Calculator (NFPA 72)
 // =================================================================
 
 function setupSmokeCalculator() {
@@ -176,14 +132,7 @@ function setupSmokeCalculator() {
             return;
         }
 
-        // Standard NFPA 72 max spacing (unless tested): 30 feet
-        let spacing = 30; 
-        
-        if (airMovementFactor === 21) {
-             // For high air movement, spacing is typically reduced (e.g. from 30ft to 21ft)
-             spacing = 21;
-        }
-        
+        let spacing = airMovementFactor; 
         const maxCoverageArea = spacing * spacing;
 
         resultDiv.innerHTML = `
@@ -201,7 +150,7 @@ function setupSmokeCalculator() {
             </div>
 
             <div style="margin-top: 1.5rem; padding: 1rem; background: #fffbeb; border-radius: 5px; border-left: 4px solid #f97316;">
-                <strong>💡 Note:</strong> First detector must be placed half the spacing distance from the wall (e.g., 15ft for 30ft spacing).
+                <strong>💡 Note:</strong> First detector must be placed half the spacing distance from the wall (e.g., ${spacing / 2}ft for ${spacing}ft spacing).
             </div>
         `;
         
@@ -211,7 +160,7 @@ function setupSmokeCalculator() {
 }
 
 // =================================================================
-// 4. Voltage Drop Calculator
+// 3. Voltage Drop Calculator (NFPA 72)
 // =================================================================
 
 function setupVoltageCalculator() {
@@ -271,7 +220,7 @@ function setupVoltageCalculator() {
 }
 
 // =================================================================
-// 5. NAC Load Calculator
+// 4. NAC Load Calculator (NFPA 72)
 // =================================================================
 
 function setupNACCalculator() {
@@ -325,7 +274,117 @@ function setupNACCalculator() {
 }
 
 // =================================================================
-// 6. Hydrant Flow Calculator
+// 5. Water Demand Calculator (NFPA 13)
+// =================================================================
+
+function setupWaterDemandCalculator() {
+    const form = document.getElementById('waterdemand-form');
+    if (!form) return;
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const density = parseFloat(document.getElementById('density').value);
+        const designArea = parseFloat(document.getElementById('design-area').value);
+        const hoseStream = parseFloat(document.getElementById('hose-stream').value);
+        const resultDiv = document.getElementById('waterdemand-result');
+
+        if (!density || density <= 0 || !designArea || designArea <= 0 || isNaN(hoseStream)) {
+            resultDiv.classList.remove('hidden');
+            resultDiv.innerHTML = `<h3>⚠️ Calculation Error</h3><p style="color: #a94442;">Please enter valid, positive numbers for all fields.</p>`;
+            return;
+        }
+
+        // Calculation: Sprinkler Flow = Density * Design Area
+        const sprinklerFlow = density * designArea;
+        
+        // Total Demand = Sprinkler Flow + Hose Stream
+        const totalWaterDemand = sprinklerFlow + hoseStream;
+        
+        resultDiv.innerHTML = `
+            <h3>💦 Sprinkler Water Demand Results (NFPA 13)</h3>
+            
+            <div style="background: #f0f9ff; padding: 1rem; border-radius: 5px; margin: 1rem 0; text-align: center;">
+                <div style="font-size: 1.2rem; font-weight: bold; color: #555;">Required Sprinkler Flow (System): </div>
+                <div style="font-size: 2.5rem; font-weight: bold; color: #1e40af;">${sprinklerFlow.toFixed(1)} GPM</div>
+                <div style="font-size: 0.9rem; color: #666;">(${density} GPM/ft² × ${designArea} ft²)</div>
+            </div>
+
+            <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
+                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Total Required Water Demand:</div>
+                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${totalWaterDemand.toFixed(1)} GPM</div>
+                <div style="font-size: 0.9rem; color: #666;">(System Flow + ${hoseStream} GPM Hose Stream)</div>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding: 1rem; background: #fffbeb; border-radius: 5px; border-left: 4px solid #f97316;">
+                <strong>💡 Note:</strong> This is the flow requirement. Pressure requirement must be determined via hydraulic calculations (Hazen-Williams).
+            </div>
+        `;
+        
+        resultDiv.classList.remove('hidden');
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+}
+
+// =================================================================
+// 6. Required Fire Flow Calculator (NFPA 1 / IBC) (NEW)
+// =================================================================
+
+function setupFireFlowCalculator() {
+    const form = document.getElementById('fireflow-form');
+    if (!form) return;
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const area = parseFloat(document.getElementById('building-area').value);
+        const multiplier = parseFloat(document.getElementById('construction-type').value);
+        const resultDiv = document.getElementById('fireflow-result');
+
+        if (!area || area <= 0 || !multiplier || multiplier <= 0) {
+            resultDiv.classList.remove('hidden');
+            resultDiv.innerHTML = `<h3>⚠️ Calculation Error</h3><p style="color: #a94442;">Please enter a valid Building Area and select a Construction Type.</p>`;
+            return;
+        }
+
+        // Simplified Formula: Q = (102 * sqrt(Area)) * Multiplier
+        let calculatedFlow = 102 * Math.sqrt(area);
+        
+        // Max Flow Check (usually 3000 GPM max for most cases)
+        if (calculatedFlow > 3000) {
+            calculatedFlow = 3000;
+        }
+
+        const finalRequiredFlow = calculatedFlow * multiplier;
+        const requiredDuration = finalRequiredFlow <= 1500 ? 120 : 180; // Simple NFPA 1/IBC duration rule
+
+        resultDiv.innerHTML = `
+            <h3>🔥 Required Fire Flow Results (NFPA 1 / IBC)</h3>
+            
+            <div style="background: #f0f9ff; padding: 1rem; border-radius: 5px; margin: 1rem 0; text-align: center;">
+                <div style="font-size: 1.2rem; font-weight: bold; color: #555;">Base Flow Calculation (102 × √Area): </div>
+                <div style="font-size: 1.8rem; font-weight: bold; color: #1e40af;">${calculatedFlow.toFixed(0)} GPM</div>
+            </div>
+
+            <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
+                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Total Required Fire Flow:</div>
+                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${finalRequiredFlow.toFixed(0)} GPM</div>
+                <div style="font-size: 1.1rem; color: #666; margin-top: 10px;">Required Duration: **${requiredDuration} Minutes**</div>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding: 1rem; background: #fffbeb; border-radius: 5px; border-left: 4px solid #f97316;">
+                <strong>💡 Note:</strong> This is a non-sprinklered, single-building estimate. For fully sprinklered buildings, a reduction (0.5 multiplier) is applied. Consult local codes.
+            </div>
+        `;
+        
+        resultDiv.classList.remove('hidden');
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+}
+
+
+// =================================================================
+// 7. Hydrant Flow Calculator (NFPA 291)
 // =================================================================
 
 function setupHydrantCalculator() {
@@ -373,7 +432,7 @@ function setupHydrantCalculator() {
 }
 
 // =================================================================
-// 7. Friction Loss Calculator
+// 8. Friction Loss Calculator (Hazen-Williams)
 // =================================================================
 
 function setupFrictionLossCalculator() {
@@ -429,50 +488,43 @@ function setupFrictionLossCalculator() {
 }
 
 // =================================================================
-// 8. Water Demand Calculator (NEW)
+// 9. Occupant Load Calculator (NFPA 101/IBC)
 // =================================================================
 
-function setupWaterDemandCalculator() {
-    const form = document.getElementById('waterdemand-form');
+function setupOccupantLoadCalculator() {
+    const form = document.getElementById('occupant-form');
     if (!form) return;
     
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        const density = parseFloat(document.getElementById('density').value);
-        const designArea = parseFloat(document.getElementById('design-area').value);
-        const hoseStream = parseFloat(document.getElementById('hose-stream').value);
-        const resultDiv = document.getElementById('waterdemand-result');
+        const area = parseFloat(document.getElementById('area').value);
+        const occupancyType = document.getElementById('occupancy-type').value;
+        const resultDiv = document.getElementById('occupant-result');
 
-        if (!density || density <= 0 || !designArea || designArea <= 0 || isNaN(hoseStream)) {
+        if (!area || area <= 0 || !occupancyType) {
             resultDiv.classList.remove('hidden');
-            resultDiv.innerHTML = `<h3>⚠️ Calculation Error</h3><p style="color: #a94442;">Please enter valid, positive numbers for all fields.</p>`;
+            resultDiv.innerHTML = `<h3>⚠️ Calculation Error</h3><p style="color: #a94442;">Please enter a valid Area and select an Occupancy Type.</p>`;
             return;
         }
 
-        // Calculation: Sprinkler Flow = Density * Design Area
-        const sprinklerFlow = density * designArea;
-        
-        // Total Demand = Sprinkler Flow + Hose Stream
-        const totalWaterDemand = sprinklerFlow + hoseStream;
+        const loadFactor = parseFloat(occupancyType);
+        let calculatedLoad = area / loadFactor;
+
+        // NFPA/IBC requires rounding UP to the next whole number
+        const finalOccupantLoad = Math.ceil(calculatedLoad);
         
         resultDiv.innerHTML = `
-            <h3>💦 Sprinkler Water Demand Results (NFPA 13)</h3>
-            
+            <h3>👥 Occupant Load Results (NFPA 101/IBC)</h3>
             <div style="background: #f0f9ff; padding: 1rem; border-radius: 5px; margin: 1rem 0; text-align: center;">
-                <div style="font-size: 1.2rem; font-weight: bold; color: #555;">Required Sprinkler Flow (System): </div>
-                <div style="font-size: 2.5rem; font-weight: bold; color: #1e40af;">${sprinklerFlow.toFixed(1)} GPM</div>
-                <div style="font-size: 0.9rem; color: #666;">(${density} GPM/ft² × ${designArea} ft²)</div>
+                <div style="font-size: 1.2rem; font-weight: bold; color: #555;">Required Occupancy Factor: </div>
+                <div style="font-size: 1.8rem; font-weight: bold; color: #1e40af;">${loadFactor} sq ft / person</div>
             </div>
-
+            
             <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
-                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Total Required Water Demand:</div>
-                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${totalWaterDemand.toFixed(1)} GPM</div>
-                <div style="font-size: 0.9rem; color: #666;">(System Flow + ${hoseStream} GPM Hose Stream)</div>
-            </div>
-
-            <div style="margin-top: 1.5rem; padding: 1rem; background: #fffbeb; border-radius: 5px; border-left: 4px solid #f97316;">
-                <strong>💡 Note:</strong> This is the flow requirement. Pressure requirement must be determined via hydraulic calculations (Hazen-Williams).
+                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Maximum Allowed Occupants:</div>
+                <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${finalOccupantLoad} People</div>
+                <div style="font-size: 0.9rem; color: #666;">(Area ${area.toFixed(1)} / Factor ${loadFactor} = ${calculatedLoad.toFixed(2)}, rounded up)</div>
             </div>
         `;
         
@@ -482,7 +534,72 @@ function setupWaterDemandCalculator() {
 }
 
 // =================================================================
-// 9. Fire Pump Sizing Calculator (NEW)
+// 10. Sprinkler Head Spacing Calculator (NFPA 13) (NEW)
+// =================================================================
+
+function setupHeadSpacingCalculator() {
+    const form = document.getElementById('headspacing-form');
+    if (!form) return;
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const maxCoverageArea = parseFloat(document.getElementById('hazard-class').value);
+        const maxSpacing = parseFloat(document.getElementById('max-spacing').value);
+        const resultDiv = document.getElementById('headspacing-result');
+
+        if (!maxCoverageArea || maxCoverageArea <= 0 || !maxSpacing || maxSpacing <= 0) {
+            resultDiv.classList.remove('hidden');
+            resultDiv.innerHTML = `<h3>⚠️ Calculation Error</h3><p style="color: #a94442;">Please enter valid, positive numbers for all fields.</p>`;
+            return;
+        }
+
+        // NFPA 13 rules (simplified): Max Area determines Max Spacing in one direction.
+        // For a square coverage: Max Area = S * W. Max Wall Distance = Max Spacing / 2.
+        
+        // Find the side length of a square with MaxCoverageArea (Theoretical Max Spacing)
+        const sideLength = Math.sqrt(maxCoverageArea);
+        
+        // Max distance from wall or obstruction is half the maximum allowed spacing
+        const maxWallDistance = maxSpacing / 2; 
+
+        // Determine hazard class for display
+        let hazardClassText = "";
+        if (maxCoverageArea === 225) hazardClassText = "Light Hazard";
+        else if (maxCoverageArea === 130) hazardClassText = "Ordinary Hazard";
+        else if (maxCoverageArea === 100) hazardClassText = "Extra Hazard";
+        else hazardClassText = "Custom Hazard";
+
+
+        resultDiv.innerHTML = `
+            <h3>🌐 Sprinkler Head Spacing Results (NFPA 13)</h3>
+            
+            <div style="background: #f0f9ff; padding: 1rem; border-radius: 5px; margin: 1rem 0; text-align: center;">
+                <div style="font-size: 1.2rem; font-weight: bold; color: #555;">Selected Hazard Class: </div>
+                <div style="font-size: 1.8rem; font-weight: bold; color: #1e40af;">${hazardClassText}</div>
+                <div style="font-size: 0.9rem; color: #666;">(Max Area: ${maxCoverageArea} Sq Ft)</div>
+            </div>
+
+            <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid #047857;">
+                <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Key Spacing Limits:</div>
+                <div style="font-size: 1.2rem; color: #666; margin-top: 10px;">
+                    Maximum Center-to-Center Spacing (S or W): **${maxSpacing.toFixed(1)} Feet**<br>
+                    Maximum Wall Distance: **${maxWallDistance.toFixed(1)} Feet**
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding: 1rem; background: #fffbeb; border-radius: 5px; border-left: 4px solid #f97316;">
+                <strong>💡 Rule of Thumb:</strong> You must meet both the maximum area and maximum linear spacing requirements. Wall distance is always S/2.
+            </div>
+        `;
+        
+        resultDiv.classList.remove('hidden');
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+}
+
+// =================================================================
+// 11. Fire Pump Sizing Calculator (NFPA 20)
 // =================================================================
 
 function setupPumpSizingCalculator() {
@@ -506,22 +623,26 @@ function setupPumpSizingCalculator() {
         // Calculation: Required Pump Pressure = Required System Pressure - Available Pressure
         const requiredPumpPressure = systemPressure - availablePressure;
 
-        let statusText = "Pump selection looks acceptable for the given parameters.";
+        let statusText = "Pump is required to boost pressure.";
         let statusColor = "#047857";
         
         if (requiredPumpPressure <= 0) {
-            statusText = "A pump is likely not needed. The available water supply pressure is greater than the required system pressure. (P_Avail > P_Req)";
-            statusColor = "#1e40af";
+            statusText = "A pump is likely not needed. The available water supply pressure is greater than or equal to the required system pressure.";
+            statusColor = "#1e40af"; // Blue for informational
         }
         
-        // Find the next standard NFPA 20 flow size
-        const pumpFlowOptions = [25, 50, 100, 250, 500, 750, 1000, 1250, 1500, 2000, 2500, 3000];
-        let requiredPumpFlow = pumpFlowOptions.find(flow => flow >= systemFlow) || 3000;
+        // Find the next standard NFPA 20 flow size (GPM)
+        const pumpFlowOptions = [25, 50, 100, 250, 500, 750, 1000, 1250, 1500, 2000, 2500, 3000, 4000, 5000];
+        let requiredPumpFlow = pumpFlowOptions.find(flow => flow >= systemFlow) || 5000;
         
-        // Round pressure up to the nearest 5 PSI for a conservative rating selection
+        // Round pressure up to the nearest 5 PSI for a conservative rating selection, minimum of 40 PSI
         const pressureMargin = 5; 
-        const requiredPumpPressureRating = Math.ceil(requiredPumpPressure / pressureMargin) * pressureMargin;
+        const minPressureRating = 40;
+        let requiredPumpPressureRating = Math.ceil(requiredPumpPressure / pressureMargin) * pressureMargin;
 
+        if (requiredPumpPressureRating < minPressureRating) {
+            requiredPumpPressureRating = minPressureRating;
+        }
 
         resultDiv.innerHTML = `
             <h3>⚙️ Fire Pump Selection Guide (NFPA 20)</h3>
@@ -534,7 +655,7 @@ function setupPumpSizingCalculator() {
             <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; text-align: center; border: 2px solid ${statusColor};">
                 <div style="font-size: 1.8rem; font-weight: bold; color: #047857;">Minimum Pump Rating:</div>
                 <div style="font-size: 3rem; font-weight: bolder; color: #dc2626;">${requiredPumpFlow} GPM @ ${requiredPumpPressureRating} PSI</div>
-                <div style="font-size: 0.9rem; color: #666; margin-top: 10px;">(Flow selected is the next standard size above ${systemFlow} GPM)</div>
+                <div style="font-size: 0.9rem; color: #666; margin-top: 10px;">(Flow selected is the next standard NFPA 20 size above ${systemFlow} GPM)</div>
             </div>
 
             <div style="margin-top: 1.5rem; padding: 1rem; background: #fffbeb; border-radius: 5px; border-left: 4px solid #f97316;">
