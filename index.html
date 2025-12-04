@@ -6,7 +6,7 @@
     <title>Fire Safety Calculators | Professional NFPA Tools</title>
     
     <meta name="description" content="Free fire safety calculators for engineers. Battery standby, occupant load, smoke detector spacing, hydrant flow, friction loss, clean agent systems, voltage drop, NAC load, water mist, foam systems.">
-    <meta name="keywords" content="fire safety calculator, NFPA calculator, fire protection, sprinkler calculation, fire alarm battery, occupant load, friction loss, hydrant flow, NAC load">
+    <meta name="keywords" content="fire safety calculator, NFPA calculator, fire protection, sprinkler calculation, fire alarm battery, occupant load, friction loss, hydrant flow, NAC load, water demand, fire pump sizing">
     <meta name="author" content="FireSafetyTool.com">
     
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-376208036"></script>
@@ -21,7 +21,6 @@
     
     <link rel="stylesheet" href="/style.css">
     <style>
-        /* This style block remains for the header support note */
         .support-header {
             background: linear-gradient(90deg, #f0ad4e, #f9c370);
             color: #333;
@@ -39,7 +38,6 @@
         .support-header a:hover {
             text-decoration: underline;
         }
-        /* Ensure all buttons fit on smaller screens */
         .main-nav {
             justify-content: space-around;
         }
@@ -55,16 +53,18 @@
         <p>Professional Tools for NFPA Compliance</p>
         <nav class="main-nav">
             <button class="nav-btn active" data-calculator="battery">🔋 Battery Standby</button>
-            <button class="nav-btn" data-calculator="occupant">👥 Occupant Load</button>
             <button class="nav-btn" data-calculator="smoke">🚬 Smoke Spacing</button>
             <button class="nav-btn" data-calculator="voltage">⚡️ Voltage Drop</button>
-        </nav>
-        <nav class="main-nav" style="margin-top: 10px;">
             <button class="nav-btn" data-calculator="nac">📣 NAC Load</button>
-            <button class="nav-btn" data-calculator="hydrant">💧 Hydrant Flow</button>
-            <button class="nav-btn" data-calculator="friction">📐 Friction Loss</button>
         </nav>
         <nav class="main-nav" style="margin-top: 10px;">
+            <button class="nav-btn" data-calculator="waterdemand">💦 Water Demand</button>
+            <button class="nav-btn" data-calculator="friction">📐 Friction Loss</button>
+            <button class="nav-btn" data-calculator="hydrant">💧 Hydrant Flow</button>
+            <button class="nav-btn" data-calculator="pump">⚙️ Pump Sizing</button>
+        </nav>
+        <nav class="main-nav" style="margin-top: 10px;">
+            <button class="nav-btn" data-calculator="occupant">👥 Occupant Load</button>
             <a href="/categories.html" class="nav-btn" style="background: #1e40af;">More Categories</a>
             <a href="/contact.html" class="nav-btn" style="background: #047857;">Contact</a>
         </nav>
@@ -292,9 +292,58 @@
                     </div>
             </div>
             
-            <div id="categories-info" class="calculator-box hidden">
-                <h2>Category Information</h2>
-                <p>This section is available via the **More Categories** link in the navigation bar.</p>
+            <div id="waterdemand-calculator" class="calculator-box hidden">
+                <h2>💦 Sprinkler Water Demand (NFPA 13)</h2>
+                <p>Calculates the required flow (GPM) for a sprinkler system based on Area/Density method.</p>
+                
+                <form id="waterdemand-form">
+                    <div class="input-group">
+                        <label for="density">Required Design Density (GPM/Sq Ft):</label>
+                        <input type="number" id="density" step="0.01" min="0.05" placeholder="e.g., 0.15" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="design-area">Required Design Area (Sq Ft):</label>
+                        <input type="number" id="design-area" step="1" min="1000" placeholder="e.g., 1500" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="hose-stream">Required Hose Stream Allowance (GPM):</label>
+                        <select id="hose-stream" required>
+                            <option value="0">0 GPM (Light Hazard)</option>
+                            <option value="100">100 GPM (Ordinary Hazard)</option>
+                            <option value="250">250 GPM (Extra Hazard)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit">Calculate Total Water Demand</button>
+                </form>
+
+                <div id="waterdemand-result" class="result hidden">
+                    </div>
+            </div>
+
+            <div id="pump-calculator" class="calculator-box hidden">
+                <h2>⚙️ Fire Pump Sizing (Simplified)</h2>
+                <p>Calculates the required flow and pressure rating for a centrifugal fire pump.</p>
+                
+                <form id="pump-form">
+                    <div class="input-group">
+                        <label for="system-flow">Required System Flow (GPM) (from calculation):</label>
+                        <input type="number" id="system-flow" step="1" min="100" placeholder="e.g., 500" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="system-pressure">Required System Pressure (PSI) (at pump suction):</label>
+                        <input type="number" id="system-pressure" step="1" min="20" placeholder="e.g., 125" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="available-pressure">Minimum Available Suction Pressure (PSI):</label>
+                        <input type="number" id="available-pressure" step="1" min="0" placeholder="e.g., 40" required>
+                    </div>
+
+                    <button type="submit">Determine Pump Rating</button>
+                </form>
+
+                <div id="pump-result" class="result hidden">
+                    </div>
             </div>
             
         </div>
