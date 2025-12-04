@@ -9,6 +9,8 @@
     <meta name="keywords" content="fire safety calculator, NFPA calculator, fire protection, sprinkler calculation, fire alarm battery, occupant load, friction loss, hydrant flow, NAC load, water demand, fire pump sizing, sprinkler spacing, required fire flow">
     <meta name="author" content="FireSafetyTool.com">
     
+    <link rel="canonical" href="https://www.firesafetytool.com/"> 
+    
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-376208036"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -20,43 +22,20 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
     
     <link rel="stylesheet" href="/style.css">
-    <style>
-        .support-header {
-            background: linear-gradient(90deg, #f0ad4e, #f9c370);
-            color: #333;
-            padding: 1rem;
-            margin-bottom: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        .support-header a {
-            color: #b36300;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        .support-header a:hover {
-            text-decoration: underline;
-        }
-        .main-nav {
-            justify-content: space-around;
-        }
-        /* Ensure buttons wrap gracefully on small screens */
-        .main-nav .nav-btn {
-            font-size: 0.85rem;
-            padding: 0.5rem 0.8rem;
-            flex-grow: 1; /* Allow them to fill space */
-            min-width: 120px; /* Prevent them from getting too small */
-        }
-    </style>
-</head>
+    </head>
 <body>
     <header>
         <h1>🚒 Fire Safety Calculators</h1>
         <p>Professional Tools for NFPA Compliance</p>
+        
+        <div class="unit-toggle-container">
+            <label for="unit-switch">Units:</label>
+            <button id="unit-switch" data-unit="imperial">Imperial (Ft, PSI, GPM)</button>
+        </div>
+
         <nav class="main-nav">
             <button class="nav-btn active" data-calculator="battery">🔋 Battery Standby</button>
-            <button class="nav-btn" data-calculator="smoke"> ⚡️Smoke Spacing</button>
+            <button class="nav-btn" data-calculator="smoke">🚬 Smoke Spacing</button>
             <button class="nav-btn" data-calculator="voltage">⚡️ Voltage Drop</button>
             <button class="nav-btn" data-calculator="nac">📣 NAC Load</button>
         </nav>
@@ -70,14 +49,14 @@
             <button class="nav-btn" data-calculator="occupant">👥 Occupant Load</button>
             <button class="nav-btn" data-calculator="headspacing">🌐 Head Spacing</button>
             <button class="nav-btn" data-calculator="pump">⚙️ Pump Sizing</button>
-            <a href="/categories.html" class="nav-btn" style="background: #1e40af;">More Tools</a>
+            <a href="/resources.html" class="nav-btn" style="background: #1e40af;">Resources</a>
             <a href="/contact.html" class="nav-btn" style="background: #047857;">Contact</a>
         </nav>
     </header>
 
     <main>
         <div class="container">
-            <div style="margin: 2rem auto; text-align: center; background: #f8fafc; padding: 1.5rem; border-radius: 10px; border: 2px solid #d1d5db; max-width: 1000px;">
+            <div class="ad-placeholder">
                 <ins class="adsbygoogle"
                      style="display:block"
                      data-ad-client="ca-pub-6687860250561653"
@@ -99,19 +78,19 @@
                 <p>Calculates the required Amp-Hour (Ah) capacity for a fire alarm system battery (NFPA 72).</p>
                 <form id="battery-form">
                     <div class="input-group">
-                        <label for="standby-current">Standby Current (Amps):</label>
+                        <label for="standby-current" data-label-imperial="Standby Current (Amps):" data-label-metric="Standby Current (Amps):">Standby Current (Amps):</label>
                         <input type="number" id="standby-current" step="0.001" placeholder="e.g., 0.5" required>
                     </div>
                     <div class="input-group">
-                        <label for="alarm-current">Alarm Current (Amps):</label>
+                        <label for="alarm-current" data-label-imperial="Alarm Current (Amps):" data-label-metric="Alarm Current (Amps):">Alarm Current (Amps):</label>
                         <input type="number" id="alarm-current" step="0.001" placeholder="e.g., 2.3" required>
                     </div>
                     <div class="input-group">
-                        <label for="standby-hours">Required Standby Time (Hours):</label>
+                        <label for="standby-hours" data-label-imperial="Required Standby Time (Hours):" data-label-metric="Required Standby Time (Hours):">Required Standby Time (Hours):</label>
                         <input type="number" id="standby-hours" step="1" min="1" value="24" required>
                     </div>
                     <div class="input-group">
-                        <label for="alarm-minutes">Required Alarm Time (Minutes):</label>
+                        <label for="alarm-minutes" data-label-imperial="Required Alarm Time (Minutes):" data-label-metric="Required Alarm Time (Minutes):">Required Alarm Time (Minutes):</label>
                         <input type="number" id="alarm-minutes" step="1" min="1" value="5" required>
                     </div>
                     <button type="submit">Calculate Battery Ah</button>
@@ -122,13 +101,13 @@
             </div>
 
             <div id="smoke-calculator" class="calculator-box hidden">
-                <h2>⚡️Smoke Detector Spacing</h2>
+                <h2>🚬 Smoke Detector Spacing</h2>
                 <p>Calculate the maximum area a spot-type smoke detector can cover (NFPA 72).</p>
                 
                 <form id="smoke-form">
                     <div class="input-group">
-                        <label for="ceiling-height">Ceiling Height (Feet):</label>
-                        <input type="number" id="ceiling-height" step="1" min="8" placeholder="Enter ceiling height (e.g., 10)" required>
+                        <label for="ceiling-height" data-label-imperial="Ceiling Height (Feet):" data-label-metric="Ceiling Height (Meters):">Ceiling Height (Feet):</label>
+                        <input type="number" id="ceiling-height" step="1" min="2.5" placeholder="e.g., 10" required>
                     </div>
 
                     <div class="input-group">
@@ -152,22 +131,22 @@
                 
                 <form id="voltage-form">
                     <div class="input-group">
-                        <label for="wire-length">Wire Length (Feet) of the longest circuit run:</label>
+                        <label for="wire-length" data-label-imperial="Wire Length (Feet) of the longest circuit run:" data-label-metric="Wire Length (Meters) of the longest circuit run:">Wire Length (Feet) of the longest circuit run:</label>
                         <input type="number" id="wire-length" step="1" min="1" placeholder="e.g., 500" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="circuit-current">Total Circuit Current (Amps) in Alarm:</label>
+                        <label for="circuit-current" data-label-imperial="Total Circuit Current (Amps) in Alarm:" data-label-metric="Total Circuit Current (Amps) in Alarm:">Total Circuit Current (Amps) in Alarm:</label>
                         <input type="number" id="circuit-current" step="0.001" min="0.001" placeholder="e.g., 1.2" required>
                     </div>
 
                     <div class="input-group">
                         <label for="wire-gauge">Wire Gauge (AWG):</label>
                         <select id="wire-gauge" required>
-                            <option value="1.62">18 AWG (1.62 Ohms/1000 ft)</option>
-                            <option value="1.02">16 AWG (1.02 Ohms/1000 ft)</option>
-                            <option value="0.64">14 AWG (0.64 Ohms/1000 ft)</option>
-                            <option value="0.40">12 AWG (0.40 Ohms/1000 ft)</option>
+                            <option value="1.62">18 AWG (1.62 Ω/1000ft)</option>
+                            <option value="1.02">16 AWG (1.02 Ω/1000ft)</option>
+                            <option value="0.64">14 AWG (0.64 Ω/1000ft)</option>
+                            <option value="0.40">12 AWG (0.40 Ω/1000ft)</option>
                         </select>
                     </div>
 
@@ -221,19 +200,19 @@
                 
                 <form id="waterdemand-form">
                     <div class="input-group">
-                        <label for="density">Required Design Density (GPM/Sq Ft):</label>
+                        <label for="density" data-label-imperial="Required Design Density (GPM/Sq Ft):" data-label-metric="Required Design Density (LPM/m²):">Required Design Density (GPM/Sq Ft):</label>
                         <input type="number" id="density" step="0.01" min="0.05" placeholder="e.g., 0.15" required>
                     </div>
                     <div class="input-group">
-                        <label for="design-area">Required Design Area (Sq Ft):</label>
-                        <input type="number" id="design-area" step="1" min="1000" placeholder="e.g., 1500" required>
+                        <label for="design-area" data-label-imperial="Required Design Area (Sq Ft):" data-label-metric="Required Design Area (m²):">Required Design Area (Sq Ft):</label>
+                        <input type="number" id="design-area" step="1" min="100" placeholder="e.g., 1500" required>
                     </div>
                     <div class="input-group">
-                        <label for="hose-stream">Required Hose Stream Allowance (GPM):</label>
+                        <label for="hose-stream" data-label-imperial="Required Hose Stream Allowance (GPM):" data-label-metric="Required Hose Stream Allowance (L/s):">Required Hose Stream Allowance (GPM):</label>
                         <select id="hose-stream" required>
-                            <option value="0">0 GPM (Light Hazard)</option>
-                            <option value="100">100 GPM (Ordinary Hazard)</option>
-                            <option value="250">250 GPM (Extra Hazard)</option>
+                            <option value="0">0 GPM</option>
+                            <option value="100">100 GPM</option>
+                            <option value="250">250 GPM</option>
                         </select>
                     </div>
 
@@ -250,7 +229,7 @@
                 
                 <form id="fireflow-form">
                     <div class="input-group">
-                        <label for="building-area">Largest Building Area (Sq Ft):</label>
+                        <label for="building-area" data-label-imperial="Largest Building Area (Sq Ft):" data-label-metric="Largest Building Area (m²):">Largest Building Area (Sq Ft):</label>
                         <input type="number" id="building-area" step="1" min="100" placeholder="e.g., 10000" required>
                     </div>
                     <div class="input-group">
@@ -275,11 +254,11 @@
                 
                 <form id="hydrant-form">
                     <div class="input-group">
-                        <label for="pitot-pressure">Measured Pitot Pressure (PSI):</label>
+                        <label for="pitot-pressure" data-label-imperial="Measured Pitot Pressure (PSI):" data-label-metric="Measured Pitot Pressure (Bar):">Measured Pitot Pressure (PSI):</label>
                         <input type="number" id="pitot-pressure" step="0.1" min="1" placeholder="e.g., 25" required>
                     </div>
                     <div class="input-group">
-                        <label for="nozzle-diameter">Nozzle Diameter (Inches):</label>
+                        <label for="nozzle-diameter" data-label-imperial="Nozzle Diameter (Inches):" data-label-metric="Nozzle Diameter (mm):">Nozzle Diameter (Inches):</label>
                         <input type="number" id="nozzle-diameter" step="0.01" min="1" placeholder="e.g., 2.5" required>
                     </div>
                     <div class="input-group">
@@ -304,15 +283,15 @@
                 
                 <form id="friction-form">
                     <div class="input-group">
-                        <label for="flow-rate">Water Flow Rate (GPM):</label>
+                        <label for="flow-rate" data-label-imperial="Water Flow Rate (GPM):" data-label-metric="Water Flow Rate (L/s):">Water Flow Rate (GPM):</label>
                         <input type="number" id="flow-rate" step="1" min="1" placeholder="e.g., 500" required>
                     </div>
                     <div class="input-group">
-                        <label for="pipe-length">Pipe Length (Feet):</label>
+                        <label for="pipe-length" data-label-imperial="Pipe Length (Feet):" data-label-metric="Pipe Length (Meters):">Pipe Length (Feet):</label>
                         <input type="number" id="pipe-length" step="1" min="1" placeholder="e.g., 100" required>
                     </div>
                     <div class="input-group">
-                        <label for="pipe-diameter">Pipe Diameter (Inches):</label>
+                        <label for="pipe-diameter" data-label-imperial="Pipe Diameter (Inches):" data-label-metric="Pipe Diameter (mm):">Pipe Diameter (Inches):</label>
                         <input type="number" id="pipe-diameter" step="0.01" min="0.5" placeholder="e.g., 6" required>
                     </div>
                     <div class="input-group">
@@ -338,22 +317,22 @@
                 
                 <form id="occupant-form">
                     <div class="input-group">
-                        <label for="area">Area of Space (Sq Ft):</label>
-                        <input type="number" id="area" step="0.1" placeholder="Enter floor area in square feet" required>
+                        <label for="area" data-label-imperial="Area of Space (Sq Ft):" data-label-metric="Area of Space (m²):">Area of Space (Sq Ft):</label>
+                        <input type="number" id="area" step="0.1" placeholder="Enter floor area" required>
                     </div>
 
                     <div class="input-group">
                         <label for="occupancy-type">Use/Occupancy Group:</label>
                         <select id="occupancy-type" required>
                             <option value="">-- Select an Occupancy Type --</option>
-                            <option value="5">Assembly - Concentrated (e.g., Theater, Auditorium, Fixed Seats)</option>
-                            <option value="7">Educational - Classroom Area</option>
-                            <option value="15">Assembly - Unconcentrated (e.g., Dining, Lobbies, Exhibit Halls)</option>
-                            <option value="30">Mercantile - Sales Floor (Ground Floor)</option>
-                            <option value="50">Business/Office Area</option>
-                            <option value="60">Mercantile - Sales Floor (Upper Floors)</option>
-                            <option value="100">Storage, Mechanical Equipment</option>
-                            <option value="200">Residential (Hotel/Apartment Unit)</option>
+                            <option value="5">Assembly - Concentrated (5 Sq Ft/Person)</option>
+                            <option value="7">Educational - Classroom Area (7 Sq Ft/Person)</option>
+                            <option value="15">Assembly - Unconcentrated (15 Sq Ft/Person)</option>
+                            <option value="30">Mercantile - Sales Floor (Ground Floor: 30 Sq Ft/Person)</option>
+                            <option value="50">Business/Office Area (50 Sq Ft/Person)</option>
+                            <option value="60">Mercantile - Sales Floor (Upper Floors: 60 Sq Ft/Person)</option>
+                            <option value="100">Storage, Mechanical Equipment (100 Sq Ft/Person)</option>
+                            <option value="200">Residential Unit (200 Sq Ft/Person)</option>
                         </select>
                     </div>
 
@@ -378,8 +357,8 @@
                         </select>
                     </div>
                     <div class="input-group">
-                        <label for="max-spacing">Maximum Spacing Allowed (Feet, usually 15ft for LH):</label>
-                        <input type="number" id="max-spacing" step="1" min="10" value="15" placeholder="e.g., 15" required>
+                        <label for="max-spacing" data-label-imperial="Maximum Spacing Allowed (Feet):" data-label-metric="Maximum Spacing Allowed (Meters):">Maximum Spacing Allowed (Feet):</label>
+                        <input type="number" id="max-spacing" step="1" min="3" value="15" placeholder="e.g., 15" required>
                     </div>
 
                     <button type="submit">Calculate Spacing Limits</button>
@@ -395,15 +374,15 @@
                 
                 <form id="pump-form">
                     <div class="input-group">
-                        <label for="system-flow">Required System Flow (GPM) (from calculation):</label>
+                        <label for="system-flow" data-label-imperial="Required System Flow (GPM) (from calculation):" data-label-metric="Required System Flow (L/s) (from calculation):">Required System Flow (GPM) (from calculation):</label>
                         <input type="number" id="system-flow" step="1" min="100" placeholder="e.g., 500" required>
                     </div>
                     <div class="input-group">
-                        <label for="system-pressure">Required System Pressure (PSI) (at system demand point):</label>
+                        <label for="system-pressure" data-label-imperial="Required System Pressure (PSI) (at system demand point):" data-label-metric="Required System Pressure (Bar) (at system demand point):">Required System Pressure (PSI) (at system demand point):</label>
                         <input type="number" id="system-pressure" step="1" min="20" placeholder="e.g., 125" required>
                     </div>
                     <div class="input-group">
-                        <label for="available-pressure">Minimum Available Suction Pressure (PSI):</label>
+                        <label for="available-pressure" data-label-imperial="Minimum Available Suction Pressure (PSI):" data-label-metric="Minimum Available Suction Pressure (Bar):">Minimum Available Suction Pressure (PSI):</label>
                         <input type="number" id="available-pressure" step="1" min="0" placeholder="e.g., 40" required>
                     </div>
 
@@ -420,14 +399,14 @@
     <footer>
         <div class="footer-links">
             <a href="/index.html">Home</a>
-            <a href="/categories.html">Categories</a>
+            <a href="/resources.html">Resources</a>
             <a href="/privacy.html">Privacy</a>
             <a href="/terms.html">Terms</a>
             <a href="/affiliate.html">Affiliate</a>
             <a href="/contact.html">Contact</a>
         </div>
         <p><strong>⚠️ Important:</strong> These calculators provide estimates only. Always consult professionals for final designs.</p>
-        <p>© 2025 FireSafetyTool.com. All rights reserved.</p>
+        <p>© 2024 FireSafetyTool.com. All rights reserved.</p>
     </footer>
 
     <script src="/script.js"></script>
