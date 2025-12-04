@@ -22,7 +22,7 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
     
     <link rel="stylesheet" href="/style.css">
-</head>
+    </head>
 <body>
     <header>
         <h1>🚒 Fire Safety Calculators</h1>
@@ -35,7 +35,7 @@
 
         <nav class="main-nav">
             <button class="nav-btn active" data-calculator="battery">🔋 Battery Standby</button>
-            <button class="nav-btn" data-calculator="smoke">⚡️ Smoke Spacing</button>
+            <button class="nav-btn" data-calculator="smoke">🚬 Smoke Spacing</button>
             <button class="nav-btn" data-calculator="voltage">⚡️ Voltage Drop</button>
             <button class="nav-btn" data-calculator="nac">📣 NAC Load</button>
         </nav>
@@ -55,30 +55,30 @@
     </header>
 
     <main>
+        <div class="ad-placeholder ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-6687860250561653"
+                 data-ad-slot="YOUR_AD_SLOT_ID_HERE"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #6b7280;">Advertisement Space</p>
+        </div>
+        
+        <div class="support-links-container">
+            <p class="support-text">Support this free tool by using our affiliate links or buying us a coffee:</p>
+            <a href="/affiliate.html" class="support-btn affiliate-btn">
+                🛒 Using Our Affiliate Links
+            </a>
+            <a href="https://buymeacoffee.com/s.amjathkhan" target="_blank" class="support-btn coffee-btn"> 
+                ☕ Buying Us a Coffee
+            </a>
+        </div>
+        
         <div class="container">
-            <div class="ad-placeholder">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-6687860250561653"
-                     data-ad-slot="YOUR_AD_SLOT_ID_HERE"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-                <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #6b7280;">Advertisement Space</p>
-            </div>
-            
-            <div class="support-links-container">
-                <p class="support-text">Support this free tool by:</p>
-                <a href="/affiliate.html" class="support-btn affiliate-btn">
-                    🛒 Using Our Affiliate Links
-                </a>
-                <a href="https://ko-fi.com/yoursafetytool" target="_blank" class="support-btn coffee-btn"> 
-                    ☕ Buying Us a Coffee
-                </a>
-            </div>
-            
             <div id="battery-calculator" class="calculator-box">
                 <h2>🔋 Battery Standby Calculator</h2>
                 <p>Calculates the required Amp-Hour (Ah) capacity for a fire alarm system battery (NFPA 72).</p>
@@ -107,7 +107,7 @@
             </div>
 
             <div id="smoke-calculator" class="calculator-box hidden">
-                <h2>⚡️Smoke Detector Spacing</h2>
+                <h2>🚬 Smoke Detector Spacing</h2>
                 <p>Calculate the maximum area a spot-type smoke detector can cover (NFPA 72).</p>
                 
                 <form id="smoke-form">
@@ -384,7 +384,7 @@
                         <input type="number" id="system-flow" step="1" min="100" placeholder="e.g., 500" required>
                     </div>
                     <div class="input-group">
-                        <label for="system-pressure" data-label-imperial="Required System Pressure (PSI) (at system demand point):" data-label-metric="Required System Pressure (Bar) (at system demand point):">Required System Pressure (PSI) (at system demand point):</label>
+                        <label for="system-pressure" data-label-imperial="Required System Pressure (PSI) (at system demand point):" data-label-metric="Required System Pressure (Bar) (at system demand point):">Required System Pressure (PSI):</label>
                         <input type="number" id="system-pressure" step="1" min="20" placeholder="e.g., 125" required>
                     </div>
                     <div class="input-group">
@@ -398,8 +398,8 @@
                 <div id="pump-result" class="result hidden">
                     </div>
             </div>
-            
-        </div>
+
+            </div>
     </main>
 
     <footer>
@@ -412,7 +412,7 @@
             <a href="/contact.html">Contact</a>
         </div>
         <p><strong>⚠️ Important:</strong> These calculators provide estimates only. Always consult professionals for final designs.</p>
-        <p>© 2025 FireSafetyTool.com. All rights reserved.</p>
+        <p>© 2024 FireSafetyTool.com. All rights reserved.</p>
     </footer>
 
     <script src="/script.js"></script>
