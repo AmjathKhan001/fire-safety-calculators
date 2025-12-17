@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire Safety Blog | Latest News, Tips & Code Updates</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Expert fire safety blog: NFPA code updates, calculation tips, industry news, and professional insights for fire protection engineers.">
+    <meta name="keywords" content="fire safety blog, NFPA updates, fire protection engineering, safety tips, code compliance">
+    <meta name="author" content="FireSafetyTool.com">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-title">
+                <img src="/logo.png" alt="Fire Safety Tools Logo" class="logo">
+                <div>
+                    <h1>Fire Safety Blog</h1>
+                    <p>Expert Insights, Code Updates & Professional Tips</p>
+                </div>
+            </div>
+            
+            <div class="blog-search">
+                <input type="text" placeholder="Search blog posts..." id="blog-search">
+                <button onclick="searchBlog()"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="blog-nav">
+            <a href="/index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="/blog.html" class="active"><i class="fas fa-blog"></i> Blog</a>
+            <a href="#nfpa-updates"><i class="fas fa-file-alt"></i> NFPA Updates</a>
+            <a href="#calculation-tips"><i class="fas fa-calculator"></i> Calculation Tips</a>
+            <a href="#industry-news"><i class="fas fa-newspaper"></i> Industry News</a>
+            <a href="#case-studies"><i class="fas fa-chart-line"></i> Case Studies</a>
+            <a href="/resources.html"><i class="fas fa-tools"></i> Resources</a>
+        </nav>
+    </header>
+
+    <div class="main-wrapper">
+        <!-- Sidebar -->
+        <aside class="blog-sidebar">
+            <!-- Categories -->
+            <div class="sidebar-section">
+                <h3><i class="fas fa-folder"></i> Categories</h3>
+                <ul class="category-list">
+                    <li><a href="#"><i class="fas fa-fire"></i> Suppression Systems</a></li>
+                    <li><a href="#"><i class="fas fa-bell"></i> Detection & Alarm</a></li>
+                    <li><a href="#"><i class="fas fa-door-open"></i> Egress & Exit</a></li>
+                    <li><a href="#"><i class="fas fa-bolt"></i> Electrical Safety</a></li>
+                    <li><a href="#"><i class="fas fa-flask"></i> Hazardous Materials</a></li>
+                    <li><a href="#"><i class="fas fa-building"></i> Building Codes</a></li>
+                    <li><a href="#"><i class="fas fa-tools"></i> Tools & Calculators</a></li>
+                    <li><a href="#"><i class="fas fa-graduation-cap"></i> Training & Certification</a></li>
+                </ul>
+            </div>
+            
+            <!-- Popular Posts -->
+            <div class="sidebar-section">
+                <h3><i class="fas fa-chart-line"></i> Popular Posts</h3>
+                <div class="popular-posts">
+                    <div class="popular-post">
+                        <span class="popular-badge">🔥 Hot</span>
+                        <h4>NFPA 72: 2025 Changes Explained</h4>
+                        <p>What you need to know about the latest smoke detector requirements...</p>
+                        <a href="#">Read More →</a>
+                    </div>
+                    <div class="popular-post">
+                        <span class="popular-badge">🆕 New</span>
+                        <h4>Clean Agent System Design Mistakes</h4>
+                        <p>Common errors in FM-200 and NOVEC system calculations...</p>
+                        <a href="#">Read More →</a>
+                    </div>
+                    <div class="popular-post">
+                        <span class="popular-badge">⭐ Top</span>
+                        <h4>Fire Pump Sizing Guide</h4>
+                        <p>Step-by-step methodology for accurate pump selection...</p>
+                        <a href="#">Read More →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Newsletter -->
+            <div class="sidebar-section newsletter">
+                <h3><i class="fas fa-envelope"></i> Newsletter</h3>
+                <p>Get fire safety updates delivered to your inbox</p>
+                <input type="email" placeholder="Your email address">
+                <button class="subscribe-btn">Subscribe</button>
+                <small>No spam, unsubscribe anytime</small>
+            </div>
+            
+            <!-- Ad -->
+            <div class="sidebar-ad">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
+                <ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-6t+ed+2i-1n-4w" data-ad-client="ca-pub-6687860250561653" data-ad-slot="1234567895"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+        </aside>
+
+        <!-- Main Blog Content -->
+        <main class="blog-content">
+            <!-- Featured Post -->
+            <div class="featured-post">
+                <div class="featured-badge">FEATURED</div>
+                <img src="https://images.unsplash.com/photo-1544098281-073ae35f5ac5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Fire Safety Engineering">
+                <div class="featured-content">
+                    <h2>Understanding NFPA 2025 Code Changes: What Engineers Need to Know</h2>
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar"></i> December 18, 2025</span>
+                        <span><i class="far fa-user"></i> John Smith, PE</span>
+                        <span><i class="far fa-clock"></i> 8 min read</span>
+                    </div>
+                    <p>The 2025 edition of NFPA codes brings significant changes that will impact fire protection system design. In this comprehensive guide, we break down the key updates and provide practical implementation advice...</p>
+                    <a href="#" class="read-more">Read Full Article →</a>
+                </div>
+            </div>
+
+            <!-- Blog Posts Grid -->
+            <div class="blog-grid">
+                <!-- Post 1 -->
+                <article class="blog-post">
+                    <div class="post-category calculation-tips">Calculation Tips</div>
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Fire Pump Calculation">
+                    <div class="post-content">
+                        <h3>5 Common Mistakes in Fire Pump Calculations</h3>
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar"></i> Dec 15, 2025</span>
+                            <span><i class="far fa-comment"></i> 24 comments</span>
+                        </div>
+                        <p>Avoid these common errors that can lead to under-sized or over-sized fire pump systems. Learn the correct methodology for accurate calculations...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Post 2 -->
+                <article class="blog-post">
+                    <div class="post-category nfpa-updates">NFPA Updates</div>
+                    <img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Smoke Detector">
+                    <div class="post-content">
+                        <h3>New Smoke Detector Spacing Requirements (NFPA 72 2025)</h3>
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar"></i> Dec 10, 2025</span>
+                            <span><i class="far fa-comment"></i> 18 comments</span>
+                        </div>
+                        <p>The 2025 edition introduces changes to smoke detector spacing based on new research. Here's how it affects your designs...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Post 3 -->
+                <article class="blog-post">
+                    <div class="post-category case-studies">Case Study</div>
+                    <img src="https://images.unsplash.com/photo-1542729173-07c8d7766f5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="High-Rise Building">
+                    <div class="post-content">
+                        <h3>High-Rise Fire Protection: A Case Study Analysis</h3>
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar"></i> Dec 5, 2025</span>
+                            <span><i class="far fa-comment"></i> 32 comments</span>
+                        </div>
+                        <p>Detailed analysis of fire protection systems in a 50-story commercial building. Lessons learned and best practices...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Post 4 -->
+                <article class="blog-post">
+                    <div class="post-category tools">Tools & Calculators</div>
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Fire Safety Tools">
+                    <div class="post-content">
+                        <h3>How to Use Our Fire Safety Calculators Effectively</h3>
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar"></i> Dec 1, 2025</span>
+                            <span><i class="far fa-comment"></i> 15 comments</span>
+                        </div>
+                        <p>Maximize the potential of our calculator suite with these pro tips and hidden features you might have missed...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Post 5 -->
+                <article class="blog-post">
+                    <div class="post-category industry-news">Industry News</div>
+                    <img src="https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Fire Safety Technology">
+                    <div class="post-content">
+                        <h3>Emerging Technologies in Fire Detection Systems</h3>
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar"></i> Nov 28, 2025</span>
+                            <span><i class="far fa-comment"></i> 21 comments</span>
+                        </div>
+                        <p>AI-powered detection, IoT integration, and other technological advancements shaping the future of fire safety...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Post 6 -->
+                <article class="blog-post">
+                    <div class="post-category training">Training</div>
+                    <img src="https://images.unsplash.com/photo-1583324113626-70df0f4deaab?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Fire Safety Training">
+                    <div class="post-content">
+                        <h3>Essential Certifications for Fire Protection Engineers</h3>
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar"></i> Nov 25, 2025</span>
+                            <span><i class="far fa-comment"></i> 29 comments</span>
+                        </div>
+                        <p>Guide to the most valuable certifications for career advancement in fire protection engineering...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="page-btn active">1</a>
+                <a href="#" class="page-btn">2</a>
+                <a href="#" class="page-btn">3</a>
+                <a href="#" class="page-btn">4</a>
+                <a href="#" class="page-btn">5</a>
+                <a href="#" class="page-btn next">Next →</a>
+            </div>
+
+            <!-- Newsletter CTA -->
+            <div class="newsletter-cta">
+                <h3><i class="fas fa-paper-plane"></i> Stay Updated with Fire Safety News</h3>
+                <p>Join 5,000+ engineers who receive our weekly fire safety insights and code updates</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address">
+                    <button class="cta-btn">Subscribe Now</button>
+                </div>
+                <small>No spam. Unsubscribe anytime.</small>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h4>Fire Safety Tools</h4>
+                    <p>Professional fire safety calculators and resources for engineers worldwide.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <a href="/index.html">All Calculators</a>
+                    <a href="/blog.html">Blog</a>
+                    <a href="/resources.html">Resources</a>
+                    <a href="/contact.html">Contact</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <a href="/privacy.html">Privacy Policy</a>
+                    <a href="/terms.html">Terms of Service</a>
+                    <a href="/affiliate.html">Affiliate Disclosure</a>
+                    <a href="/disclaimer.html">Disclaimer</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-envelope"></i> contact@firesafetytool.com</p>
+                    <p><i class="fas fa-phone"></i> Support: Available 24/7</p>
+                    <p>FireSafetyTool.com</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 FireSafetyTool.com | All rights reserved | Part of Safetyguide360 Network</p>
+                <p class="disclaimer">Disclaimer: Calculations are estimates only. Always consult licensed professionals.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Blog JavaScript -->
+    <script>
+        // Search functionality
+        function searchBlog() {
+            const query = document.getElementById('blog-search').value;
+            if (query.trim()) {
+                alert(`Searching for: ${query}\n\nThis would connect to a real search backend.`);
+                // In production: window.location.href = `/search?q=${encodeURIComponent(query)}`;
+            }
+        }
+        
+        // Newsletter subscription
+        document.querySelectorAll('.subscribe-btn, .cta-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const email = this.closest('.newsletter, .newsletter-form').querySelector('input[type="email"]').value;
+                if (validateEmail(email)) {
+                    alert('Thank you for subscribing! Please check your email to confirm.');
+                    // In production: Send to your email service
+                } else {
+                    alert('Please enter a valid email address.');
+                }
+            });
+        });
+        
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.blog-nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Initialize AdSense
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</body>
+</html>
