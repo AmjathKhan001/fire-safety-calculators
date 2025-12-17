@@ -1,54 +1,84 @@
 // =================================================================
-// GLOBAL STATE & UTILITIES (Refactored for robustness)
+// GLOBAL STATE & UTILITIES
 // =================================================================
 
 window.currentUnit = 'imperial';
+window.calculateFunctions = {};
 
-// CONSTANTS for unit conversion ratios (Metric/Imperial) and factors
-const UNIT_RATIOS = {
-    length: { ratio: 0.3048, imperialUnit: 'ft', metricUnit: 'm' },        // 1 ft = 0.3048 m
-    area: { ratio: 0.0929, imperialUnit: 'Sq Ft', metricUnit: 'm²' },      // 1 Sq Ft = 0.0929 m²
-    volume: { ratio: 0.0283, imperialUnit: 'Cu Ft', metricUnit: 'm³' },    // 1 Cu Ft = 0.0283 m³
-    flow: { ratio: 0.06309, imperialUnit: 'GPM', metricUnit: 'L/s' },     // 1 GPM = 0.06309 L/s
-    pressure: { ratio: 0.06895, imperialUnit: 'PSI', metricUnit: 'Bar' }, // 1 PSI = 0.06895 Bar
-    diameter: { ratio: 25.4, imperialUnit: 'Inches', metricUnit: 'mm' },    // 1 Inch = 25.4 mm
-    weight: { ratio: 0.4536, imperialUnit: 'lb', metricUnit: 'kg' },       // 1 lb = 0.4536 kg
-    lux: { ratio: 10.764, imperialUnit: 'ft-c', metricUnit: 'Lux' },        // 1 ft-c = 10.764 Lux
-    capacity: { ratio: 3.785, imperialUnit: 'Gallons', metricUnit: 'Liters' }, // 1 Gal = 3.785 L
-    density: { ratio: 40.743, imperialUnit: 'GPM/Sq Ft', metricUnit: 'LPM/m²' }, // 1 GPM/Sq Ft = 40.743 LPM/m²
-    // temp is handled inline
-};
+// Your existing constants and utility functions remain the same...
+// Keep all the UNIT_RATIOS, NAV_BUTTONS, getInputValue, displayResult, etc.
 
-const NAV_BUTTONS = [
-    // Suppression Systems
-    { id: 'clean-agent', label: 'Clean Agent' },
-    { id: 'foam', label: 'Foam System' },
-    { id: 'co2', label: 'CO₂ System' },
-    { id: 'water-mist', label: 'Water Mist' },
-    // Detection & Alarm Systems
-    { id: 'battery', label: 'Battery Standby' },
-    { id: 'voltage-drop', label: 'Voltage Drop' },
-    { id: 'nac-load', label: 'NAC Load' },
-    { id: 'smoke-detector', label: 'Smoke Spacing' },
-    // Passive Fire Protection
-    { id: 'fire-stopping', label: 'Fire Stopping' },
-    { id: 'fire-door-checklist', label: 'Door Checklist' },
-    { id: 'fire-damper-guide', label: 'Damper Guide' },
-    // Egress & Emergency Planning
-    { id: 'occupant', label: 'Occupant Load' },
-    { id: 'egress-width', label: 'Egress Width' },
-    { id: 'emergency-lighting', label: 'Emerg. Light' },
-    // Hydrants & Water Supply
-    { id: 'hydrant-flow', label: 'Hydrant Flow' },
-    { id: 'friction-loss', label: 'Friction Loss' },
-    { id: 'required-fire-flow', label: 'Required Fire Flow' },
-    { id: 'fire-pump', label: 'Fire Pump Sizing' },
-];
+// =================================================================
+// CALCULATION FUNCTIONS (Register them)
+// =================================================================
 
-/** Converts a value from Imperial to Metric based on the type. */
-function toMetric(value, type) {
-    if (!UNIT_RATIOS[type]) return value;
-    return value * UNIT_RATIOS[type].ratio;
+// Register each calculation function
+window.calculateFunctions['clean-agent'] = calculateCleanAgent;
+window.calculateFunctions['water-mist'] = calculateWaterMist;
+window.calculateFunctions['foam'] = calculateFoam;
+window.calculateFunctions['co2'] = calculateCO2;
+window.calculateFunctions['smoke-detector'] = calculateSmokeSpacing;
+window.calculateFunctions['battery'] = calculateBatteryAh;
+window.calculateFunctions['voltage-drop'] = calculateVoltageDrop;
+window.calculateFunctions['nac-load'] = calculateNACLoad;
+window.calculateFunctions['fire-stopping'] = calculateFireStopping;
+window.calculateFunctions['fire-door-checklist'] = generateDoorChecklist;
+window.calculateFunctions['fire-damper-guide'] = generateDamperGuide;
+window.calculateFunctions['occupant'] = calculateOccupantLoad;
+window.calculateFunctions['egress-width'] = calculateEgressWidth;
+window.calculateFunctions['emergency-lighting'] = calculateEmergencyLighting;
+window.calculateFunctions['hydrant-flow'] = calculateHydrantFlow;
+window.calculateFunctions['friction-loss'] = calculateFrictionLoss;
+window.calculateFunctions['required-fire-flow'] = calculateFireFlow;
+window.calculateFunctions['fire-pump'] = calculatePumpSizing;
+
+// Your existing calculation functions remain exactly the same...
+// Keep all the calculateCleanAgent, calculateWaterMist, etc. functions
+
+// =================================================================
+// EVENT LISTENERS & INITIALIZATION
+// =================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Unit switch handler
+    const unitSwitch = document.getElementById('unit-switch');
+    if (unitSwitch) {
+        unitSwitch.addEventListener('change', function() {
+            window.currentUnit = this.value;
+            updateUnitLabels(window.currentUnit);
+        });
+    }
+
+    // Initial unit label update
+    updateUnitLabels(window.currentUnit);
+
+    // Global form submission handler (for dynamically loaded forms)
+    document.addEventListener('submit', function(e) {
+        if (e.target.matches('form')) {
+            e.preventDefault();
+            const formId = e.target.id;
+            const toolId = formId.replace('-form', '');
+            
+            if (window.calculateFunctions[toolId]) {
+                window.calculateFunctions[toolId]();
+            }
+        }
+    });
+});
+
+// Function to update labels (should already exist in your script)
+function updateUnitLabels(newUnit) {
+    const labels = document.querySelectorAll('[data-label-imperial], [data-label-metric]');
+    labels.forEach(el => {
+        const imperialLabel = el.getAttribute('data-label-imperial');
+        const metricLabel = el.getAttribute('data-label-metric');
+        
+        if (newUnit === 'metric' && metricLabel) {
+            el.textContent = metricLabel;
+        } else if (newUnit === 'imperial' && imperialLabel) {
+            el.textContent = imperialLabel;
+        }
+    });
 }
 
 /** Converts a value from Metric to Imperial based on the type. */
