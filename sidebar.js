@@ -1,5 +1,7 @@
 // Sidebar navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Sidebar JS loaded');
+    
     // Sidebar tool buttons
     const sidebarButtons = document.querySelectorAll('.sidebar-tool-btn');
     const calculatorContainer = document.getElementById('calculator-container');
@@ -7,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const toolIntro = document.querySelector('.tool-intro');
     const printBtn = document.getElementById('print-btn');
     const clearBtn = document.getElementById('clear-btn');
-    const unitSwitch = document.getElementById('unit-switch');
 
     // Tool descriptions for the title
     const toolDescriptions = {
@@ -33,6 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Load calculator HTML from templates or fetch from original files
     async function loadCalculator(toolId) {
+        console.log('Loading calculator:', toolId);
+        
         try {
             // Hide intro
             if (toolIntro) {
@@ -52,10 +55,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentToolTitle.textContent = toolDescriptions[toolId];
             }
 
+            // Show loading indicator
+            if (calculatorContainer) {
+                calculatorContainer.innerHTML = `
+                    <div class="loading">
+                        <div class="loading-spinner">
+                            <i class="fas fa-cog fa-spin"></i>
+                            <p>Loading ${toolDescriptions[toolId]}...</p>
+                        </div>
+                    </div>
+                `;
+            }
+
             // Load the calculator HTML
             const response = await fetch(`calculators/${toolId}.html`);
             if (!response.ok) {
-                throw new Error('Calculator not found');
+                throw new Error(`Calculator "${toolId}" not found`);
             }
             const html = await response.text();
             
@@ -64,29 +79,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Re-initialize unit labels for the loaded calculator
                 if (window.currentUnit && window.updateUnitLabels) {
-                    window.updateUnitLabels(window.currentUnit);
+                    setTimeout(() => {
+                        window.updateUnitLabels(window.currentUnit);
+                    }, 100);
                 }
                 
-                // Re-attach form submit event
+                // Attach form submit event
                 const formId = `${toolId}-form`;
                 const form = document.getElementById(formId);
                 
-                if (form && window.calculateFunctions && window.calculateFunctions[toolId]) {
-                    // Remove existing listeners
-                    const newForm = form.cloneNode(true);
-                    form.parentNode.replaceChild(newForm, form);
-                    
-                    // Add new listener
-                    document.getElementById(formId).addEventListener('submit', function(e) {
+                if (form) {
+                    console.log('Form found:', formId);
+                    form.addEventListener('submit', function(e) {
                         e.preventDefault();
-                        if (window.calculateFunctions[toolId]) {
+                        console.log('Form submitted for:', toolId);
+                        
+                        // Call the calculation function
+                        if (window.calculateFunctions && window.calculateFunctions[toolId]) {
+                            console.log('Calling calculation function for:', toolId);
                             window.calculateFunctions[toolId]();
+                        } else {
+                            console.error('Calculation function not found for:', toolId);
+                            const resultId = `${toolId}-result`;
+                            handleError(resultId, 'Calculation function not available. Please refresh the page.');
                         }
                     });
+                } else {
+                    console.warn('Form not found:', formId);
                 }
                 
                 // Scroll to top of calculator
-                calculatorContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                setTimeout(() => {
+                    calculatorContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300);
             }
             
         } catch (error) {
@@ -95,17 +120,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 calculatorContainer.innerHTML = `
                     <div class="error-message">
                         <h3><i class="fas fa-exclamation-triangle"></i> Unable to load calculator</h3>
+                        <p>Error: ${error.message}</p>
                         <p>Please try again or select another tool.</p>
-                        <p><small>Error: ${error.message}</small></p>
                     </div>
                 `;
             }
         }
     }
 
+    function handleError(resultId, message) {
+        const resultDiv = document.getElementById(resultId);
+        if (resultDiv) {
+            resultDiv.innerHTML = `
+                <div class="error-message">
+                    <h3 style="color: #ef4444;"><i class="fas fa-exclamation-triangle"></i> Calculation Error</h3>
+                    <p><strong>Error:</strong> ${message}</p>
+                </div>
+            `;
+            resultDiv.classList.remove('hidden');
+        }
+    }
+
     // Add click handlers to sidebar buttons
     sidebarButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
             const toolId = this.dataset.tool;
             if (toolId) {
                 loadCalculator(toolId);
@@ -127,93 +166,52 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const contentToPrint = resultDiv || calculatorBox;
+            const printContent = contentToPrint.innerHTML;
+            const toolTitle = currentToolTitle ? currentToolTitle.textContent : 'Fire Safety Calculator';
             
-            // Create a new window for printing
+            // Create print window
             const printWindow = window.open('', '_blank');
             printWindow.document.write(`
                 <!DOCTYPE html>
                 <html>
                 <head>
-                    <title>Fire Safety Tool - Calculation Results</title>
+                    <title>${toolTitle} - FireSafetyTool.com</title>
                     <style>
-                        body {
-                            font-family: Arial, sans-serif;
-                            line-height: 1.6;
-                            color: #333;
-                            padding: 20px;
+                        body { font-family: Arial, sans-serif; padding: 20px; }
+                        .print-header { 
+                            border-bottom: 3px solid #0099e5; 
+                            padding-bottom: 15px; 
+                            margin-bottom: 20px;
                         }
-                        h1, h2, h3 {
-                            color: #0099e5;
-                        }
-                        .result-box {
-                            border: 2px solid #0099e5;
-                            padding: 20px;
-                            margin: 20px 0;
-                            border-radius: 10px;
-                        }
-                        .calculation-info {
-                            background: #f8f9fa;
-                            padding: 15px;
-                            border-left: 4px solid #34bf49;
-                            margin: 15px 0;
-                        }
-                        table {
-                            width: 100%;
-                            border-collapse: collapse;
-                            margin: 15px 0;
-                        }
-                        th, td {
-                            border: 1px solid #ddd;
-                            padding: 8px;
-                            text-align: left;
-                        }
-                        th {
-                            background-color: #0099e5;
-                            color: white;
-                        }
-                        .footer {
-                            margin-top: 30px;
-                            padding-top: 20px;
+                        .print-content { padding: 20px; }
+                        .print-footer { 
+                            margin-top: 30px; 
+                            padding-top: 15px; 
                             border-top: 1px solid #ddd;
-                            font-size: 0.9em;
+                            font-size: 12px;
                             color: #666;
                         }
                         @media print {
-                            body { font-size: 12pt; }
-                            .no-print { display: none; }
-                            .page-break { page-break-before: always; }
+                            body { margin: 0; padding: 10px; }
                         }
                     </style>
                 </head>
                 <body>
-                    <div class="header">
-                        <h1>Fire Safety Tool Calculation</h1>
-                        <p><strong>Tool:</strong> ${currentToolTitle?.textContent || 'Fire Safety Calculator'}</p>
-                        <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
-                        <p><strong>Time:</strong> ${new Date().toLocaleTimeString()}</p>
+                    <div class="print-header">
+                        <h1>FireSafetyTool.com</h1>
+                        <h2>${toolTitle}</h2>
+                        <p><strong>Calculated on:</strong> ${new Date().toLocaleString()}</p>
                     </div>
-                    
-                    <div class="result-box">
-                        ${contentToPrint.innerHTML}
+                    <div class="print-content">
+                        ${printContent}
                     </div>
-                    
-                    <div class="calculation-info">
-                        <h3>Calculation Notes</h3>
-                        <p>This calculation was performed using FireSafetyTool.com professional calculators.</p>
-                        <p><strong>Disclaimer:</strong> Results are estimates only. Always consult licensed professionals and local codes for final designs.</p>
+                    <div class="print-footer">
+                        <p><strong>Disclaimer:</strong> This calculation is for estimation purposes only. Always consult with licensed professionals and verify with local codes and standards.</p>
+                        <p>© ${new Date().getFullYear()} FireSafetyTool.com | https://www.firesafetytool.com</p>
                     </div>
-                    
-                    <div class="footer">
-                        <p>© ${new Date().getFullYear()} FireSafetyTool.com | Part of Safetyguide360 Network</p>
-                        <p>Website: https://www.firesafetytool.com</p>
-                    </div>
-                    
                     <script>
                         window.onload = function() {
                             window.print();
-                            setTimeout(function() {
-                                window.close();
-                            }, 1000);
                         }
                     </script>
                 </body>
@@ -227,51 +225,45 @@ document.addEventListener('DOMContentLoaded', function() {
     if (clearBtn) {
         clearBtn.addEventListener('click', function() {
             const form = document.querySelector('#calculator-container form');
-            const result = document.querySelector('#calculator-container .result');
+            const results = document.querySelectorAll('#calculator-container .result');
             
             if (form) {
                 form.reset();
             }
-            if (result) {
+            
+            results.forEach(result => {
                 result.classList.add('hidden');
                 result.innerHTML = '';
-            }
-        });
-    }
-
-    // Unit switch handler
-    if (unitSwitch) {
-        unitSwitch.addEventListener('change', function() {
-            window.currentUnit = this.value;
-            if (window.updateUnitLabels) {
-                window.updateUnitLabels(window.currentUnit);
-            }
+            });
         });
     }
 
     // Check URL hash on load
-    const urlHash = window.location.hash.substring(1);
-    if (urlHash && toolDescriptions[urlHash]) {
-        // Wait a bit for scripts to load
-        setTimeout(() => {
-            loadCalculator(urlHash);
-        }, 100);
-    } else {
-        // Load first calculator by default
-        setTimeout(() => {
-            loadCalculator('clean-agent');
-        }, 100);
+    function initCalculator() {
+        const urlHash = window.location.hash.substring(1);
+        console.log('URL hash:', urlHash);
+        
+        if (urlHash && toolDescriptions[urlHash]) {
+            // Load the calculator from URL hash
+            setTimeout(() => {
+                loadCalculator(urlHash);
+            }, 500);
+        } else {
+            // Load default calculator
+            setTimeout(() => {
+                loadCalculator('clean-agent');
+            }, 500);
+        }
     }
+
+    // Initialize when DOM is ready
+    setTimeout(initCalculator, 100);
 
     // Handle browser back/forward
     window.addEventListener('popstate', function(event) {
-        if (event.state && event.state.tool) {
-            loadCalculator(event.state.tool);
-        } else {
-            const hash = window.location.hash.substring(1);
-            if (hash && toolDescriptions[hash]) {
-                loadCalculator(hash);
-            }
+        const hash = window.location.hash.substring(1);
+        if (hash && toolDescriptions[hash]) {
+            loadCalculator(hash);
         }
     });
 });
