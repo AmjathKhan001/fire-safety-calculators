@@ -1650,3 +1650,105 @@ footer {
     cursor: pointer;
     margin-top: 10px;
 }
+/* Add these to your existing style.css */
+
+/* Loading states */
+.loading {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.loading i {
+    color: #0099e5;
+    margin-bottom: 15px;
+}
+
+/* Result styles */
+.result-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: white;
+    border-radius: 8px;
+    border-left: 4px solid #0099e5;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.result-label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.95rem;
+}
+
+.result-value {
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 1rem;
+}
+
+.result-value.highlight {
+    color: #0099e5;
+    font-size: 1.1rem;
+}
+
+.result-note {
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin-top: 20px;
+    border-left: 4px solid #f59e0b;
+    font-size: 0.9rem;
+}
+
+/* Checklist styles */
+.checklist-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.checklist-table th {
+    background: #0099e5;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.checklist-table td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.checklist-table tr:last-child td {
+    border-bottom: none;
+}
+
+.checklist-table tr:hover {
+    background: #f9fafb;
+}
+
+/* Status badges */
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.status-badge.pass {
+    background: #d1fae
