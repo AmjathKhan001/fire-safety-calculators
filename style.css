@@ -1356,3 +1356,271 @@ footer {
     color: white !important;
     border: none !important;
 }
+/* ===========================================
+   ADDITIONAL STYLES FOR FIXED CALCULATORS
+   =========================================== */
+
+/* Loading Spinner */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.loading-spinner {
+    text-align: center;
+}
+
+.loading-spinner i {
+    font-size: 3rem;
+    color: #0099e5;
+    margin-bottom: 15px;
+}
+
+.loading-spinner p {
+    color: #6b7280;
+    font-size: 1.1rem;
+}
+
+/* Result Grid */
+.result-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: white;
+    border-radius: 8px;
+    border-left: 4px solid #0099e5;
+}
+
+.result-label {
+    font-weight: 600;
+    color: #374151;
+}
+
+.result-value {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.result-value.highlight {
+    color: #0099e5;
+    font-size: 1.1rem;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.status-badge.pass {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-badge.fail {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-badge.warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-badge.na {
+    background: #e5e7eb;
+    color: #4b5563;
+}
+
+/* Checklist Tables */
+.checklist-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.checklist-table th {
+    background: #0099e5;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+.checklist-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.checklist-table tr:hover {
+    background: #f9fafb;
+}
+
+/* Statistics Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: block;
+}
+
+.stat-value.pass { color: #10b981; }
+.stat-value.fail { color: #ef4444; }
+.stat-value.na { color: #6b7280; }
+
+/* Overall Status */
+.overall-status {
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.overall-status.pass {
+    background: #d1fae5;
+    border-left: 4px solid #10b981;
+}
+
+.overall-status.fail {
+    background: #fee2e2;
+    border-left: 4px solid #ef4444;
+}
+
+.overall-status.warning {
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+}
+
+/* Recommendation Box */
+.recommendation-box {
+    padding: 20px;
+    background: #f0f9ff;
+    border-radius: 8px;
+    border-left: 4px solid #0099e5;
+    margin: 20px 0;
+}
+
+/* Hydrant Color Classes */
+.class-red { color: #ef4444; font-weight: 700; }
+.class-orange { color: #f97316; font-weight: 700; }
+.class-green { color: #10b981; font-weight: 700; }
+.class-blue { color: #3b82f6; font-weight: 700; }
+
+/* Result Note */
+.result-note {
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin-top: 20px;
+    border-left: 4px solid #f59e0b;
+}
+
+.result-note p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* Error Message */
+.error-message {
+    padding: 20px;
+    background: #fee2e2;
+    border-radius: 8px;
+    border-left: 4px solid #ef4444;
+}
+
+.error-message h3 {
+    color: #dc2626;
+    margin-bottom: 10px;
+}
+
+/* Fix for Unit Toggle Background */
+.unit-toggle-container {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 8px 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+#unit-switch {
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: #1f2937 !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
+
+#unit-switch option {
+    background: white !important;
+    color: #1f2937 !important;
+}
+
+/* Fix Logo Alignment */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-title img.logo {
+    height: 50px;
+    width: auto;
+    display: block;
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .result-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .checklist-table {
+        font-size: 0.9rem;
+    }
+    
+    .checklist-table th,
+    .checklist-table td {
+        padding: 8px;
+    }
+}
