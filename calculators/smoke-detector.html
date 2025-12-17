@@ -1,0 +1,68 @@
+<div class="calculator-box">
+    <div class="calculator-header">
+        <h2><i class="fas fa-smoke"></i> Smoke Detector Spacing Calculator (NFPA 72)</h2>
+        <p class="description">Calculates the **maximum allowable spacing** between spot-type smoke detectors based on ceiling height and type, as required by NFPA 72.</p>
+    </div>
+    
+    <form id="smoke-form">
+        <h3><i class="fas fa-ruler-vertical"></i> Ceiling Specifications</h3>
+        <div class="input-row">
+            <div class="input-group">
+                <label for="smoke-height" data-label-imperial="Ceiling Height (ft):" data-label-metric="Ceiling Height (m):">Ceiling Height (ft):</label>
+                <input type="number" id="smoke-height" step="1" min="5" value="10" required>
+            </div>
+            <div class="input-group">
+                <label for="smoke-type">Ceiling Type:</label>
+                <select id="smoke-type" required>
+                    <option value="smooth">Smooth Ceiling</option>
+                    <option value="beamed">Beamed Ceiling (Simplified)</option>
+                </select>
+            </div>
+        </div>
+
+        <h3><i class="fas fa-expand-alt"></i> Area Coverage</h3>
+        <div class="input-row">
+            <div class="input-group">
+                <label for="room-length" data-label-imperial="Room Length (ft):" data-label-metric="Room Length (m):">Room Length (ft):</label>
+                <input type="number" id="room-length" step="1" min="1" required>
+                <small>Optional: For detector count estimation</small>
+            </div>
+            <div class="input-group">
+                <label for="room-width" data-label-imperial="Room Width (ft):" data-label-metric="Room Width (m):">Room Width (ft):</label>
+                <input type="number" id="room-width" step="1" min="1" required>
+                <small>Optional: For detector count estimation</small>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="calculate-btn">
+                <i class="fas fa-calculator"></i> Calculate Spacing
+            </button>
+            <button type="reset" class="reset-btn">
+                <i class="fas fa-redo"></i> Reset
+            </button>
+        </div>
+    </form>
+    
+    <div id="smoke-detector-result" class="result hidden">
+        <div class="result-actions">
+            <button class="copy-btn" onclick="copyResults()">
+                <i class="far fa-copy"></i> Copy
+            </button>
+            <button class="save-btn" onclick="saveResults()">
+                <i class="far fa-save"></i> Save
+            </button>
+        </div>
+    </div>
+    
+    <div class="calculator-info">
+        <h4><i class="fas fa-info-circle"></i> NFPA 72 Requirements</h4>
+        <ul>
+            <li>Smooth ceilings ≤ 10 ft: 30 ft maximum spacing</li>
+            <li>For heights > 10 ft: Reduce spacing per NFPA 72 Table 17.5.3.2.1</li>
+            <li>Wall to detector: ½ of calculated spacing</li>
+            <li>Beamed ceilings: Special spacing requirements apply</li>
+            <li>Consider air movement and stratification</li>
+        </ul>
+    </div>
+</div>

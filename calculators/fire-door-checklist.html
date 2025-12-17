@@ -1,0 +1,94 @@
+<div class="calculator-box">
+    <div class="calculator-header">
+        <h2><i class="fas fa-door-closed"></i> Fire Door Inspection Checklist (NFPA 80)</h2>
+        <p class="description">A simplified checklist for inspecting the core operational components of a fire door assembly (NFPA 80, 5.2.4).</p>
+    </div>
+    
+    <form id="door-checklist-form">
+        <div class="checklist-group">
+            <label for="gap-check">1. Door Gaps: Are gaps between the door and frame within code limits?</label>
+            <select id="gap-check" required>
+                <option value="">-- Select --</option>
+                <option value="yes">✅ Yes (Pass) - Max 1/8" top/sides, 3/4" bottom</option>
+                <option value="no">❌ No (Fail)</option>
+            </select>
+        </div>
+        
+        <div class="checklist-group">
+            <label for="latch-check">2. Latching: Does the door fully latch and remain secured?</label>
+            <select id="latch-check" required>
+                <option value="">-- Select --</option>
+                <option value="yes">✅ Yes (Pass)</option>
+                <option value="no">❌ No (Fail)</option>
+            </select>
+        </div>
+        
+        <div class="checklist-group">
+            <label for="closer-check">3. Self-Closing/Closer: Does the door self-close and latch when opened?</label>
+            <select id="closer-check" required>
+                <option value="">-- Select --</option>
+                <option value="yes">✅ Yes (Pass)</option>
+                <option value="no">❌ No (Fail)</option>
+            </select>
+        </div>
+        
+        <div class="checklist-group">
+            <label for="hinge-check">4. Hardware: Are hinges, closers, and other parts securely attached and undamaged?</label>
+            <select id="hinge-check" required>
+                <option value="">-- Select --</option>
+                <option value="yes">✅ Yes (Pass)</option>
+                <option value="no">❌ No (Fail)</option>
+            </select>
+        </div>
+        
+        <div class="checklist-group">
+            <label for="glass-check">5. Fire-Rated Glass: Is any glass properly rated and intact?</label>
+            <select id="glass-check" required>
+                <option value="">-- Select --</option>
+                <option value="yes">✅ Yes (Pass)</option>
+                <option value="no">❌ No (Fail)</option>
+                <option value="na">Not Applicable</option>
+            </select>
+        </div>
+        
+        <div class="checklist-group">
+            <label for="label-check">6. Label: Is the fire door label legible and intact?</label>
+            <select id="label-check" required>
+                <option value="">-- Select --</option>
+                <option value="yes">✅ Yes (Pass)</option>
+                <option value="no">❌ No (Fail)</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="calculate-btn">
+                <i class="fas fa-clipboard-check"></i> Generate Summary
+            </button>
+            <button type="reset" class="reset-btn">
+                <i class="fas fa-redo"></i> Reset
+            </button>
+        </div>
+    </form>
+    
+    <div id="door-checklist-result" class="result hidden">
+        <div class="result-actions">
+            <button class="copy-btn" onclick="copyResults()">
+                <i class="far fa-copy"></i> Copy
+            </button>
+            <button class="save-btn" onclick="saveResults()">
+                <i class="far fa-save"></i> Save
+            </button>
+        </div>
+    </div>
+    
+    <div class="calculator-info">
+        <h4><i class="fas fa-info-circle"></i> NFPA 80 Inspection Notes</h4>
+        <ul>
+            <li>Annual inspection required for all fire doors</li>
+            <li>Repair or replace failed components immediately</li>
+            <li>Document all inspections and repairs</li>
+            <li>Consult NFPA 80 for complete requirements</li>
+            <li>Maintain inspection records for authorities</li>
+        </ul>
+    </div>
+</div>

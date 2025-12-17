@@ -1,0 +1,67 @@
+<div class="calculator-box">
+    <div class="calculator-header">
+        <h2><i class="fas fa-walking"></i> Egress Width Calculator (NFPA 101 / IBC)</h2>
+        <p class="description">Calculates the minimum required total width of all exit paths (doors, stairs, ramps) based on the calculated occupant load.</p>
+    </div>
+    
+    <form id="egress-width-form">
+        <h3><i class="fas fa-users"></i> Occupant Information</h3>
+        <div class="input-row">
+            <div class="input-group">
+                <label for="egress-occupant-load">Occupant Load (OL):</label>
+                <input type="number" id="egress-occupant-load" step="1" min="1" required>
+                <small>Use the result from the Occupant Load Calculator.</small>
+            </div>
+        </div>
+
+        <h3><i class="fas fa-door-open"></i> Egress Component</h3>
+        <div class="input-row">
+            <div class="input-group">
+                <label for="egress-type">Type of Egress Component:</label>
+                <select id="egress-type" required>
+                    <option value="stairs">Stairs</option>
+                    <option value="other">Doors, Ramps, Level Travel</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="egress-system-level">System Level:</label>
+                <select id="egress-system-level" required>
+                    <option value="standard">Standard Sprinkled (Reduced Factor)</option>
+                    <option value="reduced">Unsprinkled/Reduced Egress Capacity (Standard Factor)</option>
+                </select>
+                <small>Factors: 0.2" (stairs), 0.15" (other) for reduced capacity; 0.3" (stairs), 0.2" (other) for standard.</small>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="calculate-btn">
+                <i class="fas fa-calculator"></i> Calculate Required Width
+            </button>
+            <button type="reset" class="reset-btn">
+                <i class="fas fa-redo"></i> Reset
+            </button>
+        </div>
+    </form>
+    
+    <div id="egress-width-result" class="result hidden">
+        <div class="result-actions">
+            <button class="copy-btn" onclick="copyResults()">
+                <i class="far fa-copy"></i> Copy
+            </button>
+            <button class="save-btn" onclick="saveResults()">
+                <i class="far fa-save"></i> Save
+            </button>
+        </div>
+    </div>
+    
+    <div class="calculator-info">
+        <h4><i class="fas fa-info-circle"></i> Minimum Width Requirements</h4>
+        <ul>
+            <li>Minimum door width: 32 inches clear</li>
+            <li>Minimum stair width: 44 inches for > 50 occupants</li>
+            <li>Ramps: Same as corridors (typically 44 inches)</li>
+            <li>Corridors: Minimum 44 inches for > 50 occupants</li>
+            <li>Width measured clear of obstructions</li>
+        </ul>
+    </div>
+</div>

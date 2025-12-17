@@ -1,0 +1,61 @@
+<div class="calculator-box">
+    <div class="calculator-header">
+        <h2><i class="fas fa-fire"></i> Required Fire Flow Calculator (NFPA 1142)</h2>
+        <p class="description">Estimates the minimum required fire flow for a structure based on building area and construction type (NFPA 1142 formula).</p>
+    </div>
+    
+    <form id="fireflow-form">
+        <h3><i class="fas fa-ruler-combined"></i> Building Information</h3>
+        <div class="input-row">
+            <div class="input-group">
+                <label for="ff-area" data-label-imperial="Building Floor Area (Sq Ft):" data-label-metric="Building Floor Area (m²):">Building Floor Area (Sq Ft):</label>
+                <input type="number" id="ff-area" step="1" min="100" required>
+                <small>Total area of all floors for the largest fire compartment.</small>
+            </div>
+        </div>
+
+        <h3><i class="fas fa-hard-hat"></i> Construction Type</h3>
+        <div class="input-row">
+            <div class="input-group">
+                <label for="ff-construction">Construction Type Factor (C):</label>
+                <select id="ff-construction" required>
+                    <option value="1.5">Type I, II-222, II-332, or IV (Noncombustible/Heavy Timber) - C=1.5</option>
+                    <option value="1.0">Type II-111, III, IV, or V (Ordinary/Wood Frame) - C=1.0</option>
+                    <option value="0.8">Automatic Sprinkler System Present - C=0.8 (Requires 20% reduction)</option>
+                </select>
+                <small>Formula: F = 18 * C * sqrt(Area).</small>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="calculate-btn">
+                <i class="fas fa-calculator"></i> Calculate Required Flow
+            </button>
+            <button type="reset" class="reset-btn">
+                <i class="fas fa-redo"></i> Reset
+            </button>
+        </div>
+    </form>
+    
+    <div id="required-fire-flow-result" class="result hidden">
+        <div class="result-actions">
+            <button class="copy-btn" onclick="copyResults()">
+                <i class="far fa-copy"></i> Copy
+            </button>
+            <button class="save-btn" onclick="saveResults()">
+                <i class="far fa-save"></i> Save
+            </button>
+        </div>
+    </div>
+    
+    <div class="calculator-info">
+        <h4><i class="fas fa-info-circle"></i> NFPA 1142 Notes</h4>
+        <ul>
+            <li>Maximum flow limited to 12,000 GPM</li>
+            <li>Minimum flow is 250 GPM</li>
+            <li>For buildings over 3 stories, add 25% per additional story</li>
+            <li>Exposure protection may require additional flow</li>
+            <li>Duration: 2-4 hours depending on construction</li>
+        </ul>
+    </div>
+</div>
