@@ -5,52 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fire Safety Tools Suite | Professional NFPA Tools</title>
     
+    <!-- SEO Meta Tags -->
     <meta name="description" content="Complete suite of fire safety calculators and tools for engineers. Clean Agent, Water Mist, Foam, CO2, Battery standby, Occupant Load, Hydrant Flow, Friction Loss, Voltage Drop, and more NFPA-compliant tools.">
     <meta name="keywords" content="fire safety calculator, NFPA calculator, fire protection, sprinkler calculation, fire alarm battery, occupant load, friction loss, hydrant flow, HSE tools">
     <meta name="author" content="FireSafetyTool.com">
+    <meta name="robots" content="index, follow">
     
-    <link rel="canonical" href="https://www.firesafetytool.com/"> 
+    <link rel="canonical" href="https://www.firesafetytool.com/">
     
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-376208036"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-376208036');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-376208036');
     </script>
+    
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="/style.css">
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-6687860250561653",
+            enable_page_level_ads: true,
+            overlays: {bottom: true}
+        });
+    </script>
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- PDF/Print Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/logo.png">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Fire Safety Tools Suite",
+        "description": "Professional fire safety calculation tools for engineers and designers",
+        "url": "https://www.firesafetytool.com",
+        "applicationCategory": "EngineeringApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "FireSafetyTool.com"
+        }
+    }
+    </script>
 </head>
 <body>
+    <!-- Header -->
     <header>
-    <div class="header-container">
-        <div class="logo-title">
-            <img src="logo.png" alt="Fire Safety Tools Logo" class="logo">
-            <div>
-                <h1>Fire Safety Tools Suite</h1>
-                <p>Professional NFPA & IBC tools for engineers and designers.</p>
+        <div class="header-container">
+            <div class="logo-title">
+                <img src="/logo.png" alt="Fire Safety Tools Logo" class="logo">
+                <div>
+                    <h1>Fire Safety Tools Suite</h1>
+                    <p>Professional NFPA & IBC tools for engineers and designers.</p>
+                </div>
+            </div>
+
+            <div class="unit-toggle-container">
+                <label for="unit-switch">Units:</label>
+                <select id="unit-switch">
+                    <option value="imperial">Imperial (ft, GPM, PSI)</option>
+                    <option value="metric">Metric (m, L/s, Bar)</option>
+                </select>
             </div>
         </div>
+    </header>
 
-        <div class="unit-toggle-container">
-            <label for="unit-switch">Units:</label>
-            <select id="unit-switch">
-                <option value="imperial">Imperial (ft, GPM, PSI)</option>
-                <option value="metric">Metric (m, L/s, Bar)</option>
-            </select>
-        </div>
-    </div>
-</header>
-
+    <!-- Main Wrapper -->
     <div class="main-wrapper">
         <!-- Left Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-section">
                 <h3><i class="fas fa-fire"></i> Fire Safety Tools</h3>
+                
                 <div class="tool-category">
                     <h4>Suppression Systems</h4>
                     <button class="sidebar-tool-btn" data-tool="clean-agent">
@@ -126,6 +171,7 @@
                 </div>
             </div>
 
+            <!-- Explore More Tools Section -->
             <div class="sidebar-section explore-section">
                 <h3><i class="fas fa-compass"></i> Explore More Tools</h3>
                 <div class="explore-tools">
@@ -168,21 +214,36 @@
                 </div>
             </div>
 
+            <!-- Quick Info Section -->
             <div class="sidebar-section">
                 <h3><i class="fas fa-info-circle"></i> Quick Info</h3>
                 <div class="info-box">
-                    <p><strong>NFPA Compliant</strong></p>
-                    <p>All tools follow NFPA standards</p>
-                    <p><strong>Free to Use</strong></p>
-                    <p>No registration required</p>
-                    <p><strong>Professional Grade</strong></p>
-                    <p>Used by engineers worldwide</p>
+                    <p><strong>NFPA Compliant</strong><br>All tools follow NFPA standards</p>
+                    <p><strong>Free to Use</strong><br>No registration required</p>
+                    <p><strong>Professional Grade</strong><br>Used by engineers worldwide</p>
+                    <p><strong>Updated Regularly</strong><br>Latest code compliance</p>
                 </div>
+            </div>
+            
+            <!-- AdSense Sidebar Ad -->
+            <div class="sidebar-ad">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
+                <!-- Sidebar Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-6687860250561653"
+                     data-ad-slot="1234567891"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
         </aside>
 
         <!-- Main Content Area -->
         <main class="main-content">
+            <!-- Content Header -->
             <div class="content-header">
                 <h2 id="current-tool-title">Welcome to Fire Safety Tools Suite</h2>
                 <div class="action-buttons">
@@ -195,70 +256,185 @@
                 </div>
             </div>
 
+            <!-- Introduction -->
             <div class="tool-intro active">
                 <h3>Select a tool from the sidebar to get started</h3>
-                <p>This suite provides professional fire safety calculation tools for engineers, designers, and safety professionals. All tools are based on NFPA and IBC standards.</p>
+                <p>This suite provides professional fire safety calculation tools for engineers, designers, and safety professionals. All tools are based on NFPA and IBC standards and are continuously updated for code compliance.</p>
+                
                 <div class="features-grid">
                     <div class="feature">
                         <i class="fas fa-shield-alt"></i>
                         <h4>NFPA Compliant</h4>
-                        <p>All calculations follow NFPA standards</p>
+                        <p>All calculations follow latest NFPA standards</p>
                     </div>
                     <div class="feature">
                         <i class="fas fa-balance-scale"></i>
                         <h4>Dual Units</h4>
-                        <p>Switch between Imperial and Metric</p>
+                        <p>Switch between Imperial and Metric systems</p>
                     </div>
                     <div class="feature">
                         <i class="fas fa-file-pdf"></i>
                         <h4>Export Results</h4>
-                        <p>Save/Print calculations as PDF</p>
+                        <p>Save/Print calculations as PDF documents</p>
                     </div>
                     <div class="feature">
                         <i class="fas fa-mobile-alt"></i>
                         <h4>Responsive Design</h4>
-                        <p>Works on all devices</p>
+                        <p>Works perfectly on all devices</p>
                     </div>
+                </div>
+                
+                <!-- AdSense Top Ad -->
+                <div class="ad-container">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
+                    <!-- FireSafetyTool Top Ad -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-6687860250561653"
+                         data-ad-slot="1234567890"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
                 </div>
             </div>
 
-            <!-- Calculator containers will be inserted here -->
-            <div id="calculator-container"></div>
+            <!-- Calculator Container -->
+            <div id="calculator-container">
+                <!-- Calculators will be loaded here dynamically -->
+            </div>
 
+            <!-- AdSense Middle Ad -->
+            <div class="ad-container">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
+                <!-- FireSafetyTool Middle Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-6687860250561653"
+                     data-ad-slot="1234567892"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <!-- Support Banner -->
             <div class="affiliate-banner">
                 <p><i class="fas fa-heart"></i> Support free tools! If this calculator helped you, please consider <a href="https://ko-fi.com/yoursafetytool" target="_blank">buying us a coffee</a> or checking out our <a href="/resources.html">Resources</a>.</p>
+            </div>
+            
+            <!-- AdSense Bottom Ad -->
+            <div class="ad-container">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
+                <!-- FireSafetyTool Bottom Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-6687860250561653"
+                     data-ad-slot="1234567893"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
         </main>
     </div>
 
+    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-links">
                 <a href="/index.html">Home</a>
                 <a href="/resources.html">Resources</a>
-                <a href="/privacy.html">Privacy</a>
-                <a href="/terms.html">Terms</a>
-                <a href="/affiliate.html">Affiliate</a>
-                <a href="/contact.html">Contact</a>
+                <a href="/privacy.html">Privacy Policy</a>
+                <a href="/terms.html">Terms of Service</a>
+                <a href="/affiliate.html">Affiliate Disclosure</a>
+                <a href="/contact.html">Contact Us</a>
             </div>
+            
             <div class="footer-warning">
-                <p><strong><i class="fas fa-exclamation-triangle"></i> Important:</strong> These calculators provide estimates only. Always consult licensed professionals for final designs and local codes.</p>
+                <p><strong><i class="fas fa-exclamation-triangle"></i> Important Notice:</strong> These calculators provide estimates only. Always consult licensed professionals for final designs and verify with local codes and standards.</p>
             </div>
+            
+            <!-- AdSense Footer Ad -->
+            <div class="footer-ad">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
+                <!-- Footer Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-6687860250561653"
+                     data-ad-slot="1234567894"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            
             <p>© 2025 FireSafetyTool.com || All rights reserved || Part of Safetyguide360 Network</p>
+            <p class="footer-small">Disclaimer: This website is for informational purposes only. Calculations are estimates.</p>
         </div>
     </footer>
 
-    <!-- Include the individual calculator templates -->
-    <template id="calculator-templates">
-        <!-- Clean Agent Calculator Template -->
-        <div id="clean-agent-calculator" class="calculator-box hidden">
-            <h2>Clean Agent / Gas Suppression System Calculator</h2>
-            <!-- Your existing calculator form goes here -->
-        </div>
-        <!-- Other calculator templates -->
-    </template>
-
+    <!-- JavaScript Files -->
     <script src="/script.js"></script>
     <script src="/sidebar.js"></script>
+    
+    <!-- Additional Scripts -->
+    <script>
+        // Initialize AdSense ads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize any additional ads
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            
+            // Add smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Add confirmation for form clearing
+            const clearBtn = document.getElementById('clear-btn');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function() {
+                    if (confirm('Are you sure you want to clear all form data?')) {
+                        // Clear logic is handled in sidebar.js
+                    }
+                });
+            }
+        });
+        
+        // Handle offline/online status
+        window.addEventListener('online', function() {
+            console.log('Application is online');
+        });
+        
+        window.addEventListener('offline', function() {
+            console.log('Application is offline');
+            alert('You are currently offline. Some features may not work.');
+        });
+    </script>
+    
+    <!-- Cookie Consent (Optional) -->
+    <script>
+        // Simple cookie consent
+        if (!localStorage.getItem('cookiesAccepted')) {
+            setTimeout(() => {
+                if (confirm('This website uses cookies to improve your experience. Do you accept?')) {
+                    localStorage.setItem('cookiesAccepted', 'true');
+                }
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
