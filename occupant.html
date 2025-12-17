@@ -1,0 +1,65 @@
+<div class="calculator-box">
+    <div class="calculator-header">
+        <h2><i class="fas fa-users"></i> Occupant Load Calculator (NFPA 101 / IBC)</h2>
+        <p class="description">Calculates the maximum allowed number of occupants based on floor area and the prescribed occupancy factor.</p>
+    </div>
+    
+    <form id="occupant-form">
+        <h3><i class="fas fa-ruler-combined"></i> Area Information</h3>
+        <div class="input-row">
+            <div class="input-group">
+                <label for="floor-area" data-label-imperial="Floor Area (Sq Ft):" data-label-metric="Floor Area (m²):">Floor Area (Sq Ft):</label>
+                <input type="number" id="floor-area" step="1" min="1" required>
+                <small>Area used for determining occupant load.</small>
+            </div>
+        </div>
+
+        <h3><i class="fas fa-building"></i> Occupancy Classification</h3>
+        <div class="input-row">
+            <div class="input-group">
+                <label for="occupancy-type">Occupancy Type / Load Factor:</label>
+                <select id="occupancy-type" required>
+                    <option value="">-- Select Occupancy --</option>
+                    <option value="3">Assembly, Concentrated (e.g., Theater, Auditorium) - 7 Sq Ft/Occ</option>
+                    <option value="15">Assembly, Unconcentrated (e.g., Dining/Lounge) - 15 Sq Ft/Occ</option>
+                    <option value="50">Educational (Classrooms) - 50 Sq Ft/Occ</option>
+                    <option value="100">Business Area (e.g., Offices) - 100 Sq Ft/Occ</option>
+                    <option value="200">Storage, Hazardous (Low Density) - 200 Sq Ft/Occ</option>
+                    <option value="300">Industrial / Manufacturing - 200 Sq Ft/Occ</option>
+                </select>
+                <small>Factors vary by code edition and specific usage. Consult NFPA 101 or IBC.</small>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="calculate-btn">
+                <i class="fas fa-calculator"></i> Calculate Occupant Load
+            </button>
+            <button type="reset" class="reset-btn">
+                <i class="fas fa-redo"></i> Reset
+            </button>
+        </div>
+    </form>
+    
+    <div id="occupant-result" class="result hidden">
+        <div class="result-actions">
+            <button class="copy-btn" onclick="copyResults()">
+                <i class="far fa-copy"></i> Copy
+            </button>
+            <button class="save-btn" onclick="saveResults()">
+                <i class="far fa-save"></i> Save
+            </button>
+        </div>
+    </div>
+    
+    <div class="calculator-info">
+        <h4><i class="fas fa-info-circle"></i> Code References</h4>
+        <ul>
+            <li>NFPA 101: Life Safety Code</li>
+            <li>IBC Chapter 10: Means of Egress</li>
+            <li>Occupant load always rounded UP</li>
+            <li>Fixed seating uses actual seat count</li>
+            <li>Multiple occupancies require separate calculations</li>
+        </ul>
+    </div>
+</div>
