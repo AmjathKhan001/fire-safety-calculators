@@ -20,16 +20,16 @@
             </div>
         </div>
 
-        <h3><i class="fas fa-expand-alt"></i> Area Coverage</h3>
+        <h3><i class="fas fa-expand-alt"></i> Area Coverage (Optional)</h3>
         <div class="input-row">
             <div class="input-group">
                 <label for="room-length" data-label-imperial="Room Length (ft):" data-label-metric="Room Length (m):">Room Length (ft):</label>
-                <input type="number" id="room-length" step="1" min="1" required>
+                <input type="number" id="room-length" step="1" min="1" value="30">
                 <small>Optional: For detector count estimation</small>
             </div>
             <div class="input-group">
                 <label for="room-width" data-label-imperial="Room Width (ft):" data-label-metric="Room Width (m):">Room Width (ft):</label>
-                <input type="number" id="room-width" step="1" min="1" required>
+                <input type="number" id="room-width" step="1" min="1" value="30">
                 <small>Optional: For detector count estimation</small>
             </div>
         </div>
@@ -44,16 +44,7 @@
         </div>
     </form>
     
-    <div id="smoke-detector-result" class="result hidden">
-        <div class="result-actions">
-            <button class="copy-btn" onclick="copyResults()">
-                <i class="far fa-copy"></i> Copy
-            </button>
-            <button class="save-btn" onclick="saveResults()">
-                <i class="far fa-save"></i> Save
-            </button>
-        </div>
-    </div>
+    <div id="smoke-detector-result" class="result hidden"></div>
     
     <div class="calculator-info">
         <h4><i class="fas fa-info-circle"></i> NFPA 72 Requirements</h4>
