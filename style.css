@@ -1751,4 +1751,129 @@ footer {
 }
 
 .status-badge.pass {
-    background: #d1fae
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-badge.fail {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-badge.warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-badge.na {
+    background: #e5e7eb;
+    color: #4b5563;
+}
+
+/* Stats grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: block;
+}
+
+.stat-value.pass { color: #10b981; }
+.stat-value.fail { color: #ef4444; }
+.stat-value.na { color: #6b7280; }
+
+/* Overall status */
+.overall-status {
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.overall-status.pass {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    border-left: 4px solid #10b981;
+}
+
+.overall-status.fail {
+    background: linear-gradient(135deg, #fee2e2, #fecaca);
+    border-left: 4px solid #ef4444;
+}
+
+.overall-status.warning {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border-left: 4px solid #f59e0b;
+}
+
+/* Recommendation box */
+.recommendation-box {
+    padding: 20px;
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+    border-radius: 8px;
+    border-left: 4px solid #0099e5;
+    margin: 20px 0;
+}
+
+/* Color classes */
+.class-red { color: #ef4444 !important; font-weight: 700; }
+.class-orange { color: #f97316 !important; font-weight: 700; }
+.class-green { color: #10b981 !important; font-weight: 700; }
+.class-blue { color: #3b82f6 !important; font-weight: 700; }
+
+/* Error message */
+.error-message {
+    padding: 20px;
+    background: linear-gradient(135deg, #fee, #ffe6e6);
+    border-radius: 8px;
+    border-left: 4px solid #ef4444;
+    margin: 20px 0;
+}
+
+.error-message h3 {
+    color: #dc2626;
+    margin-bottom: 10px;
+}
+
+.retry-btn {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.retry-btn:hover {
+    background: #b91c1c;
+}
+
+/* Ad container */
+.ad-container {
+    margin: 30px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px dashed #e5e7eb;
+}
