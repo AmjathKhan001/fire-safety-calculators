@@ -1,1 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Admin Dashboard | Fire Safety Tools</title>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="header-container">
+            <div class="logo-title">
+                <img src="/logo.png" alt="Fire Safety Tools Logo" class="logo">
+                <div>
+                    <h1>Blog Admin Dashboard</h1>
+                    <p>Manage your fire safety blog content</p>
+                </div>
+            </div>
+            
+            <div class="admin-actions">
+                <button class="btn btn-primary" id="new-post-btn">
+                    <i class="fas fa-plus"></i> New Post
+                </button>
+                <button class="btn btn-secondary" id="export-btn">
+                    <i class="fas fa-download"></i> Export
+                </button>
+                <input type="file" id="import-file" accept=".json" style="display: none;">
+                <button class="btn btn-secondary" id="import-btn">
+                    <i class="fas fa-upload"></i> Import
+                </button>
+                <button class="btn btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+        
+        <!-- Admin Navigation -->
+        <nav class="admin-nav">
+            <a href="#dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="#posts"><i class="fas fa-file-alt"></i> Posts</a>
+            <a href="#categories"><i class="fas fa-folder"></i> Categories</a>
+            <a href="#comments"><i class="fas fa-comments"></i> Comments</a>
+            <a href="#analytics"><i class="fas fa-chart-bar"></i> Analytics</a>
+            <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+            <a href="/blog.html" target="_blank"><i class="fas fa-eye"></i> View Blog</a>
+        </nav>
+    </header>
 
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-section">
+                <h3><i class="fas fa-chart-pie"></i> Quick Stats</h3>
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon total">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="stats-total-posts">0</span>
+                            <span class="stat-label">Total Posts</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon published">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="stats-published">0</span>
+                            <span class="stat-label">Published</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon draft">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="stats-draft">0</span>
+                            <span class="stat-label">Drafts</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon views">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="stats-total-views">0</span>
+                            <span class="stat-label">Total Views</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon comments">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="stats-total-comments">0</span>
+                            <span class="stat-label">Comments</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3><i class="fas fa-fire"></i> Recent Activity</h3>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <i class="fas fa-plus-circle activity-create"></i>
+                        <div>
+                            <p>New post created: "NFPA 2025 Changes"</p>
+                            <small>2 hours ago</small>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-edit activity-edit"></i>
+                        <div>
+                            <p>Post updated: "Fire Pump Calculations"</p>
+                            <small>1 day ago</small>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-comment activity-comment"></i>
+                        <div>
+                            <p>New comment on "Smoke Detector Guide"</p>
+                            <small>2 days ago</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3><i class="fas fa-bullhorn"></i> Quick Actions</h3>
+                <div class="quick-actions">
+                    <button class="action-btn" onclick="blogCMS.showPostEditor()">
+                        <i class="fas fa-plus"></i> New Post
+                    </button>
+                    <button class="action-btn" onclick="manageCategories()">
+                        <i class="fas fa-folder-plus"></i> Add Category
+                    </button>
+                    <button class="action-btn" onclick="generateReport()">
+                        <i class="fas fa-chart-line"></i> Generate Report
+                    </button>
+                    <button class="action-btn" onclick="backupData()">
+                        <i class="fas fa-save"></i> Backup Data
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-content">
+            <!-- Posts Table -->
+            <div class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-file-alt"></i> All Posts</h2>
+                    <div class="section-actions">
+                        <select id="filter-status">
+                            <option value="all">All Status</option>
+                            <option value="published">Published</option>
+                            <option value="draft">Draft</option>
+                        </select>
+                        <select id="filter-category">
+                            <option value="all">All Categories</option>
+                        </select>
+                        <input type="text" placeholder="Search posts..." id="post-search">
+                    </div>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th width="50">ID</th>
+                                <th>Title & Category</th>
+                                <th width="150">Author</th>
+                                <th width="120">Status</th>
+                                <th width="80">Views</th>
+                                <th width="100">Comments</th>
+                                <th width="150">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="posts-table-body">
+                            <!-- Posts will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="table-footer">
+                    <div class="pagination-info">
+                        Showing <span id="showing-count">0</span> of <span id="total-count">0</span> posts
+                    </div>
+                    <div class="pagination">
+                        <button class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Comments -->
+            <div class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-comments"></i> Recent Comments</h2>
+                </div>
+                <div class="comments-list" id="recent-comments">
+                    <div class="comment-item">
+                        <div class="comment-avatar">JS</div>
+                        <div class="comment-content">
+                            <div class="comment-header">
+                                <strong>John Smith</strong> on <a href="#">NFPA 2025 Changes</a>
+                                <span class="comment-time">2 hours ago</span>
+                            </div>
+                            <p>Great article! The changes to smoke detector spacing will definitely impact our current projects.</p>
+                            <div class="comment-actions">
+                                <button class="btn-small btn-approve">Approve</button>
+                                <button class="btn-small btn-reply">Reply</button>
+                                <button class="btn-small btn-delete">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Post Editor Modal -->
+    <div class="editor-modal" id="post-editor">
+        <div class="editor-content">
+            <div class="editor-header">
+                <h2 id="editor-title">Create New Post</h2>
+                <button class="close-editor" onclick="document.getElementById('post-editor').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="editor-body">
+                <form id="post-form">
+                    <input type="hidden" id="post-id">
+                    
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 2;">
+                            <label for="post-title">Post Title *</label>
+                            <input type="text" id="post-title" required placeholder="Enter post title">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-slug">URL Slug</label>
+                            <input type="text" id="post-slug" placeholder="Auto-generated from title">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="post-author">Author *</label>
+                            <input type="text" id="post-author" required value="Admin">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-date">Publish Date</label>
+                            <input type="date" id="post-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="post-category">Category *</label>
+                            <select id="post-category" required>
+                                <option value="NFPA Updates">NFPA Updates</option>
+                                <option value="Calculation Tips">Calculation Tips</option>
+                                <option value="Case Studies">Case Studies</option>
+                                <option value="Tools & Calculators">Tools & Calculators</option>
+                                <option value="Industry News">Industry News</option>
+                                <option value="Training">Training</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="post-excerpt">Excerpt *</label>
+                        <textarea id="post-excerpt" rows="3" required placeholder="Brief summary of the post (shown in blog listing)"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="post-content">Content *</label>
+                        <textarea id="post-content" rows="10" required placeholder="Full blog post content (HTML or Markdown)"></textarea>
+                        <small>You can use HTML tags for formatting</small>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 2;">
+                            <label for="post-tags">Tags</label>
+                            <input type="text" id="post-tags" placeholder="Comma-separated tags (NFPA, Fire Pump, Safety)">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-image">Featured Image URL</label>
+                            <input type="url" id="post-image" placeholder="https://example.com/image.jpg">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="post-status">Status</label>
+                            <select id="post-status">
+                                <option value="draft">Draft</option>
+                                <option value="published">Published</option>
+                                <option value="archived">Archived</option>
+                            </select>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" id="post-featured">
+                                <span>Featured Post</span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="editor-footer">
+                <button class="btn btn-secondary" onclick="document.getElementById('post-editor').classList.remove('active')">
+                    Cancel
+                </button>
+                <button class="btn btn-primary" id="save-post-btn">
+                    <i class="fas fa-save"></i> Save Post
+                </button>
+                <button class="btn btn-success" onclick="previewPost()">
+                    <i class="fas fa-eye"></i> Preview
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="/blog-cms.js"></script>
+    <script>
+        // Logout function
+        function logout() {
+            localStorage.removeItem('blog_admin_password');
+            window.location.href = 'blog-login.html';
+        }
+        
+        // Preview function
+        function previewPost() {
+            alert('Preview would open in a new tab with the current content.');
+            // In production: window.open('blog-preview.html', '_blank');
+        }
+        
+        // Manage categories
+        function manageCategories() {
+            const newCategory = prompt('Enter new category name:');
+            if (newCategory && newCategory.trim()) {
+                blogCMS.categories.push(newCategory.trim());
+                blogCMS.saveData();
+                alert('Category added successfully!');
+            }
+        }
+        
+        // Generate report
+        function generateReport() {
+            const report = `
+                Blog Report - ${new Date().toLocaleDateString()}
+                
+                Total Posts: ${blogCMS.posts.length}
+                Published: ${blogCMS.posts.filter(p => p.status === 'published').length}
+                Drafts: ${blogCMS.posts.filter(p => p.status === 'draft').length}
+                Total Views: ${blogCMS.posts.reduce((sum, p) => sum + (p.views || 0), 0)}
+                Total Comments: ${blogCMS.posts.reduce((sum, p) => sum + (p.comments || 0), 0)}
+                
+                Top 5 Posts by Views:
+                ${blogCMS.posts.sort((a, b) => b.views - a.views).slice(0, 5).map(p => `  - ${p.title}: ${p.views} views`).join('\n')}
+            `;
+            
+            const blob = new Blob([report], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `blog-report-${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        // Backup data
+        function backupData() {
+            blogCMS.exportData();
+        }
+    </script>
+</body>
+      </html>
