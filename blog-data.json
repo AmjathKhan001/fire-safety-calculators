@@ -1,1 +1,69 @@
-
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Understanding NFPA 2025 Code Changes: What Engineers Need to Know",
+      "slug": "nfpa-2025-changes",
+      "excerpt": "The 2025 edition of NFPA codes brings significant changes that will impact fire protection system design.",
+      "content": "blog-posts/nfpa-2025-changes.html",
+      "author": "John Smith, PE",
+      "date": "2025-12-18",
+      "category": "NFPA Updates",
+      "tags": ["NFPA", "Code Updates", "2025 Changes", "Compliance"],
+      "image": "https://images.unsplash.com/photo-1544098281-073ae35f5ac5",
+      "views": 1250,
+      "comments": 24,
+      "featured": true,
+      "status": "published"
+    },
+    {
+      "id": 2,
+      "title": "5 Common Mistakes in Fire Pump Calculations",
+      "slug": "fire-pump-calculations",
+      "excerpt": "Avoid these common errors that can lead to under-sized or over-sized fire pump systems.",
+      "content": "blog-posts/fire-pump-calculations.html",
+      "author": "Sarah Johnson, CFPS",
+      "date": "2025-12-15",
+      "category": "Calculation Tips",
+      "tags": ["Fire Pump", "Calculations", "Mistakes", "NFPA 20"],
+      "image": "https://images.unsplash.com/photo-1581094794329-c8112a89af12",
+      "views": 980,
+      "comments": 18,
+      "featured": false,
+      "status": "published"
+    },
+    {
+      "id": 3,
+      "title": "New Smoke Detector Spacing Requirements (NFPA 72 2025)",
+      "slug": "smoke-detector-spacing",
+      "excerpt": "The 2025 edition introduces changes to smoke detector spacing based on new research.",
+      "content": "blog-posts/smoke-detector-spacing.html",
+      "author": "Mike Chen, SET",
+      "date": "2025-12-10",
+      "category": "NFPA Updates",
+      "tags": ["Smoke Detectors", "NFPA 72", "Spacing", "Detection"],
+      "image": "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce",
+      "views": 1500,
+      "comments": 32,
+      "featured": false,
+      "status": "published"
+    }
+  ],
+  "categories": [
+    "NFPA Updates",
+    "Calculation Tips",
+    "Case Studies",
+    "Tools & Calculators",
+    "Industry News",
+    "Training",
+    "Suppression Systems",
+    "Detection & Alarm"
+  ],
+  "settings": {
+    "site_name": "Fire Safety Blog",
+    "admin_email": "admin@firesafetytool.com",
+    "posts_per_page": 6,
+    "allow_comments": true,
+    "maintenance_mode": false
+  }
+}
