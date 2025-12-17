@@ -1212,3 +1212,147 @@ footer {
         page-break-after: avoid;
     }
 }
+/* ===========================================
+   FIXES FOR VISITED SITE ISSUES
+   =========================================== */
+
+/* 1. Fix Logo Alignment */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-title img.logo {
+    height: 50px;
+    width: auto;
+    display: block; /* Ensure it's block level */
+}
+
+.logo-title div {
+    flex: 1;
+}
+
+/* 2. Fix Unit Selector Background */
+#unit-switch {
+    background: rgba(0, 0, 0, 0.2) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+}
+
+#unit-switch option {
+    background: #1f2937 !important;
+    color: white !important;
+}
+
+/* 3. Fix Calculator Container Loading */
+#calculator-container {
+    min-height: 400px;
+}
+
+.calculator-box {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 4. Fix Active Button Highlight */
+.sidebar-tool-btn.active {
+    background: #0099e5 !important;
+    color: white !important;
+    border-color: #0099e5 !important;
+    box-shadow: 0 2px 8px rgba(0, 153, 229, 0.3) !important;
+}
+
+/* 5. Fix Result Display */
+.result {
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9) !important;
+    border-left: 4px solid #0099e5 !important;
+    margin-top: 30px !important;
+}
+
+/* 6. Fix Mobile Header */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column !important;
+        text-align: center !important;
+    }
+    
+    .logo-title {
+        flex-direction: column !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .logo-title img.logo {
+        margin-bottom: 10px !important;
+    }
+    
+    .unit-toggle-container {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+}
+
+/* 7. Fix Form Input Styling */
+.input-group input[type="number"],
+.input-group select {
+    background: white !important;
+    color: #333 !important;
+}
+
+.input-group input[type="number"]:focus,
+.input-group select:focus {
+    border-color: #0099e5 !important;
+    box-shadow: 0 0 0 3px rgba(0, 153, 229, 0.1) !important;
+}
+
+/* 8. Fix Print Button Styling */
+#print-btn {
+    background: #34bf49 !important;
+    border: none !important;
+}
+
+#print-btn:hover {
+    background: #2ea843 !important;
+    transform: translateY(-2px) !important;
+}
+
+/* 9. Fix Sidebar Scroll on Mobile */
+@media (max-width: 1024px) {
+    .sidebar {
+        max-height: 400px !important;
+        overflow-y: auto !important;
+    }
+}
+
+/* 10. Fix Result Actions */
+.result-actions {
+    display: flex !important;
+    gap: 10px !important;
+    margin-top: 20px !important;
+    padding-top: 20px !important;
+    border-top: 1px solid #e5e7eb !important;
+}
+
+.copy-btn, .save-btn {
+    padding: 8px 16px !important;
+    border-radius: 6px !important;
+    font-weight: 500 !important;
+}
+
+.copy-btn {
+    background: #f8f9fa !important;
+    border: 1px solid #dee2e6 !important;
+    color: #495057 !important;
+}
+
+.save-btn {
+    background: #0099e5 !important;
+    color: white !important;
+    border: none !important;
+}
