@@ -1624,3 +1624,29 @@ footer {
         padding: 8px;
     }
 }
+
+/* Add to style.css */
+.loading {
+    text-align: center;
+    padding: 50px;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.error-message {
+    background: #fee;
+    border: 1px solid #fcc;
+    padding: 20px;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+.error-message button {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
