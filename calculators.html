@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Calculators | Fire Safety Tools</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Copy the same header from index.html -->
+    <header>
+        <div class="header-container">
+            <div class="logo-title">
+                <img src="logo.png" alt="Fire Safety Tools Logo" class="logo">
+                <div>
+                    <h1>Fire Safety Tools Suite</h1>
+                    <p>All Professional Calculators</p>
+                </div>
+            </div>
+            <div class="header-social">
+                <a href="https://twitter.com/" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="https://linkedin.com/" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                <a href="https://facebook.com/" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="calculators.html" class="active"><i class="fas fa-calculator"></i> Calculators</a>
+            <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
+            <a href="resources.html"><i class="fas fa-book"></i> Resources</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        </nav>
+    </header>
+
+    <div class="main-wrapper">
+        <!-- Sidebar will be loaded by sidebar.js -->
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <div class="content-header">
+                <h2><i class="fas fa-calculator"></i> All Fire Safety Calculators</h2>
+                <p class="subtitle">Browse all ${tools.length} professional calculators</p>
+            </div>
+            
+            <!-- Calculator categories will be loaded here -->
+            <div id="calculators-grid"></div>
+        </main>
+    </div>
+
+    <!-- Copy footer from index.html -->
+    <footer>
+        <!-- Your existing footer code -->
+    </footer>
+
+    <script src="sidebar.js"></script>
+    <script>
+        // This will show all calculators
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Calculators page loaded');
+        });
+    </script>
+</body>
+</html>
