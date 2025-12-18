@@ -6,9 +6,129 @@
     <title>All Calculators | Fire Safety Tools</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Override any conflicting styles */
+        .main-wrapper {
+            display: flex;
+            min-height: calc(100vh - 200px);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin: 1rem;
+        }
+        
+        .content-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e5e5e5;
+        }
+        
+        .content-header h2 {
+            color: #dc2626;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+        
+        #calculators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .calculator-card {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid #dc2626;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .calculator-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            background: white;
+        }
+        
+        .calculator-icon {
+            font-size: 2rem;
+            color: #dc2626;
+            margin-bottom: 1rem;
+        }
+        
+        .calculator-card h3 {
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+        
+        .calculator-card p {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .calculator-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .calculator-tag {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .calculator-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        .status-active {
+            background: #10b981;
+            color: white;
+        }
+        
+        .status-soon {
+            background: #f97316;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .main-wrapper {
+                flex-direction: column;
+            }
+            
+            #calculators-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Copy the same header from index.html -->
     <header>
         <div class="header-container">
             <div class="logo-title">
@@ -19,9 +139,9 @@
                 </div>
             </div>
             <div class="header-social">
-                <a href="https://twitter.com/" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
-                <a href="https://linkedin.com/" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                <a href="https://facebook.com/" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a>
+                <a href="https://twitter.com/amjikhan" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/in/amjathkhan-shiekusman" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.facebook.com/Amjathkhan.s" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a>
             </div>
         </div>
         <nav class="main-nav">
@@ -34,30 +154,194 @@
     </header>
 
     <div class="main-wrapper">
-        <!-- Sidebar will be loaded by sidebar.js -->
-        <aside class="sidebar" id="sidebar"></aside>
-
         <main class="main-content">
             <div class="content-header">
                 <h2><i class="fas fa-calculator"></i> All Fire Safety Calculators</h2>
-                <p class="subtitle">Browse all ${tools.length} professional calculators</p>
+                <p class="subtitle">Browse our comprehensive collection of professional fire safety calculators</p>
             </div>
             
-            <!-- Calculator categories will be loaded here -->
-            <div id="calculators-grid"></div>
+            <div id="calculators-grid">
+                <!-- Calculator cards will be dynamically generated -->
+                <a href="/index.html#battery-calculator" class="calculator-card">
+                    <div class="calculator-icon">
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                    <h3>Battery Standby Calculator</h3>
+                    <p>Calculate backup battery requirements for fire alarm systems based on NFPA 72 standards.</p>
+                    <div class="calculator-tags">
+                        <span class="calculator-tag">Fire Alarm</span>
+                        <span class="calculator-tag">NFPA 72</span>
+                    </div>
+                    <span class="calculator-status status-active">Active</span>
+                </a>
+                
+                <a href="/index.html#smoke-calculator" class="calculator-card">
+                    <div class="calculator-icon">
+                        <i class="fas fa-smog"></i>
+                    </div>
+                    <h3>Smoke Detector Spacing</h3>
+                    <p>Determine optimal smoke detector placement and spacing for maximum coverage.</p>
+                    <div class="calculator-tags">
+                        <span class="calculator-tag">Detection</span>
+                        <span class="calculator-tag">Spacing</span>
+                    </div>
+                    <span class="calculator-status status-active">Active</span>
+                </a>
+                
+                <a href="/index.html#friction-loss-calculator" class="calculator-card">
+                    <div class="calculator-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h3>Hazen-Williams Friction Loss</h3>
+                    <p>Calculate friction loss in fire sprinkler pipes using Hazen-Williams equation.</p>
+                    <div class="calculator-tags">
+                        <span class="calculator-tag">Sprinkler</span>
+                        <span class="calculator-tag">Hydraulics</span>
+                    </div>
+                    <span class="calculator-status status-active">Active</span>
+                </a>
+                
+                <a href="/index.html#pump-calculator" class="calculator-card">
+                    <div class="calculator-icon">
+                        <i class="fas fa-gas-pump"></i>
+                    </div>
+                    <h3>Fire Pump Sizing</h3>
+                    <p>Determine required fire pump capacity and pressure for water-based systems.</p>
+                    <div class="calculator-tags">
+                        <span class="calculator-tag">Pump</span>
+                        <span class="calculator-tag">NFPA 20</span>
+                    </div>
+                    <span class="calculator-status status-active">Active</span>
+                </a>
+                
+                <a href="/index.html#fireflow-calculator" class="calculator-card">
+                    <div class="calculator-icon">
+                        <i class="fas fa-fire-extinguisher"></i>
+                    </div>
+                    <h3>Required Fire Flow</h3>
+                    <p>Calculate water demand for firefighting operations based on building characteristics.</p>
+                    <div class="calculator-tags">
+                        <span class="calculator-tag">Fire Flow</span>
+                        <span class="calculator-tag">Water Supply</span>
+                    </div>
+                    <span class="calculator-status status-active">Active</span>
+                </a>
+                
+                <a href="/index.html#occupant-calculator" class="calculator-card">
+                    <div class="calculator-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Occupant Load Calculator</h3>
+                    <p>Determine maximum occupant load for egress design per NFPA 101 requirements.</p>
+                    <div class="calculator-tags">
+                        <span class="calculator-tag">Life Safety</span>
+                        <span class="calculator-tag">NFPA 101</span>
+                    </div>
+                    <span class="calculator-status status-active">Active</span>
+                </a>
+                
+                <!-- Coming Soon Calculators -->
+                <div class="calculator-card">
+                    <div class="calculator-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Voltage Drop Calculator</h3>
+                    <p>Calculate voltage drop in fire alarm circuits to ensure proper system operation.</p>
+                    <div class="calculator-tags">
+                        <span class="calculator-tag">Electrical</span>
+                        <span class="calculator-tag">Circuits</span>
+                    </div>
+                    <span class="calculator-status status-soon">Coming Soon</span>
+                </div>
+                
+                <div class="calculator-card">
+                    <div class="calculator-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3>NAC Load Calculator</h3>
+                    <p>Calculate total load on Notification Appliance Circuits for fire alarm systems.</p>
+                    <div class="calculator-tags">
+                        <span class="calculator-tag">Fire Alarm</span>
+                        <span class="calculator-tag">NAC</span>
+                    </div>
+                    <span class="calculator-status status-soon">Coming Soon</span>
+                </div>
+                
+                <div class="calculator-card">
+                    <div class="calculator-icon">
+                        <i class="fas fa-bubbles"></i>
+                    </div>
+                    <h3>Foam System Calculator</h3>
+                    <p>Calculate foam concentrate requirements for flammable liquid protection.</p>
+                    <div class="calculator-tags">
+                        <span class="calculator-tag">Foam</span>
+                        <span class="calculator-tag">Hazard</span>
+                    </div>
+                    <span class="calculator-status status-soon">Coming Soon</span>
+                </div>
+            </div>
         </main>
     </div>
 
-    <!-- Copy footer from index.html -->
     <footer>
-        <!-- Your existing footer code -->
+        <div class="footer-links">
+            <a href="/index.html">Home</a>
+            <a href="/calculators.html">Calculators</a>
+            <a href="/blog.html">Blog</a>
+            <a href="/resources.html">Resources</a>
+            <a href="/privacy.html">Privacy</a>
+            <a href="/terms.html">Terms</a>
+            <a href="/affiliate.html">Affiliate</a>
+            <a href="/contact.html">Contact</a>
+        </div>
+        <p>© 2025 FireSafetyTool.com | Contact: contact@amjathkhan.com | Phone: +91-9750816163</p>
+        <div class="social-links">
+            <a href="https://bsky.app/profile/amjathkhan.bsky.social" target="_blank"><i class="fab fa-bluesky"></i></a>
+            <a href="https://www.facebook.com/Amjathkhan.s" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/amjathkhan_official" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/amjikhan" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/amjathkhan-shiekusman" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
     </footer>
 
-    <script src="sidebar.js"></script>
+    <!-- Visitor Counter -->
     <script>
-        // This will show all calculators
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Calculators page loaded');
+            // Visitor counter
+            let visitorCount = localStorage.getItem('calculatorVisitors') || 500;
+            visitorCount = parseInt(visitorCount) + 1;
+            localStorage.setItem('calculatorVisitors', visitorCount);
+            
+            // Add visitor counter to page
+            const counterDiv = document.createElement('div');
+            counterDiv.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #dc2626, #f97316);
+                color: white;
+                padding: 12px 20px;
+                border-radius: 25px;
+                font-size: 0.9rem;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-weight: 600;
+            `;
+            counterDiv.innerHTML = `
+                <i class="fas fa-chart-line"></i>
+                <span>${visitorCount.toLocaleString()} Calculator Views</span>
+            `;
+            document.body.appendChild(counterDiv);
+            
+            // Update calculator count display
+            const calculatorCount = document.querySelectorAll('.calculator-card').length;
+            const subtitle = document.querySelector('.subtitle');
+            if (subtitle) {
+                subtitle.textContent = `Browse our ${calculatorCount} professional calculators for fire safety engineering`;
+            }
         });
     </script>
 </body>
