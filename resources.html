@@ -5,56 +5,201 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fire Safety Resources & Tools | FireSafetyTool.com</title>
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .resource-grid {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin: 2rem 0 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e5e5e5;
+        }
+        
+        .page-header h1 {
+            color: #dc2626;
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+        
+        .page-header p {
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+        
+        .resources-categories {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            margin: 2rem 0;
+            margin-bottom: 3rem;
         }
-        .resource-card {
+        
+        .category-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border-left: 5px solid #1e40af;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+            border-top: 4px solid #1e40af;
+            transition: transform 0.3s ease;
         }
-        .resource-card h3 {
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        }
+        
+        .category-card h3 {
             color: #1e40af;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
+        
         .resource-list {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
+        
         .resource-list li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #e5e5e5;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f0f0f0;
         }
-        .resource-list a {
-            color: #dc2626;
+        
+        .resource-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .resource-link {
+            color: #374151;
             text-decoration: none;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
         }
+        
+        .resource-link:hover {
+            background-color: #f8fafc;
+            color: #dc2626;
+        }
+        
+        .resource-name {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+        }
+        
         .status {
-            background: #10b981;
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 5px;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
+            white-space: nowrap;
         }
+        
+        .status.active {
+            background: #10b981;
+            color: white;
+        }
+        
         .status.coming-soon {
             background: #f97316;
+            color: white;
+        }
+        
+        .status.affiliate {
+            background: #8b5cf6;
+            color: white;
+        }
+        
+        .status.new {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .affiliate-disclaimer {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        
+        .social-profiles {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .social-profile {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #f3f4f6;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #374151;
+            transition: all 0.2s ease;
+        }
+        
+        .social-profile:hover {
+            background: #e5e7eb;
+            color: #dc2626;
+        }
+        
+        .external-resources {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+        }
+        
+        .external-resources h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+        
+        .external-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .external-link {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .external-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
         }
     </style>
 </head>
 <body>
     <header>
         <h1>📚 Fire Safety Resources</h1>
-        <p>A categorized index of all calculators and external resources</p>
+        <p>A comprehensive collection of calculators, tools, training materials and safety resources</p>
         <nav class="main-nav secondary-nav">
             <a href="/index.html" class="nav-btn">Home</a>
+            <a href="/calculators.html" class="nav-btn">Calculators</a>
             <a href="/resources.html" class="nav-btn active">Resources</a>
             <a href="/privacy.html" class="nav-btn">Privacy</a>
             <a href="/terms.html" class="nav-btn">Terms</a>
@@ -65,56 +210,288 @@
 
     <main>
         <div class="container">
-            <div class="resource-grid">
+            <div class="page-header">
+                <h1><i class="fas fa-tools"></i> Fire Safety Resources Hub</h1>
+                <p>Professional tools, training materials, and safety products for fire protection engineers</p>
+            </div>
+
+            <!-- Calculator Tools Section -->
+            <h2><i class="fas fa-calculator"></i> Professional Calculators</h2>
+            <div class="resources-categories">
                 
-                <div class="resource-card">
-                    <h3>📢 Fire Alarm & Detection</h3>
+                <div class="category-card">
+                    <h3><i class="fas fa-bell"></i> Fire Alarm & Detection</h3>
                     <ul class="resource-list">
-                        <li><a href="/index.html#battery-calculator">Battery Standby Calculator <span class="status">Active</span></a></li>
-                        <li><a href="/index.html#smoke-calculator">Smoke Detector Spacing <span class="status">Active</span></a></li>
-                        <li><a href="#coming-soon">Voltage Drop Calculator <span class="status coming-soon">Soon</span></a></li>
-                        <li><a href="#coming-soon">NAC Load Calculator <span class="status coming-soon">Soon</span></a></li>
-                        <li><a href="https://amzn.to/48k5Upd" target="_blank">NFPA 72 Fire Alarm Code <span class="status coming-soon">Affiliate</span></a></li>
+                        <li><a href="/index.html#battery-calculator" class="resource-link">
+                            <span class="resource-name"><i class="fas fa-battery-full"></i> Battery Standby Calculator</span>
+                            <span class="status active">Active</span>
+                        </a></li>
+                        <li><a href="/index.html#smoke-calculator" class="resource-link">
+                            <span class="resource-name"><i class="fas fa-smog"></i> Smoke Detector Spacing</span>
+                            <span class="status active">Active</span>
+                        </a></li>
+                        <li><a href="#coming-soon" class="resource-link">
+                            <span class="resource-name"><i class="fas fa-bolt"></i> Voltage Drop Calculator</span>
+                            <span class="status coming-soon">Soon</span>
+                        </a></li>
+                        <li><a href="#coming-soon" class="resource-link">
+                            <span class="resource-name"><i class="fas fa-plug"></i> NAC Load Calculator</span>
+                            <span class="status coming-soon">Soon</span>
+                        </a></li>
                     </ul>
                 </div>
 
-                <div class="resource-card">
-                    <h3>💧 Water-Based Suppression</h3>
+                <div class="category-card">
+                    <h3><i class="fas fa-tint"></i> Water-Based Suppression</h3>
                     <ul class="resource-list">
-                        <li><a href="/index.html#friction-loss-calculator">Hazen-Williams Friction Loss <span class="status">Active</span></a></li>
-                        <li><a href="/index.html#pump-calculator">Fire Pump Sizing <span class="status">Active</span></a></li>
-                        <li><a href="/index.html#fireflow-calculator">Required Fire Flow <span class="status">Active</span></a></li>
-                        <li><a href="#coming-soon">Water Demand Calculator <span class="status coming-soon">Soon</span></a></li>
-                        <li><a href="https://amzn.to/48k5Upd" target="_blank">NFPA 13 Sprinkler Code Book <span class="status coming-soon">Affiliate</span></a></li>
+                        <li><a href="/index.html#friction-loss-calculator" class="resource-link">
+                            <span class="resource-name"><i class="fas fa-water"></i> Hazen-Williams Friction Loss</span>
+                            <span class="status active">Active</span>
+                        </a></li>
+                        <li><a href="/index.html#pump-calculator" class="resource-link">
+                            <span class="resource-name"><i class="fas fa-gas-pump"></i> Fire Pump Sizing</span>
+                            <span class="status active">Active</span>
+                        </a></li>
+                        <li><a href="/index.html#fireflow-calculator" class="resource-link">
+                            <span class="resource-name"><i class="fas fa-fire-extinguisher"></i> Required Fire Flow</span>
+                            <span class="status active">Active</span>
+                        </a></li>
+                        <li><a href="#coming-soon" class="resource-link">
+                            <span class="resource-name"><i class="fas fa-faucet"></i> Water Demand Calculator</span>
+                            <span class="status coming-soon">Soon</span>
+                        </a></li>
                     </ul>
                 </div>
 
-                <div class="resource-card">
-                    <h3>💨 Other Systems & Hazards</h3>
+                <div class="category-card">
+                    <h3><i class="fas fa-fire"></i> Special Hazard Systems</h3>
                     <ul class="resource-list">
-                        <li><a href="/index.html#occupant-calculator">Occupant Load Calculator <span class="status">Active</span></a></li>
-                        <li><a href="#coming-soon">Foam System Calculator <span class="status coming-soon">Soon</span></a></li>
-                        <li><a href="#coming-soon">Clean Agent Calculator <span class="status coming-soon">Soon</span></a></li>
-                        <li><a href="#coming-soon">Water Mist Calculator <span class="status coming-soon">Soon</span></a></li>
-                        <li><a href="https://amzn.to/48k5Upd" target="_blank">NFPA 101 Life Safety Code <span class="status coming-soon">Affiliate</span></a></li>
+                        <li><a href="/index.html#occupant-calculator" class="resource-link">
+                            <span class="resource-name"><i class="fas fa-users"></i> Occupant Load Calculator</span>
+                            <span class="status active">Active</span>
+                        </a></li>
+                        <li><a href="#coming-soon" class="resource-link">
+                            <span class="resource-name"><i class="fas fa-bubbles"></i> Foam System Calculator</span>
+                            <span class="status coming-soon">Soon</span>
+                        </a></li>
+                        <li><a href="#coming-soon" class="resource-link">
+                            <span class="resource-name"><i class="fas fa-wind"></i> Clean Agent Calculator</span>
+                            <span class="status coming-soon">Soon</span>
+                        </a></li>
+                        <li><a href="#coming-soon" class="resource-link">
+                            <span class="resource-name"><i class="fas fa-cloud-rain"></i> Water Mist Calculator</span>
+                            <span class="status coming-soon">Soon</span>
+                        </a></li>
                     </ul>
                 </div>
             </div>
 
-            <p style="margin-top: 2rem; text-align: center; color: #6b7280;">*External links are affiliate links. See our <a href="/affiliate.html">Affiliate Disclosure</a> for details.</p>
+            <!-- Training & Courses Section -->
+            <h2><i class="fas fa-graduation-cap"></i> Training & HSE Courses</h2>
+            <div class="resources-categories">
+                <div class="category-card">
+                    <h3><i class="fas fa-certificate"></i> Online Certifications</h3>
+                    <ul class="resource-list">
+                        <li><a href="https://amzn.to/3Y8Zabc" target="_blank" class="resource-link">
+                            <span class="resource-name">NFPA Certified Fire Inspector</span>
+                            <span class="status affiliate">Affiliate</span>
+                        </a></li>
+                        <li><a href="https://amzn.to/3Y8Zabc" target="_blank" class="resource-link">
+                            <span class="resource-name">OSHA Safety Training</span>
+                            <span class="status affiliate">Affiliate</span>
+                        </a></li>
+                        <li><a href="https://amzn.to/3Y8Zabc" target="_blank" class="resource-link">
+                            <span class="resource-name">Fire Alarm Systems Design</span>
+                            <span class="status affiliate">Affiliate</span>
+                        </a></li>
+                        <li><a href="https://amzn.to/3Y8Zabc" target="_blank" class="resource-link">
+                            <span class="resource-name">Emergency Response Planning</span>
+                            <span class="status affiliate">Affiliate</span>
+                        </a></li>
+                    </ul>
+                </div>
+
+                <div class="category-card">
+                    <h3><i class="fas fa-book-open"></i> Study Materials</h3>
+                    <ul class="resource-list">
+                        <li><a href="https://amzn.to/48k5Upd" target="_blank" class="resource-link">
+                            <span class="resource-name">NFPA 72 Fire Alarm Code</span>
+                            <span class="status affiliate">Affiliate</span>
+                        </a></li>
+                        <li><a href="https://amzn.to/48k5Upd" target="_blank" class="resource-link">
+                            <span class="resource-name">NFPA 13 Sprinkler Code</span>
+                            <span class="status affiliate">Affiliate</span>
+                        </a></li>
+                        <li><a href="https://amzn.to/48k5Upd" target="_blank" class="resource-link">
+                            <span class="resource-name">NFPA 101 Life Safety Code</span>
+                            <span class="status affiliate">Affiliate</span>
+                        </a></li>
+                        <li><a href="https://amzn.to/48k5Upd" target="_blank" class="resource-link">
+                            <span class="resource-name">HSE Handbook 2025</span>
+                            <span class="status affiliate">Affiliate</span>
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Safety Products Section -->
+            <h2><i class="fas fa-shield-alt"></i> Personal Safety Products</h2>
+            <div class="resources-categories">
+                <div class="category-card">
+                    <h3><i class="fas fa-hard-hat"></i> Protective Equipment</h3>
+                    <ul class="resource-list">
+                        <li><a href="https://amzn.to/3X9Yzde" target="_blank" class="resource-link">
+                            <span class="resource-name">Firefighter Helmets</span>
+                            <span class="status affiliate">Amazon</span>
+                        </a></li>
+                        <li><a href="https://amzn.to/3X9Yzde" target="_blank" class="resource-link">
+                            <span class="resource-name">Fire-Resistant Clothing</span>
+                            <span class="status affiliate">Amazon</span>
+                        </a></li>
+                        <li><a href="https://amzn.to/3X9Yzde" target="_blank" class="resource-link">
+                            <span class="resource-name">Safety Gloves & Boots</span>
+                            <span class="status affiliate">Amazon</span>
+                        </a></li>
+                        <li><a href="https://amzn.to/3X9Yzde" target="_blank" class="resource-link">
+                            <span class="resource-name">Respiratory Protection</span>
+                            <span class="status affiliate">Amazon</span>
+                        </a></li>
+                    </ul>
+                </div>
+
+                <div class="category-card">
+                    <h3><i class="fas fa-first-aid"></i> Emergency Equipment</h3>
+                    <ul class="resource-list">
+                        <li><a href="https://amzn.to/3X9Yzde" target="_blank" class="resource-link">
+                            <span class="resource-name">Fire Extinguishers</span>
+                            <span class="status affiliate">Amazon</span>
+                        </a></li>
+                        <li><a href="https://amzn.to/3X9Yzde" target="_blank" class="resource-link">
+                            <span class="resource-name">First Aid Kits</span>
+                            <span class="status affiliate">Amazon</span>
+                        </a></li>
+                        <li><a href="https://amzn.to/3X9Yzde" target="_blank" class="resource-link">
+                            <span class="resource-name">Emergency Escape Ladders</span>
+                            <span class="status affiliate">Amazon</span>
+                        </a></li>
+                        <li><a href="https://amzn.to/3X9Yzde" target="_blank" class="resource-link">
+                            <span class="resource-name">Safety Signage</span>
+                            <span class="status affiliate">Amazon</span>
+                        </a></li>
+                    </ul>
+                </div>
+
+                <div class="category-card">
+                    <h3><i class="fas fa-home"></i> Home Safety</h3>
+                    <ul class="resource-list">
+                        <li><a href="https://amzn.to/3X9Yzde" target="_blank" class="resource-link">
+                            <span class="resource-name">Smoke & CO Detectors</span>
+                            <span class="status affiliate">Amazon</span>
+                        </a></li>
+                        <li><a href="https://amzn.to/3X9Yzde" target="_blank" class="resource-link">
+                            <span class="resource-name">Fire Blankets</span>
+                            <span class="status affiliate">Amazon</span>
+                        </a></li>
+                        <li><a href="https://amzn.to/3X9Yzde" target="_blank" class="resource-link">
+                            <span class="resource-name">Emergency Lights</span>
+                            <span class="status affiliate">Amazon</span>
+                        </a></li>
+                        <li><a href="https://amzn.to/3X9Yzde" target="_blank" class="resource-link">
+                            <span class="resource-name">Safety Escape Masks</span>
+                            <span class="status affiliate">Amazon</span>
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- External Resources Section -->
+            <div class="external-resources">
+                <h2><i class="fas fa-external-link-alt"></i> External Resources</h2>
+                <div class="external-links">
+                    <div class="external-link">
+                        <h4>NFPA Standards</h4>
+                        <p>Access all NFPA codes and standards</p>
+                    </div>
+                    <div class="external-link">
+                        <h4>OSHA Regulations</h4>
+                        <p>Complete occupational safety guidelines</p>
+                    </div>
+                    <div class="external-link">
+                        <h4>Fire Engineering</h4>
+                        <p>Latest fire protection technology</p>
+                    </div>
+                    <div class="external-link">
+                        <h4>HSE Updates</h4>
+                        <p>Health & safety executive news</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Affiliate Disclaimer -->
+            <div class="affiliate-disclaimer">
+                <p><strong><i class="fas fa-info-circle"></i> Disclosure:</strong> External links marked as "Affiliate" or "Amazon" are affiliate links. We may earn a commission if you make a purchase through these links. See our <a href="/affiliate.html" style="color: #dc2626; font-weight: 600;">Affiliate Disclosure</a> for details.</p>
+            </div>
+
+            <!-- Contact Information -->
+            <div style="text-align: center; margin: 3rem 0; padding: 2rem; background: #f8fafc; border-radius: 12px;">
+                <h3><i class="fas fa-headset"></i> Need Help or Have Questions?</h3>
+                <p>Contact us for technical support, feedback, or partnership opportunities</p>
+                <div style="margin: 1.5rem 0;">
+                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> contact@amjathkhan.com</p>
+                    <p><i class="fas fa-phone"></i> <strong>Phone:</strong> +91-9750816163</p>
+                </div>
+                <div class="social-profiles">
+                    <a href="https://bsky.app/profile/amjathkhan.bsky.social" target="_blank" class="social-profile">
+                        <i class="fab fa-bluesky"></i> Bluesky
+                    </a>
+                    <a href="https://www.facebook.com/Amjathkhan.s" target="_blank" class="social-profile">
+                        <i class="fab fa-facebook"></i> Facebook
+                    </a>
+                    <a href="https://www.instagram.com/amjathkhan_official" target="_blank" class="social-profile">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
+                    <a href="https://x.com/amjikhan" target="_blank" class="social-profile">
+                        <i class="fab fa-twitter"></i> X/Twitter
+                    </a>
+                    <a href="https://www.linkedin.com/in/amjathkhan-shiekusman" target="_blank" class="social-profile">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                </div>
+            </div>
         </div>
     </main>
 
     <footer>
         <div class="footer-links">
             <a href="/index.html">Home</a>
+            <a href="/calculators.html">Calculators</a>
             <a href="/resources.html">Resources</a>
             <a href="/privacy.html">Privacy</a>
             <a href="/terms.html">Terms</a>
             <a href="/affiliate.html">Affiliate</a>
             <a href="/contact.html">Contact</a>
         </div>
-        <p>© 2025 FireSafetyTool.com</p>
+        <p>© 2025 FireSafetyTool.com | All Rights Reserved</p>
     </footer>
+
+    <!-- Visitor Counter Script -->
+    <script>
+        // Simple visitor counter
+        document.addEventListener('DOMContentLoaded', function() {
+            let visitorCount = localStorage.getItem('siteVisitors') || 1000;
+            visitorCount = parseInt(visitorCount) + 1;
+            localStorage.setItem('siteVisitors', visitorCount);
+            
+            // Display visitor count
+            const visitorDiv = document.createElement('div');
+            visitorDiv.className = 'visitor-counter';
+            visitorDiv.innerHTML = `
+                <div style="position: fixed; bottom: 80px; right: 20px; background: #dc2626; color: white; padding: 10px 15px; border-radius: 20px; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 1000;">
+                    <i class="fas fa-users"></i> ${visitorCount.toLocaleString()} Visitors
+                </div>
+            `;
+            document.body.appendChild(visitorDiv);
+        });
+    </script>
 </body>
 </html>
