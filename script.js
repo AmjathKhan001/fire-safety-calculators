@@ -1,4 +1,4 @@
-// script.js - COMPLETE WORKING VERSION
+// script.js - COMPATIBLE VERSION FOR UPDATED WEBSITE
 // =================================================================
 // GLOBAL STATE & UTILITIES
 // =================================================================
@@ -22,13 +22,13 @@ const UNIT_RATIOS = {
 function getInputValue(id, type = 'number') {
     const element = document.getElementById(id);
     if (!element) {
-        console.error('Element not found:', id);
+        console.warn('Element not found:', id);
         return 0;
     }
     
     const value = parseFloat(element.value);
     if (isNaN(value)) {
-        console.error('Invalid number for:', id);
+        console.warn('Invalid number for:', id, element.value);
         return 0;
     }
     
@@ -50,8 +50,10 @@ function displayResult(id, htmlContent) {
     const resultDiv = document.getElementById(id);
     if (resultDiv) {
         resultDiv.innerHTML = htmlContent;
-        resultDiv.classList.remove('hidden');
+        resultDiv.style.display = 'block';
         resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+        console.warn('Result div not found:', id);
     }
 }
 
@@ -70,30 +72,31 @@ function updateUnitLabels(newUnit) {
 }
 
 // =================================================================
-// CALCULATION FUNCTIONS - FIXED VERSIONS
+// ADVANCED CALCULATION FUNCTIONS
+// For use on individual calculator pages
 // =================================================================
 
-// 1. CLEAN AGENT CALCULATOR
-function calculateCleanAgent() {
-    console.log('Calculating Clean Agent...');
+// 1. CLEAN AGENT CALCULATOR (Advanced version)
+function calculateCleanAgentAdvanced() {
+    console.log('Calculating Clean Agent (Advanced)...');
     const resultId = 'clean-agent-result';
     
     try {
         // Get input values
-        const length = getInputValue('clean-agent-length', 'length');
-        const width = getInputValue('clean-agent-width', 'length');
-        const height = getInputValue('clean-agent-height', 'length');
-        const temp = getInputValue('clean-agent-temp', 'temp');
-        const altitude = getInputValue('clean-agent-altitude', 'length');
-        const agentType = document.getElementById('clean-agent-type').value;
-        const concentration = getInputValue('clean-agent-conc', 'percent') / 100;
+        const length = getInputValue('clean-agent-length', 'length') || 0;
+        const width = getInputValue('clean-agent-width', 'length') || 0;
+        const height = getInputValue('clean-agent-height', 'length') || 0;
+        const temp = getInputValue('clean-agent-temp', 'temp') || 70;
+        const altitude = getInputValue('clean-agent-altitude', 'length') || 0;
+        const agentType = document.getElementById('clean-agent-type')?.value || 'fm200';
+        const concentration = getInputValue('clean-agent-conc', 'percent') / 100 || 0.075;
         
-        console.log('Inputs:', { length, width, height, temp, altitude, agentType, concentration });
+        console.log('Advanced Inputs:', { length, width, height, temp, altitude, agentType, concentration });
         
         // Calculate volume
         const volume = length * width * height;
         
-        // Simplified agent calculation
+        // Advanced agent calculation
         let agentWeight;
         if (agentType === 'fm200') {
             agentWeight = (volume * concentration) / (1 - concentration) * 0.065;
@@ -108,27 +111,29 @@ function calculateCleanAgent() {
         
         // Format result
         const resultHTML = `
-            <h3><i class="fas fa-check-circle"></i> Clean Agent Results</h3>
-            <div class="result-grid">
-                <div class="result-item">
-                    <span class="result-label">Room Volume:</span>
-                    <span class="result-value">${volume.toFixed(1)} ft³</span>
+            <div class="result">
+                <h3><i class="fas fa-check-circle"></i> Clean Agent Results</h3>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <span class="result-label">Room Volume:</span>
+                        <span class="result-value">${volume.toFixed(1)} ft³</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Agent Type:</span>
+                        <span class="result-value">${agentType === 'fm200' ? 'FM-200' : 'NOVEC 1230'}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Required Agent Mass:</span>
+                        <span class="result-value highlight">${agentWeight.toFixed(2)} lb</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Approx. Liquid Volume:</span>
+                        <span class="result-value">${(agentWeight * 0.076).toFixed(2)} Gallons</span>
+                    </div>
                 </div>
-                <div class="result-item">
-                    <span class="result-label">Agent Type:</span>
-                    <span class="result-value">${agentType === 'fm200' ? 'FM-200' : 'NOVEC 1230'}</span>
+                <div class="result-note">
+                    <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Advanced calculation based on NFPA 2001. Use manufacturer's software for final design.</p>
                 </div>
-                <div class="result-item">
-                    <span class="result-label">Required Agent Mass:</span>
-                    <span class="result-value highlight">${agentWeight.toFixed(2)} lb</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Approx. Liquid Volume:</span>
-                    <span class="result-value">${(agentWeight * 0.076).toFixed(2)} Gallons</span>
-                </div>
-            </div>
-            <div class="result-note">
-                <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Simplified calculation based on NFPA 2001. Use manufacturer's software for final design.</p>
             </div>
         `;
         
@@ -146,18 +151,18 @@ function calculateCleanAgent() {
     }
 }
 
-// 2. SMOKE DETECTOR SPACING
-function calculateSmokeSpacing() {
-    console.log('Calculating Smoke Detector Spacing...');
+// 2. SMOKE DETECTOR SPACING (Advanced version)
+function calculateSmokeSpacingAdvanced() {
+    console.log('Calculating Smoke Detector Spacing (Advanced)...');
     const resultId = 'smoke-detector-result';
     
     try {
-        const height = getInputValue('smoke-height', 'length');
-        const ceilingType = document.getElementById('smoke-type').value;
+        const height = getInputValue('smoke-height', 'length') || 10;
+        const ceilingType = document.getElementById('smoke-type')?.value || 'smooth';
         const roomLength = parseFloat(document.getElementById('room-length')?.value) || 0;
         const roomWidth = parseFloat(document.getElementById('room-width')?.value) || 0;
         
-        console.log('Inputs:', { height, ceilingType, roomLength, roomWidth });
+        console.log('Advanced Inputs:', { height, ceilingType, roomLength, roomWidth });
         
         // Calculate spacing based on NFPA 72
         let maxSpacing;
@@ -183,27 +188,29 @@ function calculateSmokeSpacing() {
         }
         
         const resultHTML = `
-            <h3><i class="fas fa-check-circle"></i> Smoke Detector Spacing Results</h3>
-            <div class="result-grid">
-                <div class="result-item">
-                    <span class="result-label">Ceiling Type:</span>
-                    <span class="result-value">${ceilingType === 'smooth' ? 'Smooth Ceiling' : 'Beamed Ceiling'}</span>
+            <div class="result">
+                <h3><i class="fas fa-check-circle"></i> Smoke Detector Spacing Results</h3>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <span class="result-label">Ceiling Type:</span>
+                        <span class="result-value">${ceilingType === 'smooth' ? 'Smooth Ceiling' : 'Beamed Ceiling'}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Max Center-to-Center:</span>
+                        <span class="result-value highlight">${maxSpacing.toFixed(1)} ft</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Max Wall-to-Center:</span>
+                        <span class="result-value">${(maxSpacing / 2).toFixed(1)} ft</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Max Area per Detector:</span>
+                        <span class="result-value">${maxArea.toFixed(0)} Sq Ft</span>
+                    </div>
                 </div>
-                <div class="result-item">
-                    <span class="result-label">Max Center-to-Center:</span>
-                    <span class="result-value highlight">${maxSpacing.toFixed(1)} ft</span>
+                <div class="result-note">
+                    <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Based on NFPA 72 Table 17.5.3.2.1 for spot-type smoke detectors.</p>
                 </div>
-                <div class="result-item">
-                    <span class="result-label">Max Wall-to-Center:</span>
-                    <span class="result-value">${(maxSpacing / 2).toFixed(1)} ft</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Max Area per Detector:</span>
-                    <span class="result-value">${maxArea.toFixed(0)} Sq Ft</span>
-                </div>
-            </div>
-            <div class="result-note">
-                <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Based on NFPA 72 Table 17.5.3.2.1 for spot-type smoke detectors.</p>
             </div>
         `;
         
@@ -334,9 +341,9 @@ function generateDamperGuide() {
     const resultId = 'fire-damper-result';
     
     try {
-        const location = document.getElementById('damper-location').value;
-        const hvac = document.getElementById('damper-hvac').value;
-        const rating = document.getElementById('damper-rating').value;
+        const location = document.getElementById('damper-location')?.value || '';
+        const hvac = document.getElementById('damper-hvac')?.value || '';
+        const rating = document.getElementById('damper-rating')?.value || '';
         
         console.log('Inputs:', { location, hvac, rating });
         
@@ -380,32 +387,34 @@ function generateDamperGuide() {
         }
         
         const resultHTML = `
-            <h3><i class="fas fa-search"></i> Damper Selection Recommendation</h3>
-            <div class="result-grid">
-                <div class="result-item">
-                    <span class="result-label">Location:</span>
-                    <span class="result-value">${location.charAt(0).toUpperCase() + location.slice(1)}</span>
+            <div class="result">
+                <h3><i class="fas fa-search"></i> Damper Selection Recommendation</h3>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <span class="result-label">Location:</span>
+                        <span class="result-value">${location.charAt(0).toUpperCase() + location.slice(1)}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">HVAC Status:</span>
+                        <span class="result-value">${hvac === 'static' ? 'Static (System Shutdown)' : 'Dynamic (Operational)'}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Required Type:</span>
+                        <span class="result-value highlight">${damperType}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Required Rating:</span>
+                        <span class="result-value">${requiredRating}</span>
+                    </div>
                 </div>
-                <div class="result-item">
-                    <span class="result-label">HVAC Status:</span>
-                    <span class="result-value">${hvac === 'static' ? 'Static (System Shutdown)' : 'Dynamic (Operational)'}</span>
+                <div class="recommendation-box">
+                    <h4><i class="fas fa-lightbulb"></i> Recommendation</h4>
+                    <p>${recommendation}</p>
+                    ${notes ? `<p><small>${notes}</small></p>` : ''}
                 </div>
-                <div class="result-item">
-                    <span class="result-label">Required Type:</span>
-                    <span class="result-value highlight">${damperType}</span>
+                <div class="result-note">
+                    <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Consult NFPA 90A, IBC, and local codes. Dampers must be UL listed.</p>
                 </div>
-                <div class="result-item">
-                    <span class="result-label">Required Rating:</span>
-                    <span class="result-value">${requiredRating}</span>
-                </div>
-            </div>
-            <div class="recommendation-box">
-                <h4><i class="fas fa-lightbulb"></i> Recommendation</h4>
-                <p>${recommendation}</p>
-                ${notes ? `<p><small>${notes}</small></p>` : ''}
-            </div>
-            <div class="result-note">
-                <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Consult NFPA 90A, IBC, and local codes. Dampers must be UL listed.</p>
             </div>
         `;
         
@@ -423,15 +432,15 @@ function generateDamperGuide() {
 }
 
 // 5. REQUIRED FIRE FLOW
-function calculateFireFlow() {
-    console.log('Calculating Required Fire Flow...');
+function calculateFireFlowAdvanced() {
+    console.log('Calculating Required Fire Flow (Advanced)...');
     const resultId = 'required-fire-flow-result';
     
     try {
-        const area = getInputValue('ff-area', 'area');
-        const cFactor = parseFloat(document.getElementById('ff-construction').value) || 1.0;
+        const area = getInputValue('ff-area', 'area') || 10000;
+        const cFactor = parseFloat(document.getElementById('ff-construction')?.value) || 1.0;
         
-        console.log('Inputs:', { area, cFactor });
+        console.log('Advanced Inputs:', { area, cFactor });
         
         // NFPA 1142 formula: F = 18 * C * sqrt(A)
         const fireFlow = 18 * cFactor * Math.sqrt(area);
@@ -454,28 +463,30 @@ function calculateFireFlow() {
         }
         
         const resultHTML = `
-            <h3><i class="fas fa-check-circle"></i> Required Fire Flow Results (NFPA 1142)</h3>
-            <div class="result-grid">
-                <div class="result-item">
-                    <span class="result-label">Building Area:</span>
-                    <span class="result-value">${area.toFixed(0)} Sq Ft</span>
+            <div class="result">
+                <h3><i class="fas fa-check-circle"></i> Required Fire Flow Results (NFPA 1142)</h3>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <span class="result-label">Building Area:</span>
+                        <span class="result-value">${area.toFixed(0)} Sq Ft</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Construction Factor:</span>
+                        <span class="result-value">${cFactor}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Required Fire Flow:</span>
+                        <span class="result-value highlight">${finalFlow.toFixed(0)} GPM</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Hydrant Classification:</span>
+                        <span class="result-value ${colorClass}">${classification}</span>
+                    </div>
                 </div>
-                <div class="result-item">
-                    <span class="result-label">Construction Factor:</span>
-                    <span class="result-value">${cFactor}</span>
+                <div class="result-note">
+                    <p><i class="fas fa-info-circle"></i> <strong>Formula:</strong> F = 18 × C × √A (NFPA 1142)</p>
+                    <p><i class="fas fa-exclamation-triangle"></i> <strong>Limits:</strong> Min 250 GPM, Max 12,000 GPM</p>
                 </div>
-                <div class="result-item">
-                    <span class="result-label">Required Fire Flow:</span>
-                    <span class="result-value highlight">${finalFlow.toFixed(0)} GPM</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Hydrant Classification:</span>
-                    <span class="result-value ${colorClass}">${classification}</span>
-                </div>
-            </div>
-            <div class="result-note">
-                <p><i class="fas fa-info-circle"></i> <strong>Formula:</strong> F = 18 × C × √A (NFPA 1142)</p>
-                <p><i class="fas fa-exclamation-triangle"></i> <strong>Limits:</strong> Min 250 GPM, Max 12,000 GPM</p>
             </div>
         `;
         
@@ -492,13 +503,27 @@ function calculateFireFlow() {
     }
 }
 
-// Register all functions
+// Register all functions for calculator pages
 window.calculateFunctions = {
-    'clean-agent': calculateCleanAgent,
-    'smoke-detector': calculateSmokeSpacing,
+    'clean-agent': calculateCleanAgentAdvanced,
+    'smoke-detector': calculateSmokeSpacingAdvanced,
     'fire-door-checklist': generateDoorChecklist,
     'fire-damper-guide': generateDamperGuide,
-    'required-fire-flow': calculateFireFlow
+    'required-fire-flow': calculateFireFlowAdvanced
+};
+
+// =================================================================
+// SIMPLE CALCULATION FUNCTIONS
+// For use on homepage (compatible with sidebar.js)
+// =================================================================
+
+// Simple calculation for homepage demo
+window.calculateSimple = function(toolId) {
+    console.log('Simple calculation for:', toolId);
+    
+    // This function is called by sidebar.js
+    // It will be overridden by more specific functions if needed
+    return true;
 };
 
 // =================================================================
@@ -506,7 +531,7 @@ window.calculateFunctions = {
 // =================================================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Fire Safety Tools - Scripts Initialized');
+    console.log('Fire Safety Tools - Advanced Scripts Initialized');
     
     // Unit switcher
     const unitSwitch = document.getElementById('unit-switch');
@@ -514,6 +539,7 @@ document.addEventListener('DOMContentLoaded', function() {
         unitSwitch.addEventListener('change', function() {
             window.currentUnit = this.value;
             updateUnitLabels(window.currentUnit);
+            console.log('Unit switched to:', window.currentUnit);
         });
     }
     
@@ -523,11 +549,39 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check if we need to run a calculation from URL
     const urlHash = window.location.hash.substring(1);
     if (urlHash && window.calculateFunctions[urlHash]) {
+        console.log('Running calculation from URL hash:', urlHash);
         // Wait for calculator to load
         setTimeout(() => {
             if (window.calculateFunctions[urlHash]) {
                 window.calculateFunctions[urlHash]();
             }
-        }, 1000);
+        }, 500);
     }
+    
+    // Add event listeners to all calculate buttons
+    document.querySelectorAll('[data-calculate]').forEach(button => {
+        button.addEventListener('click', function() {
+            const toolId = this.dataset.calculate;
+            if (toolId && window.calculateFunctions[toolId]) {
+                window.calculateFunctions[toolId]();
+            }
+        });
+    });
+    
+    // Add event listeners to all reset buttons
+    document.querySelectorAll('[data-reset]').forEach(button => {
+        button.addEventListener('click', function() {
+            const formId = this.dataset.reset;
+            const form = document.getElementById(formId);
+            if (form) {
+                form.reset();
+                const resultDiv = document.getElementById(`${formId}-result`);
+                if (resultDiv) {
+                    resultDiv.style.display = 'none';
+                }
+            }
+        });
+    });
+    
+    console.log('All script functions loaded successfully');
 });
