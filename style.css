@@ -3775,3 +3775,239 @@ footer {
         padding: 1rem;
     }
 }
+/* ============================================
+   SIDEBAR STYLES - For calculator tools
+   ============================================ */
+
+#sidebar {
+    width: 320px;
+    background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+    border-right: 1px solid #dee2e6;
+    padding: 1.5rem;
+    overflow-y: auto;
+    height: calc(100vh - 150px);
+    position: sticky;
+    top: 150px;
+}
+
+.sidebar-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #3498db;
+}
+
+.sidebar-header h3 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-subtitle {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+/* Search Box */
+.search-box {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.8rem 1rem 0.8rem 2.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.search-box .fa-search {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+}
+
+/* Category Sections */
+.sidebar-section {
+    margin-bottom: 1.5rem;
+}
+
+.category-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #495057;
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #dee2e6;
+}
+
+.tool-count {
+    background: #3498db;
+    color: white;
+    padding: 0.1rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+/* Tool Items */
+.tool-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.tool-item {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem;
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #495057;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.tool-item:hover {
+    background: #f8f9fa;
+    border-color: #3498db;
+    transform: translateX(5px);
+}
+
+.tool-icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #3498db, #2c3e50);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.8rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.tool-info {
+    flex: 1;
+}
+
+.tool-info h5 {
+    margin: 0 0 0.2rem 0;
+    font-size: 0.95rem;
+    color: #2c3e50;
+}
+
+.tool-info p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.tool-item .fa-chevron-right {
+    color: #adb5bd;
+    font-size: 0.8rem;
+}
+
+/* Featured Tool */
+.sidebar-featured {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #fff8e1, #ffecb3);
+    border-radius: 10px;
+    border: 1px solid #ffd54f;
+}
+
+.sidebar-featured h4 {
+    color: #ff9800;
+    margin-bottom: 1rem;
+}
+
+.featured-tool {
+    display: flex;
+    align-items: center;
+}
+
+.featured-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.featured-info h5 {
+    margin: 0 0 0.3rem 0;
+    color: #333;
+}
+
+.featured-btn {
+    display: inline-block;
+    background: #ff9800;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    margin-top: 0.5rem;
+    transition: background 0.3s;
+}
+
+.featured-btn:hover {
+    background: #f57c00;
+}
+
+/* Search highlighting */
+.search-highlight {
+    background-color: #ffeb3b;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.active-tool {
+    border-left: 4px solid #e74c3c;
+    background-color: #fff5f5 !important;
+}
+
+/* Responsive Sidebar */
+@media (max-width: 992px) {
+    .main-wrapper {
+        flex-direction: column;
+    }
+    
+    #sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+        margin-bottom: 2rem;
+    }
+    
+    .tool-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .tool-list {
+        grid-template-columns: 1fr;
+    }
+}
