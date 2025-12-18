@@ -3447,3 +3447,199 @@ footer {
 .share-toast.show {
     transform: translateX(-50%) translateY(0);
 }
+/* ============================================
+   MAIN WEBSITE NAVIGATION BAR STYLES
+   ============================================ */
+
+.main-header {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Logo and Title Styles */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+    border-radius: 8px;
+}
+
+.title-subtitle h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.title-subtitle p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    color: #ecf0f1;
+}
+
+/* Desktop Navigation Styles */
+.main-nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .main-nav {
+        display: none; /* Hide desktop nav on mobile */
+    }
+}
+
+.nav-link {
+    color: #ecf0f1;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #3498db;
+}
+
+.nav-link.active {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* Mobile Menu Toggle Button */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: block;
+    }
+}
+
+/* Mobile Navigation Menu */
+.mobile-nav {
+    display: none;
+    flex-direction: column;
+    background-color: #2c3e50;
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav.active {
+    display: flex;
+}
+
+.mobile-nav-link {
+    color: #ecf0f1;
+    text-decoration: none;
+    padding: 1rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: background-color 0.3s;
+}
+
+.mobile-nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav-link.active {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* ============================================
+   BLOG NAVIGATION FIX (For blog.html)
+   ============================================ */
+/* This ensures the blog page navigation also appears */
+.blog-nav-enhanced {
+    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+    padding: 0.8rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.blog-nav-enhanced a {
+    color: #ecf0f1;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.blog-nav-enhanced a:hover {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+}
+
+.blog-nav-enhanced a.active {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* Mobile toggle for blog nav */
+.mobile-nav-toggle {
+    display: none;
+    width: 100%;
+    background-color: #34495e;
+    color: white;
+    border: none;
+    padding: 1rem;
+    text-align: left;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+@media (max-width: 768px) {
+    .mobile-nav-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .blog-nav-enhanced {
+        flex-direction: column;
+        display: none;
+        gap: 0;
+    }
+    .blog-nav-enhanced.active {
+        display: flex;
+    }
+}
