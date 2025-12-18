@@ -1,12 +1,8 @@
-// sidebar.js - COMPLETE WORKING VERSION
-// Fire Safety Tools Sidebar Functionality
-
+// sidebar.js - Simple working version
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Fire Safety Tools - Sidebar Initialized');
+    console.log('Sidebar script loaded');
     
-    // ===========================================
-    // MOBILE MENU TOGGLE
-    // ===========================================
+    // Mobile menu toggle
     const mobileToggle = document.querySelector('.mobile-menu-toggle');
     const mobileNav = document.querySelector('.mobile-nav');
     
@@ -14,426 +10,272 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileToggle.addEventListener('click', function() {
             mobileNav.classList.toggle('active');
             const icon = this.querySelector('i');
-            if (icon) {
-                if (icon.classList.contains('fa-bars')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            }
-        });
-        
-        // Close mobile nav when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!mobileToggle.contains(event.target) && !mobileNav.contains(event.target)) {
-                mobileNav.classList.remove('active');
-                const icon = mobileToggle.querySelector('i');
-                if (icon && icon.classList.contains('fa-times')) {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
             }
         });
     }
     
-    // ===========================================
-    // TOOL DATA
-    // ===========================================
-    const tools = {
-        'clean-agent': {
-            name: 'Clean Agent Calculator',
-            icon: 'fa-fire-extinguisher',
-            description: 'FM-200, NOVEC 1230 systems (NFPA 2001)',
-            inputs: [
-                { id: 'room-length', label: 'Room Length (ft)', type: 'number', value: 20 },
-                { id: 'room-width', label: 'Room Width (ft)', type: 'number', value: 15 },
-                { id: 'room-height', label: 'Room Height (ft)', type: 'number', value: 10 },
-                { 
-                    id: 'agent-type', 
-                    label: 'Agent Type', 
-                    type: 'select',
-                    options: [
-                        { value: 'fm200', text: 'FM-200' },
-                        { value: 'novec', text: 'NOVEC 1230' },
-                        { value: 'co2', text: 'CO2 System' }
-                    ]
-                },
-                { 
-                    id: 'concentration', 
-                    label: 'Design Concentration (%)', 
-                    type: 'select',
-                    options: [
-                        { value: '7.5', text: '7.5% (Class A/C with FM-200)' },
-                        { value: '8.0', text: '8.0% (Class B with FM-200)' },
-                        { value: '5.3', text: '5.3% (NOVEC 1230)' },
-                        { value: '34', text: '34% (CO2 Local Application)' }
-                    ]
-                }
-            ]
-        },
-        'sprinkler': {
-            name: 'Sprinkler Hydraulics',
-            icon: 'fa-shower',
-            description: 'NFPA 13 hydraulic calculations',
-            inputs: [
-                { id: 'sprinkler-type', label: 'Sprinkler Type', type: 'select',
-                    options: [
-                        { value: 'standard', text: 'Standard Spray (SS)' },
-                        { value: 'extended', text: 'Extended Coverage (EC)' },
-                        { value: 'esfr', text: 'Early Suppression Fast Response (ESFR)' }
-                    ]
-                },
-                { id: 'density', label: 'Design Density (gpm/sq.ft)', type: 'number', value: 0.2 },
-                { id: 'area', label: 'Design Area (sq.ft)', type: 'number', value: 1500 },
-                { id: 'pressure', label: 'Residual Pressure (psi)', type: 'number', value: 50 }
-            ]
-        },
-        'egress': {
-            name: 'Egress Analysis',
-            icon: 'fa-door-open',
-            description: 'Occupant load and exit requirements',
-            inputs: [
-                { id: 'occupancy-type', label: 'Occupancy Type', type: 'select',
-                    options: [
-                        { value: 'assembly', text: 'Assembly' },
-                        { value: 'business', text: 'Business' },
-                        { value: 'educational', text: 'Educational' },
-                        { value: 'industrial', text: 'Industrial' },
-                        { value: 'mercantile', text: 'Mercantile' }
-                    ]
-                },
-                { id: 'floor-area', label: 'Floor Area (sq.ft)', type: 'number', value: 5000 },
-                { id: 'occupant-load', label: 'Occupant Load Factor', type: 'number', value: 15 }
-            ]
-        },
-        'fire-flow': {
-            name: 'Fire Flow Demand',
-            icon: 'fa-tint',
-            description: 'Required fire flow calculations',
-            inputs: [
-                { id: 'building-area', label: 'Building Area (sq.ft)', type: 'number', value: 10000 },
-                { id: 'construction-type', label: 'Construction Type', type: 'select',
-                    options: [
-                        { value: '1.0', text: 'Type I - Fire Resistive' },
-                        { value: '0.9', text: 'Type II - Non-Combustible' },
-                        { value: '1.0', text: 'Type III - Ordinary' },
-                        { value: '1.1', text: 'Type IV - Heavy Timber' },
-                        { value: '1.2', text: 'Type V - Wood Frame' }
-                    ]
-                }
-            ]
-        },
-        'fire-pump': {
-            name: 'Fire Pump Sizing',
-            icon: 'fa-industry',
-            description: 'Fire pump head and sizing',
-            inputs: [
-                { id: 'flow-demand', label: 'Flow Demand (GPM)', type: 'number', value: 1500 },
-                { id: 'pressure-demand', label: 'Pressure Demand (PSI)', type: 'number', value: 100 },
-                { id: 'suction-pressure', label: 'Suction Pressure (PSI)', type: 'number', value: 20 }
-            ]
-        }
-    };
-    
-    // ===========================================
-    // SIDEBAR TOOL CLICK HANDLER
-    // ===========================================
-    const toolItems = document.querySelectorAll('.tool-item[data-tool]');
+    // Tool selection
+    const toolButtons = document.querySelectorAll('.sidebar-tool-btn');
     const welcomeSection = document.querySelector('.welcome-section');
     const calculatorContainer = document.getElementById('calculator-container');
-    const featuredBtn = document.querySelector('.featured-btn');
     
-    function loadCalculator(toolId) {
-        const tool = tools[toolId];
-        if (!tool) return;
-        
-        // Update active states
-        toolItems.forEach(item => {
-            item.classList.remove('active');
-            if (item.dataset.tool === toolId) {
-                item.classList.add('active');
-            }
+    toolButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active class from all buttons
+            toolButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            const toolId = this.getAttribute('data-tool');
+            loadCalculator(toolId);
         });
-        
+    });
+    
+    // Load calculator function
+    function loadCalculator(toolId) {
         // Hide welcome section
         if (welcomeSection) {
-            welcomeSection.classList.remove('active');
             welcomeSection.style.display = 'none';
         }
         
-        // Generate calculator HTML
-        let inputsHTML = '';
-        if (tool.inputs) {
-            tool.inputs.forEach(input => {
-                if (input.type === 'select') {
-                    let optionsHTML = '';
-                    input.options.forEach(option => {
-                        optionsHTML += `<option value="${option.value}">${option.text}</option>`;
-                    });
-                    inputsHTML += `
-                        <div class="input-group">
-                            <label>${input.label}</label>
-                            <select id="${input.id}">
-                                ${optionsHTML}
-                            </select>
-                        </div>
-                    `;
-                } else {
-                    inputsHTML += `
-                        <div class="input-group">
-                            <label>${input.label}</label>
-                            <input type="${input.type}" id="${input.id}" value="${input.value || ''}">
-                        </div>
-                    `;
-                }
-            });
-        }
-        
-        // Show calculator
+        // Show calculator container
         if (calculatorContainer) {
-            calculatorContainer.innerHTML = `
-                <div class="calculator-box">
-                    <div class="calculator-header">
-                        <h2><i class="fas ${tool.icon}"></i> ${tool.name}</h2>
-                        <p>${tool.description}</p>
-                    </div>
+            calculatorContainer.innerHTML = generateCalculatorHTML(toolId);
+            calculatorContainer.style.display = 'block';
+            
+            // Scroll to calculator
+            calculatorContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+    
+    // Generate calculator HTML
+    function generateCalculatorHTML(toolId) {
+        const tools = {
+            'clean-agent': {
+                name: 'Clean Agent Calculator',
+                icon: 'fa-fire-extinguisher',
+                description: 'FM-200, NOVEC 1230 systems (NFPA 2001)'
+            },
+            'sprinkler': {
+                name: 'Sprinkler Hydraulics',
+                icon: 'fa-shower',
+                description: 'NFPA 13 hydraulic calculations'
+            },
+            'egress': {
+                name: 'Egress Analysis',
+                icon: 'fa-door-open',
+                description: 'Occupant load and exit requirements'
+            },
+            'fire-flow': {
+                name: 'Fire Flow Demand',
+                icon: 'fa-tint',
+                description: 'Required fire flow calculations'
+            },
+            'hazard': {
+                name: 'Hazard Classification',
+                icon: 'fa-flask',
+                description: 'Determine occupancy hazard class'
+            },
+            'fire-pump': {
+                name: 'Fire Pump Sizing',
+                icon: 'fa-industry',
+                description: 'Fire pump head and sizing'
+            },
+            'smoke-detector': {
+                name: 'Smoke Detector Spacing',
+                icon: 'fa-bell',
+                description: 'Smoke detector placement'
+            },
+            'battery': {
+                name: 'Battery Standby Calculator',
+                icon: 'fa-battery-full',
+                description: 'Fire alarm battery sizing'
+            },
+            'co2-system': {
+                name: 'CO2 System Calculator',
+                icon: 'fa-gas-pump',
+                description: 'CO2 flooding system calculations'
+            },
+            'inert-gas': {
+                name: 'Inert Gas Calculator',
+                icon: 'fa-wind',
+                description: 'IG-541, IG-55 systems'
+            },
+            'room-flooding': {
+                name: 'Room Flooding System',
+                icon: 'fa-fill-drip',
+                description: 'Total flooding calculations'
+            },
+            'kitchen-suppression': {
+                name: 'Kitchen Suppression',
+                icon: 'fa-utensils',
+                description: 'Kitchen fire system calculations'
+            }
+        };
+        
+        const tool = tools[toolId] || {
+            name: 'Calculator Tool',
+            icon: 'fa-calculator',
+            description: 'Professional fire safety calculator'
+        };
+        
+        return `
+            <div class="calculator-box">
+                <div class="calculator-header">
+                    <h2><i class="fas ${tool.icon}"></i> ${tool.name}</h2>
+                    <p class="description">${tool.description}</p>
+                </div>
+                
+                <div style="margin: 30px 0;">
+                    <h3><i class="fas fa-sliders-h"></i> Input Parameters</h3>
                     
-                    <div style="margin: 30px 0; padding: 20px; background: #f8f9fa; border-radius: 8px;">
-                        <h3 style="margin-bottom: 20px;">Calculator Inputs</h3>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                            ${inputsHTML}
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                        <div class="input-group">
+                            <label>Room Length (ft)</label>
+                            <input type="number" id="length" placeholder="Enter length" value="20">
                         </div>
                         
-                        <button class="calculate-btn" onclick="calculateTool('${toolId}')" style="margin-top: 30px;">
-                            <i class="fas fa-calculator"></i> Calculate ${tool.name}
-                        </button>
+                        <div class="input-group">
+                            <label>Room Width (ft)</label>
+                            <input type="number" id="width" placeholder="Enter width" value="15">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Room Height (ft)</label>
+                            <input type="number" id="height" placeholder="Enter height" value="10">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Design Concentration (%)</label>
+                            <select id="concentration">
+                                <option value="7.5">7.5% (Class A/C with FM-200)</option>
+                                <option value="8.0">8.0% (Class B with FM-200)</option>
+                                <option value="5.3">5.3% (NOVEC 1230)</option>
+                                <option value="34">34% (CO2 Local Application)</option>
+                            </select>
+                        </div>
                     </div>
                     
-                    <div id="tool-result" class="result" style="display: none;">
-                        <h3>Calculation Results</h3>
-                        <div id="tool-result-content"></div>
-                    </div>
+                    <button class="calculate-btn" onclick="calculateTool('${toolId}')">
+                        <i class="fas fa-calculator"></i> Calculate ${tool.name}
+                    </button>
                 </div>
-            `;
-        }
-    }
-    
-    // Add click listeners to all tool items
-    if (toolItems.length > 0) {
-        toolItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                const toolId = this.dataset.tool;
-                loadCalculator(toolId);
                 
-                // Update URL hash
-                window.history.pushState(null, null, `#${toolId}`);
-                
-                // Scroll to calculator
-                if (calculatorContainer) {
-                    calculatorContainer.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
+                <div id="tool-result" class="result" style="display: none;">
+                    <h3>Calculation Results</h3>
+                    <div id="tool-result-content"></div>
+                </div>
+            </div>
+        `;
     }
     
-    // Featured button click
-    if (featuredBtn) {
-        featuredBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const toolId = this.dataset.tool;
-            if (toolId) {
-                loadCalculator(toolId);
-            }
-        });
-    }
-    
-    // ===========================================
-    // CALCULATION FUNCTIONS
-    // ===========================================
-    window.calculateTool = function(toolId) {
-        const tool = tools[toolId];
-        if (!tool) return;
-        
-        try {
-            let resultHTML = '';
-            let resultValue = '';
-            
-            switch(toolId) {
-                case 'clean-agent':
-                    const length = parseFloat(document.getElementById('room-length').value) || 0;
-                    const width = parseFloat(document.getElementById('room-width').value) || 0;
-                    const height = parseFloat(document.getElementById('room-height').value) || 0;
-                    const agentType = document.getElementById('agent-type').value;
-                    const concentration = parseFloat(document.getElementById('concentration').value) || 7.5;
-                    
-                    if (!length || !width || !height) {
-                        alert('Please enter all room dimensions');
-                        return;
-                    }
-                    
-                    const volume = length * width * height;
-                    let agentWeight;
-                    
-                    if (agentType === 'fm200') {
-                        agentWeight = (volume * concentration * 0.01).toFixed(2);
-                    } else if (agentType === 'novec') {
-                        agentWeight = (volume * concentration * 0.008).toFixed(2);
-                    } else {
-                        agentWeight = (volume * concentration * 0.015).toFixed(2);
-                    }
-                    
-                    resultValue = `${agentWeight} lbs`;
-                    resultHTML = `
-                        <div style="margin-bottom: 15px;">
-                            <strong>Room Volume:</strong> ${volume.toFixed(2)} ft³
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <strong>Agent Type:</strong> ${agentType === 'fm200' ? 'FM-200' : agentType === 'novec' ? 'NOVEC 1230' : 'CO2'}
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <strong>Design Concentration:</strong> ${concentration}%
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <strong>Agent Required:</strong> <span style="color: #0099e5; font-weight: 700;">${agentWeight} lbs</span>
-                        </div>
-                        <div style="padding: 15px; background: #e9ecef; border-radius: 6px; margin-top: 15px;">
-                            <small><i class="fas fa-info-circle"></i> This is a sample calculation. Always verify with manufacturer data and NFPA 2001.</small>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'sprinkler':
-                    const sprinklerType = document.getElementById('sprinkler-type').value;
-                    const density = parseFloat(document.getElementById('density').value) || 0.2;
-                    const area = parseFloat(document.getElementById('area').value) || 1500;
-                    const pressure = parseFloat(document.getElementById('pressure').value) || 50;
-                    
-                    const flow = (density * area).toFixed(2);
-                    resultValue = `${flow} GPM`;
-                    resultHTML = `
-                        <div style="margin-bottom: 15px;">
-                            <strong>Sprinkler Type:</strong> ${sprinklerType === 'standard' ? 'Standard Spray' : sprinklerType === 'extended' ? 'Extended Coverage' : 'ESFR'}
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <strong>Design Density:</strong> ${density} gpm/sq.ft
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <strong>Design Area:</strong> ${area} sq.ft
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <strong>Required Flow:</strong> <span style="color: #0099e5; font-weight: 700;">${flow} GPM</span>
-                        </div>
-                        <div style="padding: 15px; background: #e9ecef; border-radius: 6px; margin-top: 15px;">
-                            <small><i class="fas fa-info-circle"></i> Based on NFPA 13 hydraulic calculations. Verify with detailed analysis.</small>
-                        </div>
-                    `;
-                    break;
-                    
-                default:
-                    resultHTML = `
-                        <div style="text-align: center; padding: 30px;">
-                            <i class="fas fa-calculator" style="font-size: 3rem; color: #0099e5; margin-bottom: 20px;"></i>
-                            <h4>Calculation Preview</h4>
-                            <p>This is a demonstration of the ${tool.name}.</p>
-                            <p>Full calculation logic will be implemented soon.</p>
-                        </div>
-                    `;
-                    resultValue = 'Preview Mode';
-            }
-            
-            // Display result
-            const resultDiv = document.getElementById('tool-result');
-            const resultContent = document.getElementById('tool-result-content');
-            
-            if (resultDiv && resultContent) {
-                resultContent.innerHTML = resultHTML;
-                resultDiv.style.display = 'block';
-                resultDiv.scrollIntoView({ behavior: 'smooth' });
-            }
-            
-        } catch (error) {
-            console.error('Calculation error:', error);
-            alert('Error in calculation. Please check your inputs and try again.');
-        }
-    };
-    
-    // ===========================================
-    // SEARCH FUNCTIONALITY
-    // ===========================================
-    const searchInput = document.querySelector('.search-box input');
+    // Search functionality
+    const searchInput = document.getElementById('tool-search');
     if (searchInput) {
         searchInput.addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
-            const allToolItems = document.querySelectorAll('.tool-item');
+            const allToolButtons = document.querySelectorAll('.sidebar-tool-btn');
             
-            allToolItems.forEach(item => {
-                const toolText = item.textContent.toLowerCase();
-                if (toolText.includes(searchTerm)) {
-                    item.style.display = 'flex';
+            allToolButtons.forEach(button => {
+                const buttonText = button.textContent.toLowerCase();
+                if (buttonText.includes(searchTerm)) {
+                    button.style.display = 'flex';
                 } else {
-                    item.style.display = 'none';
+                    button.style.display = 'none';
                 }
             });
         });
     }
     
-    // ===========================================
-    // FOOTER TOOL LINKS
-    // ===========================================
-    const footerToolLinks = document.querySelectorAll('.footer-column a[data-tool]');
-    footerToolLinks.forEach(link => {
+    // Footer tool links
+    const footerLinks = document.querySelectorAll('.footer-column a[data-tool]');
+    footerLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            const toolId = this.dataset.tool;
-            
-            // Find and click the corresponding sidebar item
-            const sidebarItem = document.querySelector(`.tool-item[data-tool="${toolId}"]`);
-            if (sidebarItem) {
-                sidebarItem.click();
+            const toolId = this.getAttribute('data-tool');
+            const toolButton = document.querySelector(`.sidebar-tool-btn[data-tool="${toolId}"]`);
+            if (toolButton) {
+                toolButton.click();
             }
         });
     });
     
-    // ===========================================
-    // CHECK URL HASH ON LOAD
-    // ===========================================
-    function checkUrlHash() {
-        const hash = window.location.hash.substring(1);
-        if (hash && tools[hash]) {
-            // Small delay to ensure DOM is ready
-            setTimeout(() => {
-                loadCalculator(hash);
-            }, 300);
-        }
+    // Action buttons
+    const printBtn = document.getElementById('print-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    
+    if (printBtn) {
+        printBtn.addEventListener('click', function() {
+            window.print();
+        });
     }
     
-    // Check hash on load
-    checkUrlHash();
-    
-    // Also check when hash changes
-    window.addEventListener('hashchange', checkUrlHash);
-    
-    // ===========================================
-    // CLOSE MOBILE NAV ON LINK CLICK
-    // ===========================================
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-    mobileNavLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (mobileNav) {
-                mobileNav.classList.remove('active');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function() {
+            // Show welcome section, hide calculator
+            if (welcomeSection) {
+                welcomeSection.style.display = 'block';
             }
-            if (mobileToggle) {
-                const icon = mobileToggle.querySelector('i');
-                if (icon && icon.classList.contains('fa-times')) {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
+            if (calculatorContainer) {
+                calculatorContainer.style.display = 'none';
             }
+            
+            // Remove active class from all tool buttons
+            toolButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-    });
-    
-    console.log('All sidebar functionality loaded successfully');
+    }
 });
+
+// Global calculation function
+window.calculateTool = function(toolId) {
+    const length = parseFloat(document.getElementById('length')?.value) || 0;
+    const width = parseFloat(document.getElementById('width')?.value) || 0;
+    const height = parseFloat(document.getElementById('height')?.value) || 0;
+    const concentration = parseFloat(document.getElementById('concentration')?.value) || 7.5;
+    
+    if (!length || !width || !height) {
+        alert('Please enter all room dimensions');
+        return;
+    }
+    
+    const volume = length * width * height;
+    const agentRequired = (volume * concentration * 0.01).toFixed(2);
+    
+    const resultDiv = document.getElementById('tool-result');
+    const resultContent = document.getElementById('tool-result-content');
+    
+    if (resultDiv && resultContent) {
+        resultContent.innerHTML = `
+            <div style="margin-bottom: 15px;">
+                <strong>Room Dimensions:</strong> ${length} ft × ${width} ft × ${height} ft
+            </div>
+            <div style="margin-bottom: 15px;">
+                <strong>Room Volume:</strong> ${volume.toFixed(2)} ft³
+            </div>
+            <div style="margin-bottom: 15px;">
+                <strong>Design Concentration:</strong> ${concentration}%
+            </div>
+            <div style="margin-bottom: 15px;">
+                <strong>Agent Required:</strong> <span style="color: #0099e5; font-weight: bold;">${agentRequired} lbs</span>
+            </div>
+            <div style="padding: 15px; background: #e9ecef; border-radius: 6px; margin-top: 15px;">
+                <small><i class="fas fa-info-circle"></i> This is a sample calculation. Actual requirements may vary based on specific conditions and standards.</small>
+            </div>
+        `;
+        
+        resultDiv.style.display = 'block';
+        resultDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+};
