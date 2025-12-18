@@ -5,243 +5,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fire Safety Tools Suite | NFPA & IBC Calculators</title>
     <meta name="description" content="Professional NFPA & IBC fire safety calculators for engineers and designers. Free tools for sprinkler, egress, suppression, and hazard calculations.">
-    
-    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
-    
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/sidebar.css">
-    
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="logo.png">
-    
-    <!-- Open Graph / Social Meta Tags -->
-    <meta property="og:title" content="Fire Safety Tools Suite | Professional Engineering Calculators">
-    <meta property="og:description" content="Free NFPA-compliant calculators for fire protection engineers and designers.">
-    <meta property="og:image" content="https://www.firesafetytool.com/logo.png">
-    <meta property="og:url" content="https://www.firesafetytool.com">
-    <meta property="og:type" content="website">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Fire Safety Tools Suite">
-    <meta name="twitter:description" content="Professional fire safety calculators for engineers.">
-    <meta name="twitter:image" content="https://www.firesafetytool.com/logo.png">
-    
-    <!-- Google Analytics / Tag Manager can go here -->
 </head>
-
 <body>
-    <!-- ===== MAIN NAVIGATION BAR ===== -->
-    <header class="main-header">
+    <!-- NAVIGATION - Exactly like blog.html -->
+    <header>
         <div class="header-container">
-            <!-- Logo and Site Title -->
             <div class="logo-title">
                 <img src="logo.png" alt="Fire Safety Tools Logo" class="logo">
-                <div class="title-subtitle">
+                <div>
                     <h1>Fire Safety Tools Suite</h1>
-                    <p>NFPA & IBC Calculators for Professionals</p>
+                    <p>Professional NFPA & IBC tools for engineers and designers.</p>
                 </div>
             </div>
-
-            <!-- Desktop Navigation Menu -->
-            <nav class="main-nav">
-                <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a>
-                <a href="calculators.html" class="nav-link"><i class="fas fa-calculator"></i> Calculators</a>
-                <a href="blog.html" class="nav-link"><i class="fas fa-blog"></i> Blog</a>
-                <a href="resources.html" class="nav-link"><i class="fas fa-book"></i> Resources</a>
-                <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
-                <!-- Optional: Add a dropdown for calculator categories later -->
-            </nav>
-
-            <!-- Mobile Menu Toggle Button -->
-            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
-                <i class="fas fa-bars"></i>
-            </button>
+            <div class="header-social">
+                <a href="https://twitter.com/" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="https://linkedin.com/" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                <a href="https://facebook.com/" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a>
+            </div>
         </div>
-
-        <!-- Mobile Navigation Menu (Hidden by default) -->
-        <nav class="mobile-nav" id="mobileNav">
-            <a href="index.html" class="mobile-nav-link active"><i class="fas fa-home"></i> Home</a>
-            <a href="calculators.html" class="mobile-nav-link"><i class="fas fa-calculator"></i> Calculators</a>
-            <a href="blog.html" class="mobile-nav-link"><i class="fas fa-blog"></i> Blog</a>
-            <a href="resources.html" class="mobile-nav-link"><i class="fas fa-book"></i> Resources</a>
-            <a href="contact.html" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact</a>
+        <!-- Main Navigation Bar -->
+        <nav class="main-nav" id="mainNav">
+            <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+            <a href="calculators.html"><i class="fas fa-calculator"></i> Calculators</a>
+            <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
+            <a href="resources.html"><i class="fas fa-book"></i> Resources</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
         </nav>
     </header>
-    <!-- ===== END OF NAVIGATION BAR ===== -->
 
-    <div class="wrapper">
-        <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
-            <!-- Sidebar content will be loaded by sidebar.js -->
-        </aside>
+    <div class="main-wrapper">
+        <!-- Sidebar (loaded by sidebar.js) -->
+        <aside class="sidebar" id="sidebar"></aside>
 
         <!-- Main Content -->
         <main class="main-content">
-            <div class="welcome-section">
-                <h2>Fire Safety Tools Suite</h2>
-                <p class="tagline">Professional NFPA & IBC tools for engineers and designers.</p>
-
-                <div class="feature-card">
-                    <h3><i class="fas fa-fire-extinguisher"></i> Clean Agent / Gas Suppression System Calculator</h3>
-                    <p class="instruction">Select a tool from the sidebar to get started</p>
-                </div>
+            <section class="welcome-section">
+                <h2>Clean Agent / Gas Suppression System Calculator</h2>
+                <p class="subtitle">Select a tool from the sidebar to get started</p>
 
                 <p>This suite provides professional fire safety calculation tools for engineers, designers, and safety professionals. All tools are based on NFPA and IBC standards and are continuously updated for code compliance.</p>
 
                 <div class="features-grid">
-                    <div class="feature">
-                        <div class="feature-icon"><i class="fas fa-certificate"></i></div>
+                    <div class="feature-card">
+                        <i class="fas fa-certificate"></i>
                         <h4>NFPA Compliant</h4>
                         <p>All calculations follow latest NFPA standards</p>
                     </div>
-                    <div class="feature">
-                        <div class="feature-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <div class="feature-card">
+                        <i class="fas fa-exchange-alt"></i>
                         <h4>Dual Units</h4>
                         <p>Switch between Imperial and Metric systems</p>
                     </div>
-                    <div class="feature">
-                        <div class="feature-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="feature-card">
+                        <i class="fas fa-file-pdf"></i>
                         <h4>Export Results</h4>
                         <p>Save/Print calculations as PDF documents</p>
                     </div>
-                    <div class="feature">
-                        <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <div class="feature-card">
+                        <i class="fas fa-mobile-alt"></i>
                         <h4>Responsive Design</h4>
                         <p>Works perfectly on all devices</p>
                     </div>
                 </div>
 
-                <!-- Active Tool Preview -->
-                <section class="tool-preview">
-                    <h2><i class="fas fa-fire-extinguisher"></i> Clean Agent / Gas Suppression System Calculator</h2>
+                <!-- Calculator Preview -->
+                <div class="calculator-preview">
+                    <h3><i class="fas fa-fire-extinguisher"></i> Clean Agent / Gas Suppression System Calculator</h3>
                     <p>Calculates required agent quantity (e.g., FM-200, NOVEC 1230) based on room size, temperature, and design concentration (NFPA 2001).</p>
 
-                    <div class="tool-parameters">
-                        <div class="parameter-group">
-                            <h3><i class="fas fa-ruler-combined"></i> Room Dimensions</h3>
-                            <p class="note">Higher altitude requires more agent.</p>
+                    <div class="preview-params">
+                        <div>
+                            <h4><i class="fas fa-ruler-combined"></i> Room Dimensions</h4>
+                            <p><em>Higher altitude requires more agent.</em></p>
                         </div>
-                        <div class="parameter-group">
-                            <h3><i class="fas fa-sliders-h"></i> Design Parameters</h3>
-                            <p class="note">7.5% is common for Class A/C hazards using FM-200.</p>
+                        <div>
+                            <h4><i class="fas fa-sliders-h"></i> Design Parameters</h4>
+                            <p><em>7.5% is common for Class A/C hazards using FM-200.</em></p>
                         </div>
                     </div>
 
-                    <div class="important-notes">
-                        <h4><i class="fas fa-exclamation-triangle"></i> Important Notes</h4>
-                        <ul>
-                            <li>Based on NFPA 2001 standards</li>
-                            <li>This is an estimation tool only</li>
-                            <li>Always consult manufacturer's software for final calculations</li>
-                            <li>Consider safety factors and local codes</li>
-                        </ul>
+                    <div class="disclaimer">
+                        <p><strong><i class="fas fa-exclamation-triangle"></i> Important Notes:</strong> Based on NFPA 2001 standards. This is an estimation tool only. Always consult manufacturer's software for final calculations. Consider safety factors and local codes.</p>
                     </div>
-                </section>
-            </div>
+                </div>
+            </section>
         </main>
     </div>
 
     <!-- Footer -->
-    <footer class="main-footer">
+    <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <img src="logo.png" alt="Fire Safety Tools Logo" class="footer-logo">
-                <h3>Fire Safety Tools Suite</h3>
-                <p>Free, professional-grade calculators for the fire protection community.</p>
-                <div class="social-links">
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="contact.html" aria-label="Contact"><i class="fas fa-envelope"></i></a>
+                <h3>Fire Safety Tools</h3>
+                <p>Free resources for fire protection engineers and safety professionals.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
-
             <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="calculators.html"><i class="fas fa-calculator"></i> All Calculators</a></li>
-                    <li><a href="blog.html"><i class="fas fa-blog"></i> Blog & Articles</a></li>
-                    <li><a href="resources.html"><i class="fas fa-book"></i> Code Resources</a></li>
-                </ul>
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="calculators.html">Calculators</a>
+                <a href="blog.html">Blog</a>
+                <a href="resources.html">Resources</a>
             </div>
-
             <div class="footer-section">
-                <h4>Popular Tools</h4>
-                <ul>
-                    <li><a href="calculators/clean-agent.html"><i class="fas fa-fire-extinguisher"></i> Clean Agent Calc</a></li>
-                    <li><a href="calculators/sprinkler.html"><i class="fas fa-shower"></i> Sprinkler Hydraulics</a></li>
-                    <li><a href="calculators/egress.html"><i class="fas fa-door-open"></i> Egress Analysis</a></li>
-                    <li><a href="calculators/fire-flow.html"><i class="fas fa-tint"></i> Fire Flow Demand</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="privacy.html"><i class="fas fa-user-shield"></i> Privacy Policy</a></li>
-                    <li><a href="terms.html"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
-                    <li><a href="contact.html#disclaimer"><i class="fas fa-exclamation-circle"></i> Disclaimer</a></li>
-                </ul>
-                <p class="newsletter-text">Subscribe for tool updates</p>
-                <form class="newsletter-form" id="newsletterForm">
-                    <input type="email" placeholder="Your email" required aria-label="Email for newsletter">
-                    <button type="submit"><i class="fas fa-paper-plane"></i> Subscribe</button>
-                </form>
+                <h3>Legal</h3>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="contact.html">Contact</a>
             </div>
         </div>
-
         <div class="footer-bottom">
             <p>&copy; 2025 FireSafetyTool.com. All rights reserved. | This tool is for preliminary estimation only. Always consult relevant codes and a licensed professional for final design.</p>
-            <p class="footer-credits">Made with <i class="fas fa-heart" style="color:#e74c3c;"></i> for the fire safety community</p>
         </div>
     </footer>
 
-    <!-- JavaScript Files -->
+    <!-- JavaScript -->
     <script src="sidebar.js"></script>
-    <script src="script.js"></script>
-    <!-- Newsletter Form Handler -->
     <script>
-        document.getElementById('newsletterForm')?.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            alert('Thank you for subscribing with: ' + email + '\nYou will be notified of updates.');
-            this.reset();
-        });
-    </script>
-    <!-- Mobile Menu Toggle Script -->
-    <script>
+        // Simple mobile menu toggle for nav
         document.addEventListener('DOMContentLoaded', function() {
-            const toggleButton = document.getElementById('mobileMenuToggle');
-            const mobileNav = document.getElementById('mobileNav');
-
-            if (toggleButton && mobileNav) {
-                toggleButton.addEventListener('click', function() {
-                    mobileNav.classList.toggle('active');
-                    const icon = this.querySelector('i');
-                    // Toggle between bars and X icon
-                    if (icon.classList.contains('fa-bars')) {
-                        icon.classList.replace('fa-bars', 'fa-times');
-                    } else {
-                        icon.classList.replace('fa-times', 'fa-bars');
-                    }
-                });
-            }
-
-            // Close mobile menu when clicking a link
-            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileNav.classList.remove('active');
-                    document.querySelector('#mobileMenuToggle i').classList.replace('fa-times', 'fa-bars');
-                });
-            });
+            console.log('Page loaded with new navigation');
         });
     </script>
 </body>
