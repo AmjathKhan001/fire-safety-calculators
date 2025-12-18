@@ -3,297 +3,456 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fire Safety Tools Suite | NFPA & IBC Calculators</title>
-    <meta name="description" content="Professional NFPA & IBC fire safety calculators for engineers and designers.">
-    
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
-    
-    <!-- Font Awesome -->
+    <title>Fire Safety Tools | Professional Calculators</title>
+    <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- External CSS -->
-    <link rel="stylesheet" href="style.css">
+    <style>
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: linear-gradient(135deg, #1e40af 0%, #dc2626 100%);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: #dc2626;
+            margin-bottom: 1rem;
+        }
+        
+        .quick-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .quick-link {
+            background: #3b82f6;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-link:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+        
+        .quick-link.calculators {
+            background: #dc2626;
+        }
+        
+        .quick-link.resources {
+            background: #10b981;
+        }
+        
+        .quick-link.contact {
+            background: #8b5cf6;
+        }
+    </style>
 </head>
-
 <body>
-    <!-- HEADER -->
-    <header class="main-header">
+    <!-- Header -->
+    <header>
         <div class="header-container">
             <div class="logo-title">
                 <img src="logo.png" alt="Fire Safety Tools Logo" class="logo">
-                <div class="title-subtitle">
+                <div>
                     <h1>Fire Safety Tools Suite</h1>
-                    <p>Professional NFPA & IBC Calculators</p>
+                    <p>All Professional Calculators</p>
                 </div>
             </div>
-            
-            <!-- Desktop Navigation -->
-            <nav class="main-nav">
-                <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a>
-                <a href="calculators.html" class="nav-link"><i class="fas fa-calculator"></i> Calculators</a>
-                <a href="blog.html" class="nav-link"><i class="fas fa-blog"></i> Blog</a>
-                <a href="resources.html" class="nav-link"><i class="fas fa-book"></i> Resources</a>
-                <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
-            </nav>
-            
-            <!-- Mobile Menu Toggle -->
-            <button class="mobile-menu-toggle">
-                <i class="fas fa-bars"></i>
-            </button>
+            <div class="header-social">
+                <a href="https://x.com/amjikhan" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/in/amjathkhan-shiekusman" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.facebook.com/Amjathkhan.s" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a>
+            </div>
         </div>
-        
-        <!-- Mobile Navigation (hidden by default) -->
-        <div class="mobile-nav">
-            <a href="index.html" class="mobile-nav-link active"><i class="fas fa-home"></i> Home</a>
-            <a href="calculators.html" class="mobile-nav-link"><i class="fas fa-calculator"></i> Calculators</a>
-            <a href="blog.html" class="mobile-nav-link"><i class="fas fa-blog"></i> Blog</a>
-            <a href="resources.html" class="mobile-nav-link"><i class="fas fa-book"></i> Resources</a>
-            <a href="contact.html" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact</a>
-        </div>
+        <nav class="main-nav">
+            <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+            <a href="calculators.html"><i class="fas fa-calculator"></i> Calculators</a>
+            <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
+            <a href="resources.html"><i class="fas fa-book"></i> Resources</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        </nav>
     </header>
 
-    <!-- MAIN CONTENT -->
-    <div class="container main-container">
-        <div class="main-wrapper">
-            <!-- SIDEBAR -->
-            <aside class="sidebar">
-                <div class="sidebar-header">
-                    <h3><i class="fas fa-calculator"></i> Calculator Tools</h3>
-                    <p class="sidebar-subtitle">Select a tool to begin</p>
-                </div>
-                
-                <!-- Search Box -->
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search tools..." id="tool-search">
-                </div>
-                
-                <!-- Calculator Tools List -->
-                <div class="sidebar-section">
-                    <h4><i class="fas fa-fire-extinguisher"></i> Clean Agent Systems</h4>
-                    <div class="tool-list">
-                        <a href="#" class="sidebar-tool-btn active" data-tool="clean-agent">
-                            <i class="fas fa-fire-extinguisher"></i>
-                            <span>Clean Agent Calculator</span>
-                        </a>
-                        <a href="#" class="sidebar-tool-btn" data-tool="co2-system">
-                            <i class="fas fa-gas-pump"></i>
-                            <span>CO2 System Calculator</span>
-                        </a>
-                        <a href="#" class="sidebar-tool-btn" data-tool="inert-gas">
-                            <i class="fas fa-wind"></i>
-                            <span>Inert Gas Calculator</span>
-                        </a>
-                        <a href="#" class="sidebar-tool-btn" data-tool="room-flooding">
-                            <i class="fas fa-fill-drip"></i>
-                            <span>Room Flooding System</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="sidebar-section">
-                    <h4><i class="fas fa-shower"></i> Water-Based Systems</h4>
-                    <div class="tool-list">
-                        <a href="#" class="sidebar-tool-btn" data-tool="sprinkler">
-                            <i class="fas fa-shower"></i>
-                            <span>Sprinkler Hydraulics</span>
-                        </a>
-                        <a href="#" class="sidebar-tool-btn" data-tool="fire-flow">
-                            <i class="fas fa-tint"></i>
-                            <span>Fire Flow Demand</span>
-                        </a>
-                        <a href="#" class="sidebar-tool-btn" data-tool="fire-pump">
-                            <i class="fas fa-industry"></i>
-                            <span>Fire Pump Sizing</span>
-                        </a>
-                        <a href="#" class="sidebar-tool-btn" data-tool="kitchen-suppression">
-                            <i class="fas fa-utensils"></i>
-                            <span>Kitchen Suppression</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="sidebar-section">
-                    <h4><i class="fas fa-door-open"></i> Life Safety</h4>
-                    <div class="tool-list">
-                        <a href="#" class="sidebar-tool-btn" data-tool="egress">
-                            <i class="fas fa-door-open"></i>
-                            <span>Egress Analysis</span>
-                        </a>
-                        <a href="#" class="sidebar-tool-btn" data-tool="smoke-detector">
-                            <i class="fas fa-bell"></i>
-                            <span>Smoke Detector</span>
-                        </a>
-                        <a href="#" class="sidebar-tool-btn" data-tool="hazard">
-                            <i class="fas fa-flask"></i>
-                            <span>Hazard Classification</span>
-                        </a>
-                        <a href="#" class="sidebar-tool-btn" data-tool="battery">
-                            <i class="fas fa-battery-full"></i>
-                            <span>Battery Standby</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Explore More Tools -->
-                <div class="sidebar-section explore-section">
-                    <h4><i class="fas fa-external-link-alt"></i> Explore More Tools</h4>
-                    <div class="explore-tools">
-                        <a href="https://hse-toolkit.vercel.app/" target="_blank" class="explore-link">
-                            <i class="fas fa-toolbox"></i>
-                            <span>HSE Toolkit</span>
-                        </a>
-                        <a href="https://www.webtoolsdaily.com/" target="_blank" class="explore-link">
-                            <i class="fas fa-globe"></i>
-                            <span>Web Tools Daily</span>
-                        </a>
-                        <a href="https://www.hsecalculator.com/" target="_blank" class="explore-link">
-                            <i class="fas fa-calculator"></i>
-                            <span>HSE Calculators</span>
-                        </a>
-                        <a href="https://www.dailysmarttool.com/" target="_blank" class="explore-link">
-                            <i class="fas fa-tools"></i>
-                            <span>Utility Tools</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Info Box -->
-                <div class="info-box">
-                    <p><strong>All calculators are FREE</strong></p>
-                    <p>No registration required. Use as many times as you need.</p>
-                </div>
-            </aside>
+    <!-- Hero Section -->
+    <main class="container">
+        <section class="hero">
+            <h1><i class="fas fa-fire-extinguisher"></i> Fire Safety Tools</h1>
+            <p>Professional calculators and resources for fire protection engineers, safety professionals, and building designers</p>
+            <div class="quick-links">
+                <a href="calculators.html" class="quick-link calculators">
+                    <i class="fas fa-calculator"></i> View All Calculators
+                </a>
+                <a href="resources.html" class="quick-link resources">
+                    <i class="fas fa-book"></i> Resources & Tools
+                </a>
+                <a href="contact.html" class="quick-link contact">
+                    <i class="fas fa-headset"></i> Contact Support
+                </a>
+            </div>
+        </section>
 
-            <!-- MAIN CONTENT AREA -->
-            <main class="main-content">
-                <!-- Welcome Section -->
-                <section class="welcome-section active">
-                    <div class="content-header">
-                        <div>
-                            <h2>Fire Safety Tools Suite</h2>
-                            <p class="subtitle">Professional NFPA & IBC calculators for engineers</p>
-                        </div>
-                        <div class="action-buttons">
-                            <button class="action-btn" id="print-btn">
-                                <i class="fas fa-print"></i> Print
-                            </button>
-                            <button class="action-btn" id="clear-btn">
-                                <i class="fas fa-eraser"></i> Clear
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="tool-intro">
-                        <h3><i class="fas fa-fire"></i> Welcome to Fire Safety Tools</h3>
-                        <p>Select a calculator from the sidebar to get started. All tools are based on the latest NFPA, IBC, and international fire safety standards. Our calculators are trusted by over 5,000 fire protection professionals worldwide.</p>
-                    </div>
-                    
-                    <!-- Features Grid -->
-                    <div class="features-grid">
-                        <div class="feature">
-                            <i class="fas fa-certificate"></i>
-                            <h4>NFPA Compliant</h4>
-                            <p>All calculations follow latest NFPA standards including NFPA 13, 72, 2001</p>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-exchange-alt"></i>
-                            <h4>Dual Units</h4>
-                            <p>Switch between Imperial and Metric systems with one click</p>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-file-pdf"></i>
-                            <h4>Export Results</h4>
-                            <p>Save calculations as PDF for reports and documentation</p>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-mobile-alt"></i>
-                            <h4>Mobile Friendly</h4>
-                            <p>Works perfectly on all devices - desktop, tablet, mobile</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Calculator Preview -->
-                    <div class="calculator-box">
-                        <div class="calculator-header">
-                            <h2><i class="fas fa-fire-extinguisher"></i> Clean Agent Calculator</h2>
-                            <p class="description">Calculates required agent quantity for FM-200, NOVEC 1230 systems based on NFPA 2001. This is our most popular tool used by thousands of engineers.</p>
-                        </div>
-                        
-                        <div style="text-align: center; padding: 2rem; background: #f8f9fa; border-radius: 8px;">
-                            <h3>Select any tool from the sidebar to begin</h3>
-                            <p style="margin: 1rem 0; color: #666;">Click on any calculator tool in the left sidebar to load the full calculator interface.</p>
-                            <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
-                                <div style="text-align: center;">
-                                    <div style="font-size: 2.5rem; color: #0099e5; font-weight: bold;">18</div>
-                                    <div style="font-size: 0.9rem;">Professional Tools</div>
-                                </div>
-                                <div style="text-align: center;">
-                                    <div style="font-size: 2.5rem; color: #34bf49; font-weight: bold;">5K+</div>
-                                    <div style="font-size: 0.9rem;">Monthly Users</div>
-                                </div>
-                                <div style="text-align: center;">
-                                    <div style="font-size: 2.5rem; color: #ff4c4c; font-weight: bold;">100%</div>
-                                    <div style="font-size: 0.9rem;">Free to Use</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+        <!-- Featured Calculators -->
+        <section id="featured-calculators">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #1e40af;">
+                <i class="fas fa-star"></i> Featured Calculators
+            </h2>
+            
+            <!-- Battery Standby Calculator -->
+            <div class="calculator" id="battery-calculator">
+                <h2><i class="fas fa-battery-full"></i> Battery Standby Calculator</h2>
+                <p class="calculator-description">Calculate backup battery requirements for fire alarm systems based on NFPA 72 standards. Enter the total current draw and required backup time.</p>
                 
-                <!-- Calculator Container -->
-                <div id="calculator-container">
-                    <!-- Calculators will load here via JavaScript -->
+                <div class="unit-toggle">
+                    <button class="unit-btn active" data-unit="metric" onclick="switchUnitSystem('metric')">
+                        <i class="fas fa-ruler"></i> Metric
+                    </button>
+                    <button class="unit-btn" data-unit="imperial" onclick="switchUnitSystem('imperial')">
+                        <i class="fas fa-ruler-combined"></i> Imperial
+                    </button>
                 </div>
-            </main>
-        </div>
-    </div>
+                
+                <div class="input-group">
+                    <label for="battery-current">Total Current Draw (mA)</label>
+                    <input type="number" id="battery-current" placeholder="e.g., 250" min="1" step="1">
+                </div>
+                
+                <div class="input-group">
+                    <label for="battery-hours">Required Backup Time (hours)</label>
+                    <input type="number" id="battery-hours" placeholder="e.g., 24" min="1" step="1">
+                </div>
+                
+                <div class="input-group">
+                    <label for="battery-voltage">System Voltage</label>
+                    <select id="battery-voltage">
+                        <option value="12">12V DC</option>
+                        <option value="24">24V DC</option>
+                        <option value="48">48V DC</option>
+                    </select>
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateBattery()">
+                    <i class="fas fa-calculator"></i> Calculate Battery Capacity
+                </button>
+                
+                <div class="result-container" id="battery-result" style="display: none;">
+                    <h3>Results:</h3>
+                    <div class="result-value" id="battery-capacity">--</div>
+                    <div class="result-unit" id="battery-unit">Ah (Ampere-hours)</div>
+                    <p>Based on NFPA 72 requirements with 20% safety margin</p>
+                </div>
+            </div>
+            
+            <!-- Smoke Detector Calculator -->
+            <div class="calculator" id="smoke-calculator">
+                <h2><i class="fas fa-smog"></i> Smoke Detector Spacing Calculator</h2>
+                <p class="calculator-description">Determine optimal smoke detector placement and spacing for maximum coverage based on room dimensions and ceiling type.</p>
+                
+                <div class="unit-toggle">
+                    <button class="unit-btn active" data-unit="metric" onclick="switchUnitSystem('metric')">
+                        <i class="fas fa-ruler"></i> Meters
+                    </button>
+                    <button class="unit-btn" data-unit="imperial" onclick="switchUnitSystem('imperial')">
+                        <i class="fas fa-ruler-combined"></i> Feet
+                    </button>
+                </div>
+                
+                <div class="input-group">
+                    <label for="room-length">Room Length</label>
+                    <input type="number" id="room-length" placeholder="e.g., 10" min="1" step="0.1" data-metric="Meters" data-imperial="Feet">
+                </div>
+                
+                <div class="input-group">
+                    <label for="room-width">Room Width</label>
+                    <input type="number" id="room-width" placeholder="e.g., 8" min="1" step="0.1" data-metric="Meters" data-imperial="Feet">
+                </div>
+                
+                <div class="input-group">
+                    <label for="ceiling-height">Ceiling Height</label>
+                    <input type="number" id="ceiling-height" placeholder="e.g., 3" min="1" step="0.1" data-metric="Meters" data-imperial="Feet">
+                </div>
+                
+                <div class="input-group">
+                    <label for="ceiling-type">Ceiling Type</label>
+                    <select id="ceiling-type">
+                        <option value="0.9">Flat Ceiling (0.9 spacing)</option>
+                        <option value="0.7">Sloped Ceiling (0.7 spacing)</option>
+                        <option value="0.5">Beam/Joist Ceiling (0.5 spacing)</option>
+                    </select>
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateSmoke()">
+                    <i class="fas fa-calculator"></i> Calculate Detector Spacing
+                </button>
+                
+                <div class="result-container" id="smoke-result" style="display: none;">
+                    <h3>Results:</h3>
+                    <div class="result-value" id="detector-spacing">--</div>
+                    <div class="result-unit" id="spacing-unit">meters between detectors</div>
+                    <div class="result-value" id="detector-count">--</div>
+                    <div class="result-unit">detectors required</div>
+                </div>
+            </div>
+            
+            <!-- More Calculators (you can add more here) -->
+            <div style="text-align: center; margin: 3rem 0;">
+                <a href="calculators.html" class="quick-link calculators" style="font-size: 1.2rem;">
+                    <i class="fas fa-arrow-right"></i> View All 18 Calculators
+                </a>
+            </div>
+        </section>
 
-    <!-- FOOTER -->
+        <!-- Features -->
+        <section class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Professional Grade</h3>
+                <p>All calculators are based on NFPA standards and professional engineering practices.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3>Dual Units</h3>
+                <p>Switch between Metric and Imperial units with a single click for all calculations.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-print"></i>
+                </div>
+                <h3>Print Results</h3>
+                <p>Print professional reports of your calculations for documentation and compliance.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-columns">
-                <div class="footer-column">
-                    <h4>Fire Safety Tools</h4>
-                    <p>Professional calculators for fire protection engineers, designers, and inspectors.</p>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>Quick Links</h4>
-                    <a href="index.html">Home</a>
-                    <a href="calculators.html">All Calculators</a>
-                    <a href="blog.html">Blog</a>
-                    <a href="resources.html">Resources</a>
-                    <a href="contact.html">Contact</a>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>Popular Tools</h4>
-                    <a href="#" data-tool="clean-agent">Clean Agent Calculator</a>
-                    <a href="#" data-tool="sprinkler">Sprinkler Hydraulics</a>
-                    <a href="#" data-tool="egress">Egress Analysis</a>
-                    <a href="#" data-tool="fire-flow">Fire Flow Demand</a>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>Legal</h4>
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms of Service</a>
-                    <a href="disclaimer.html">Disclaimer</a>
-                </div>
-            </div>
-            
-            <div class="footer-warning">
-                <p><i class="fas fa-exclamation-triangle"></i> <strong>Disclaimer:</strong> This tool is for preliminary estimation only. Always consult relevant codes and professionals.</p>
-            </div>
-            
-            <p>&copy; 2025 FireSafetyTool.com. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="/index.html">Home</a>
+            <a href="/calculators.html">Calculators</a>
+            <a href="/blog.html">Blog</a>
+            <a href="/resources.html">Resources</a>
+            <a href="/privacy.html">Privacy</a>
+            <a href="/terms.html">Terms</a>
+            <a href="/affiliate.html">Affiliate</a>
+            <a href="/contact.html">Contact</a>
+        </div>
+        <p>© 2025 FireSafetyTool.com | Contact: contact@amjathkhan.com | Phone: +91-9750816163</p>
+        <div class="social-links">
+            <a href="https://bsky.app/profile/amjathkhan.bsky.social" target="_blank"><i class="fab fa-bluesky"></i></a>
+            <a href="https://www.facebook.com/Amjathkhan.s" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/amjathkhan_official" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/amjikhan" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/amjathkhan-shiekusman" target="_blank"><i class="fab fa-linkedin"></i></a>
         </div>
     </footer>
 
-    <!-- JavaScript Files -->
-    <script src="sidebar.js"></script>
-    <script src="script.js"></script>
+    <!-- JavaScript -->
+    <script>
+        // Unit Conversion Functions
+        const unitConverter = {
+            metersToFeet: (m) => m * 3.28084,
+            feetToMeters: (ft) => ft * 0.3048,
+            barToPsi: (bar) => bar * 14.5038,
+            psiToBar: (psi) => psi * 0.0689476,
+            lpmToGpm: (lpm) => lpm * 0.264172,
+            gpmToLpm: (gpm) => gpm * 3.78541
+        };
+
+        // Global unit state
+        let currentUnitSystem = 'metric';
+
+        function switchUnitSystem(system) {
+            currentUnitSystem = system;
+            
+            // Update all unit buttons
+            document.querySelectorAll('.unit-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.unit === system) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Update all placeholders
+            document.querySelectorAll('input[data-metric]').forEach(input => {
+                if (system === 'metric') {
+                    input.placeholder += ` (${input.dataset.metric})`;
+                } else {
+                    input.placeholder += ` (${input.dataset.imperial})`;
+                }
+            });
+            
+            // Save preference
+            localStorage.setItem('preferredUnitSystem', system);
+        }
+
+        // Battery Calculator
+        function calculateBattery() {
+            const current = parseFloat(document.getElementById('battery-current').value);
+            const hours = parseFloat(document.getElementById('battery-hours').value);
+            const voltage = parseFloat(document.getElementById('battery-voltage').value);
+            
+            if (!current || !hours || !voltage) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Convert mA to A
+            const currentAmps = current / 1000;
+            
+            // Calculate battery capacity (Ah) = current (A) * time (h) * safety factor
+            const capacity = currentAmps * hours * 1.2; // 20% safety margin
+            
+            // Adjust for voltage if needed
+            const finalCapacity = capacity * (voltage / 12); // Normalize to 12V
+            
+            document.getElementById('battery-capacity').textContent = finalCapacity.toFixed(2);
+            document.getElementById('battery-unit').textContent = 'Ah (Ampere-hours) at ' + voltage + 'V';
+            document.getElementById('battery-result').style.display = 'block';
+            
+            // Scroll to result
+            document.getElementById('battery-result').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Smoke Detector Calculator
+        function calculateSmoke() {
+            const length = parseFloat(document.getElementById('room-length').value);
+            const width = parseFloat(document.getElementById('room-width').value);
+            const height = parseFloat(document.getElementById('ceiling-height').value);
+            const spacingFactor = parseFloat(document.getElementById('ceiling-type').value);
+            
+            if (!length || !width || !height) {
+                alert('Please fill in all dimensions');
+                return;
+            }
+            
+            // Convert to meters if imperial
+            let roomLength = length;
+            let roomWidth = width;
+            let roomHeight = height;
+            let unit = 'meters';
+            
+            if (currentUnitSystem === 'imperial') {
+                roomLength = unitConverter.feetToMeters(length);
+                roomWidth = unitConverter.feetToMeters(width);
+                roomHeight = unitConverter.feetToMeters(height);
+                unit = 'feet';
+            }
+            
+            // Calculate area
+            const area = roomLength * roomWidth;
+            
+            // Maximum spacing based on NFPA 72: 9m for flat ceilings, adjusted by factor
+            const maxSpacing = 9.1 * spacingFactor; // 9.1m = 30ft
+            
+            // Calculate number of detectors in each direction
+            const detectorsLength = Math.ceil(roomLength / maxSpacing);
+            const detectorsWidth = Math.ceil(roomWidth / maxSpacing);
+            
+            const totalDetectors = detectorsLength * detectorsWidth;
+            
+            // Actual spacing
+            const actualSpacingLength = roomLength / detectorsLength;
+            const actualSpacingWidth = roomWidth / detectorsWidth;
+            
+            // Display results
+            const spacingValue = currentUnitSystem === 'imperial' 
+                ? unitConverter.metersToFeet(actualSpacingLength).toFixed(1)
+                : actualSpacingLength.toFixed(1);
+            
+            document.getElementById('detector-spacing').textContent = spacingValue;
+            document.getElementById('spacing-unit').textContent = unit + ' between detectors';
+            document.getElementById('detector-count').textContent = totalDetectors;
+            document.getElementById('smoke-result').style.display = 'block';
+            
+            // Scroll to result
+            document.getElementById('smoke-result').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedUnitSystem = localStorage.getItem('preferredUnitSystem') || 'metric';
+            switchUnitSystem(savedUnitSystem);
+            
+            // Visitor counter
+            let homeVisitors = localStorage.getItem('homeVisitors') || 1000;
+            homeVisitors = parseInt(homeVisitors) + 1;
+            localStorage.setItem('homeVisitors', homeVisitors);
+            
+            // Add visitor counter
+            const counterDiv = document.createElement('div');
+            counterDiv.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #dc2626, #f97316);
+                color: white;
+                padding: 12px 20px;
+                border-radius: 25px;
+                font-size: 0.9rem;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-weight: 600;
+            `;
+            counterDiv.innerHTML = `
+                <i class="fas fa-users"></i>
+                <span>${homeVisitors.toLocaleString()} Visitors</span>
+            `;
+            document.body.appendChild(counterDiv);
+        });
+    </script>
 </body>
 </html>
