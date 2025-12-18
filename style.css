@@ -3643,3 +3643,135 @@ footer {
         display: flex;
     }
 }
+/* ============================================
+   HOME PAGE & MAIN NAVIGATION STYLES
+   Added to fix navigation and layout on index.html
+   ============================================ */
+
+/* Main Navigation Bar - Matches blog page style */
+.main-nav {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+    padding: 0.8rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.main-nav a {
+    color: #ecf0f1;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.main-nav a:hover {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+}
+
+.main-nav a.active {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* Home Page Layout to match structure */
+.main-wrapper {
+    display: flex;
+    min-height: calc(100vh - 200px);
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.welcome-section {
+    flex: 1;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.welcome-section h2 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+/* Features Grid on Homepage */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.feature-card {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid #3498db;
+    transition: transform 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-card i {
+    font-size: 2rem;
+    color: #3498db;
+    margin-bottom: 1rem;
+}
+
+/* Calculator Preview Box */
+.calculator-preview {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 3rem;
+    border: 1px solid #dee2e6;
+}
+
+.preview-params {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 1.5rem 0;
+}
+
+.disclaimer {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-top: 1.5rem;
+}
+
+/* Responsive fixes for navigation */
+@media (max-width: 768px) {
+    .main-nav {
+        flex-direction: column;
+        gap: 0;
+        display: none; /* Will be toggled by JS if needed */
+    }
+    
+    .main-nav.active {
+        display: flex;
+    }
+    
+    .main-wrapper {
+        flex-direction: column;
+        padding: 1rem;
+    }
+}
