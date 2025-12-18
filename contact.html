@@ -5,13 +5,241 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us | FireSafetyTool.com</title>
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .contact-header {
+            text-align: center;
+            margin: 2rem 0 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e5e5e5;
+        }
+        
+        .contact-header h1 {
+            color: #dc2626;
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+        
+        .contact-header p {
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+            border-top: 4px solid;
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        }
+        
+        .contact-card.support {
+            border-color: #3b82f6;
+        }
+        
+        .contact-card.business {
+            border-color: #10b981;
+        }
+        
+        .contact-card.emergency {
+            border-color: #dc2626;
+        }
+        
+        .contact-card.technical {
+            border-color: #8b5cf6;
+        }
+        
+        .contact-card h3 {
+            color: #1e40af;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .contact-info {
+            margin: 1.5rem 0;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+        
+        .contact-item:hover {
+            background: #f1f5f9;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: #e0f2fe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0369a1;
+            font-size: 1.2rem;
+        }
+        
+        .contact-details h4 {
+            margin: 0 0 0.25rem 0;
+            color: #374151;
+        }
+        
+        .contact-details p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .contact-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+            word-break: break-all;
+        }
+        
+        .contact-link:hover {
+            color: #dc2626;
+            text-decoration: underline;
+        }
+        
+        .social-profiles {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .social-profiles h2 {
+            text-align: center;
+            color: #1e40af;
+            margin-bottom: 2rem;
+        }
+        
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .social-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #374151;
+            transition: all 0.3s ease;
+        }
+        
+        .social-card:hover {
+            background: #e5e7eb;
+            transform: translateY(-3px);
+            color: #dc2626;
+        }
+        
+        .social-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #3b82f6;
+        }
+        
+        .social-card:hover .social-icon {
+            color: #dc2626;
+        }
+        
+        .social-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .social-handle {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+        
+        .response-time {
+            background: #fef3c7;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .response-time p {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .emergency-note {
+            background: #fee2e2;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border-left: 4px solid #dc2626;
+        }
+        
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #dc2626;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+        
+        .back-home:hover {
+            background: #b91c1c;
+            transform: translateX(-5px);
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>📧 Contact Us</h1>
-        <p>Get in touch with questions or feedback</p>
+        <p>Get in touch with questions, feedback, or partnership opportunities</p>
         <nav class="main-nav secondary-nav">
             <a href="/index.html" class="nav-btn">Home</a>
+            <a href="/calculators.html" class="nav-btn">Calculators</a>
             <a href="/resources.html" class="nav-btn">Resources</a>
             <a href="/privacy.html" class="nav-btn">Privacy</a>
             <a href="/terms.html" class="nav-btn">Terms</a>
@@ -22,38 +250,210 @@
 
     <main>
         <div class="container">
-            <div style="padding: 2rem; background: white; border-radius: 10px;">
-                <h2>How to Reach Us</h2>
+            <div class="contact-header">
+                <h1><i class="fas fa-headset"></i> Contact & Support</h1>
+                <p>Reach out for technical assistance, feedback, or business inquiries</p>
+            </div>
 
-                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 5px; margin-bottom: 1.5rem;">
-                    <h3>📧 Email Support</h3>
-                    <p><strong>support@firesafetytool.com</strong></p>
-                    <p>We respond within 24-48 hours for:</p>
-                    <ul>
-                        <li>Calculator questions</li>
-                        <li>Bug reports</li>
-                        <li>Feature suggestions</li>
-                        <li>General inquiries</li>
-                    </ul>
+            <div class="contact-grid">
+                <div class="contact-card support">
+                    <h3><i class="fas fa-envelope"></i> General Contact</h3>
+                    <p>For all general inquiries, feedback, and questions about our tools:</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <a href="mailto:contact@amjathkhan.com" class="contact-link">contact@amjathkhan.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Phone / WhatsApp</h4>
+                                <a href="tel:+919750816163" class="contact-link">+91-9750816163</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="response-time">
+                        <p><i class="fas fa-clock"></i> <strong>Response Time:</strong> 24-48 hours</p>
+                    </div>
                 </div>
 
-                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 5px; margin-bottom: 1.5rem;">
-                    <h3>🤝 Partnerships</h3>
-                    <p><strong>support@firesafetytool.com</strong></p>
-                    <p>For business inquiries and collaborations.</p>
+                <div class="contact-card business">
+                    <h3><i class="fas fa-handshake"></i> Business & Partnerships</h3>
+                    <p>For collaboration opportunities, affiliate partnerships, and business development:</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Primary Contact</h4>
+                                <p>Amjath Khan (Founder)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Business Email</h4>
+                                <a href="mailto:contact@amjathkhan.com" class="contact-link">contact@amjathkhan.com</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div style="background: #fef3c7; padding: 1.5rem; border-radius: 5px;">
-                    <h3>⚠️ Urgent Safety Concerns</h3>
-                    <p>For immediate fire safety issues, contact:</p>
-                    <ul>
-                        <li>Local fire department for emergencies</li>
-                        <li>Licensed fire protection engineer</li>
-                        <li>Building code official</li>
-                    </ul>
+                <div class="contact-card technical">
+                    <h3><i class="fas fa-tools"></i> Technical Support</h3>
+                    <p>For technical issues, bug reports, and calculator functionality questions:</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Bug Reports</h4>
+                                <p>Report any issues with our calculators</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Feature Requests</h4>
+                                <p>Suggest new features or improvements</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Technical Questions</h4>
+                                <p>Get help with calculator usage</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <a href="/index.html" style="display: inline-block; background: #dc2626; color: white; padding: 0.75rem 1.5rem; border-radius: 5px; text-decoration: none; margin-top: 1rem;">← Back to Calculators</a>
+                <div class="contact-card emergency">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Important Notice</h3>
+                    <p><strong>This website provides educational tools only.</strong> For actual fire safety emergencies or professional consultations:</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-fire-extinguisher"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Emergency Services</h4>
+                                <p>Contact local fire department immediately</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Professional Consultation</h4>
+                                <p>Consult licensed fire protection engineers</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Code Compliance</h4>
+                                <p>Contact local building officials</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="emergency-note">
+                        <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Our calculators are for preliminary design and educational purposes only. Always verify results with qualified professionals.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Profiles -->
+            <div class="social-profiles">
+                <h2><i class="fas fa-share-alt"></i> Connect on Social Media</h2>
+                <div class="social-grid">
+                    <a href="https://bsky.app/profile/amjathkhan.bsky.social" target="_blank" class="social-card">
+                        <div class="social-icon">
+                            <i class="fab fa-bluesky"></i>
+                        </div>
+                        <div class="social-name">Bluesky</div>
+                        <div class="social-handle">@amjathkhan</div>
+                    </a>
+                    
+                    <a href="https://www.facebook.com/Amjathkhan.s" target="_blank" class="social-card">
+                        <div class="social-icon">
+                            <i class="fab fa-facebook"></i>
+                        </div>
+                        <div class="social-name">Facebook</div>
+                        <div class="social-handle">Amjathkhan.s</div>
+                    </a>
+                    
+                    <a href="https://www.instagram.com/amjathkhan_official" target="_blank" class="social-card">
+                        <div class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <div class="social-name">Instagram</div>
+                        <div class="social-handle">@amjathkhan_official</div>
+                    </a>
+                    
+                    <a href="https://x.com/amjikhan" target="_blank" class="social-card">
+                        <div class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                        <div class="social-name">X / Twitter</div>
+                        <div class="social-handle">@amjikhan</div>
+                    </a>
+                    
+                    <a href="https://www.linkedin.com/in/amjathkhan-shiekusman" target="_blank" class="social-card">
+                        <div class="social-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <div class="social-name">LinkedIn</div>
+                        <div class="social-handle">Amjath Khan</div>
+                    </a>
+                </div>
+                
+                <p style="text-align: center; margin-top: 2rem; color: #6b7280;">
+                    <i class="fas fa-comment"></i> Feel free to message me on any platform for quick queries or updates!
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="/index.html" class="back-home">
+                    <i class="fas fa-arrow-left"></i> Back to Calculators
+                </a>
+                <a href="/resources.html" class="back-home" style="background: #3b82f6; margin-left: 1rem;">
+                    <i class="fas fa-book"></i> View Resources
+                </a>
+                <a href="/affiliate.html" class="back-home" style="background: #10b981; margin-left: 1rem;">
+                    <i class="fas fa-handshake"></i> Affiliate Program
+                </a>
             </div>
         </div>
     </main>
@@ -61,13 +461,96 @@
     <footer>
         <div class="footer-links">
             <a href="/index.html">Home</a>
+            <a href="/calculators.html">Calculators</a>
             <a href="/resources.html">Resources</a>
             <a href="/privacy.html">Privacy</a>
             <a href="/terms.html">Terms</a>
             <a href="/affiliate.html">Affiliate</a>
             <a href="/contact.html">Contact</a>
         </div>
-        <p>© 2025 FireSafetyTool.com</p>
+        <p>© 2025 FireSafetyTool.com | Contact: <a href="mailto:contact@amjathkhan.com" style="color: #dc2626;">contact@amjathkhan.com</a> | Phone: <a href="tel:+919750816163" style="color: #dc2626;">+91-9750816163</a></p>
+        
+        <!-- Social Media Footer -->
+        <div class="social-links" style="margin-top: 1rem;">
+            <a href="https://bsky.app/profile/amjathkhan.bsky.social" target="_blank" title="Bluesky">
+                <i class="fab fa-bluesky"></i>
+            </a>
+            <a href="https://www.facebook.com/Amjathkhan.s" target="_blank" title="Facebook">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/amjathkhan_official" target="_blank" title="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://x.com/amjikhan" target="_blank" title="X/Twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/amjathkhan-shiekusman" target="_blank" title="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+        </div>
     </footer>
+
+    <!-- Visitor Counter Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Contact page visitor counter
+            let contactVisitors = localStorage.getItem('contactVisitors') || 100;
+            contactVisitors = parseInt(contactVisitors) + 1;
+            localStorage.setItem('contactVisitors', contactVisitors);
+            
+            // Display visitor counter
+            const counterDiv = document.createElement('div');
+            counterDiv.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+                color: white;
+                padding: 10px 15px;
+                border-radius: 20px;
+                font-size: 0.9rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-weight: 600;
+            `;
+            counterDiv.innerHTML = `
+                <i class="fas fa-envelope"></i>
+                <span>${contactVisitors} Contact Views</span>
+            `;
+            document.body.appendChild(counterDiv);
+            
+            // Add hover effect to contact cards
+            const contactCards = document.querySelectorAll('.contact-card');
+            contactCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 12px 24px rgba(0,0,0,0.15)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 6px 12px rgba(0,0,0,0.08)';
+                });
+            });
+            
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if(targetId !== '#') {
+                        const targetElement = document.querySelector(targetId);
+                        if(targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
