@@ -3,623 +3,720 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fire Safety Blog | Latest News, Tips & Code Updates</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Expert fire safety blog: NFPA code updates, calculation tips, industry news, and professional insights for fire protection engineers.">
-    <meta name="keywords" content="fire safety blog, NFPA updates, fire protection engineering, safety tips, code compliance">
-    <meta name="author" content="FireSafetyTool.com">
-    
-    <!-- Open Graph Meta Tags for Social Sharing -->
-    <meta property="og:title" content="Fire Safety Blog | Expert Engineering Insights">
-    <meta property="og:description" content="Professional fire safety articles, NFPA updates, and engineering tips from industry experts.">
-    <meta property="og:image" content="https://firesafetytool.com/logo.png">
-    <meta property="og:url" content="https://firesafetytool.com/blog.html">
-    <meta property="og:type" content="website">
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Fire Safety Blog | Engineering Tools & Tips">
-    <meta name="twitter:description" content="Free fire safety calculators and professional engineering blog.">
-    <meta name="twitter:image" content="https://firesafetytool.com/logo.png">
+    <title>Fire Safety Blog | NFPA Updates, Tips & Case Studies</title>
+    <meta name="description" content="Latest fire safety news, NFPA updates, calculation tips, and professional insights for fire protection engineers.">
     
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
     
-    <link rel="stylesheet" href="/style.css">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Blog-specific CSS -->
+    <style>
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .blog-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #0099e5;
+        }
+        
+        .blog-header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .blog-header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .blog-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .blog-content {
+            padding: 25px;
+        }
+        
+        .blog-category {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #0099e5;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .blog-category.nfpa { background: #ff4c4c; }
+        .blog-category.tips { background: #34bf49; }
+        .blog-category.case { background: #8b5cf6; }
+        .blog-category.news { background: #f59e0b; }
+        
+        .blog-content h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .blog-content p {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .blog-date {
+            color: #95a5a6;
+            font-size: 0.9rem;
+        }
+        
+        .read-more {
+            color: #0099e5;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .read-more:hover {
+            color: #ff4c4c;
+        }
+        
+        .featured-post {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            background: linear-gradient(135deg, #2c3e50, #1a2530);
+            color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+        
+        .featured-content {
+            padding: 40px;
+        }
+        
+        .featured-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: #ff4c4c;
+            color: white;
+            border-radius: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .featured-content h2 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .featured-content p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+        
+        .featured-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 50px 0;
+        }
+        
+        .page-btn {
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .page-btn:hover,
+        .page-btn.active {
+            background: #0099e5;
+            color: white;
+            border-color: #0099e5;
+        }
+        
+        .sidebar-widget {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .sidebar-widget h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #0099e5;
+        }
+        
+        .category-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .category-list li {
+            margin-bottom: 10px;
+        }
+        
+        .category-list a {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .category-list a:hover {
+            background: #0099e5;
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .category-count {
+            background: #ddd;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+        }
+        
+        .recent-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .recent-post {
+            display: flex;
+            gap: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .recent-post:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .recent-post img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        
+        .recent-post h4 {
+            margin: 0 0 5px 0;
+            font-size: 1rem;
+        }
+        
+        .recent-post small {
+            color: #95a5a6;
+        }
+        
+        .newsletter-widget {
+            background: linear-gradient(135deg, #0099e5, #0066cc);
+            color: white;
+            text-align: center;
+        }
+        
+        .newsletter-widget h3 {
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .newsletter-widget input {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-btn {
+            width: 100%;
+            padding: 12px;
+            background: #ff4c4c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .newsletter-btn:hover {
+            background: #cc0000;
+        }
+        
+        @media (max-width: 1024px) {
+            .featured-post {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-image {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-container {
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <!-- Header -->
-    <header>
+    <!-- HEADER -->
+    <header class="main-header">
         <div class="header-container">
             <div class="logo-title">
-                <img src="/logo.png" alt="Fire Safety Tools Logo" class="logo">
-                <div>
-                    <h1>Fire Safety Blog</h1>
-                    <p>Expert Insights, Code Updates & Professional Tips</p>
+                <img src="logo.png" alt="Fire Safety Tools Logo" class="logo">
+                <div class="title-subtitle">
+                    <h1>Fire Safety Tools Suite</h1>
+                    <p>Professional NFPA & IBC Calculators</p>
                 </div>
             </div>
             
-            <!-- Social Sharing Header -->
-            <div class="header-social">
-                <a href="https://twitter.com/" target="_blank" class="social-icon">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="https://linkedin.com/" target="_blank" class="social-icon">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://facebook.com/" target="_blank" class="social-icon">
-                    <i class="fab fa-facebook"></i>
-                </a>
-            </div>
+            <!-- Desktop Navigation -->
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="calculators.html" class="nav-link"><i class="fas fa-calculator"></i> Calculators</a>
+                <a href="blog.html" class="nav-link active"><i class="fas fa-blog"></i> Blog</a>
+                <a href="resources.html" class="nav-link"><i class="fas fa-book"></i> Resources</a>
+                <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+            </nav>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
         
-        <!-- Enhanced Blog Navigation -->
-        <button class="mobile-nav-toggle" id="mobile-nav-toggle">
-            <i class="fas fa-bars"></i> Blog Menu
-        </button>
-        
-        <nav class="blog-nav-enhanced" id="blog-nav-enhanced">
-            <a href="/index.html"><i class="fas fa-home"></i> Home</a>
-            <a href="/blog.html" class="active"><i class="fas fa-blog"></i> Blog Home</a>
-            <a href="#nfpa-updates"><i class="fas fa-file-alt"></i> NFPA Updates</a>
-            <a href="#calculation-tips"><i class="fas fa-calculator"></i> Calculation Tips</a>
-            <a href="#industry-news"><i class="fas fa-newspaper"></i> Industry News</a>
-            <a href="#case-studies"><i class="fas fa-chart-line"></i> Case Studies</a>
-            <a href="#tools-guides"><i class="fas fa-tools"></i> Tools & Guides</a>
-            <a href="#training"><i class="fas fa-graduation-cap"></i> Training</a>
-            <a href="/resources.html"><i class="fas fa-book"></i> Resources</a>
-        </nav>
-        
-        <!-- Social Sharing Bar -->
-        <div class="social-sharing-bar">
-            <span>Share this blog:</span>
-            <div class="share-mini-buttons">
-                <a href="#" class="share-mini-btn facebook" onclick="socialSharing.shareContent('facebook')">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="#" class="share-mini-btn twitter" onclick="socialSharing.shareContent('twitter')">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#" class="share-mini-btn linkedin" onclick="socialSharing.shareContent('linkedin')">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="#" class="share-mini-btn whatsapp" onclick="socialSharing.shareContent('whatsapp')">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-            </div>
+        <!-- Mobile Navigation (hidden by default) -->
+        <div class="mobile-nav">
+            <a href="index.html" class="mobile-nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="calculators.html" class="mobile-nav-link"><i class="fas fa-calculator"></i> Calculators</a>
+            <a href="blog.html" class="mobile-nav-link active"><i class="fas fa-blog"></i> Blog</a>
+            <a href="resources.html" class="mobile-nav-link"><i class="fas fa-book"></i> Resources</a>
+            <a href="contact.html" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact</a>
         </div>
     </header>
 
-    <div class="main-wrapper">
-        <!-- Sidebar -->
-        <aside class="blog-sidebar">
-            <!-- Categories -->
-            <div class="sidebar-section">
-                <h3><i class="fas fa-folder"></i> Categories</h3>
-                <ul class="category-list">
-                    <li><a href="#"><i class="fas fa-fire"></i> Suppression Systems</a></li>
-                    <li><a href="#"><i class="fas fa-bell"></i> Detection & Alarm</a></li>
-                    <li><a href="#"><i class="fas fa-door-open"></i> Egress & Exit</a></li>
-                    <li><a href="#"><i class="fas fa-bolt"></i> Electrical Safety</a></li>
-                    <li><a href="#"><i class="fas fa-flask"></i> Hazardous Materials</a></li>
-                    <li><a href="#"><i class="fas fa-building"></i> Building Codes</a></li>
-                    <li><a href="#"><i class="fas fa-tools"></i> Tools & Calculators</a></li>
-                    <li><a href="#"><i class="fas fa-graduation-cap"></i> Training & Certification</a></li>
-                </ul>
-            </div>
-            
-            <!-- Popular Posts -->
-            <div class="sidebar-section">
-                <h3><i class="fas fa-chart-line"></i> Popular Posts</h3>
-                <div class="popular-posts">
-                    <div class="popular-post">
-                        <span class="popular-badge">🔥 Hot</span>
-                        <h4>NFPA 72: 2025 Changes Explained</h4>
-                        <div class="post-meta-small">
-                            <span><i class="far fa-eye"></i> 1,250 views</span>
-                            <span><i class="far fa-share-alt"></i> 45 shares</span>
-                        </div>
-                        <a href="#">Read More →</a>
-                    </div>
-                    <div class="popular-post">
-                        <span class="popular-badge">🆕 New</span>
-                        <h4>Clean Agent System Design Mistakes</h4>
-                        <div class="post-meta-small">
-                            <span><i class="far fa-eye"></i> 980 views</span>
-                            <span><i class="far fa-share-alt"></i> 32 shares</span>
-                        </div>
-                        <a href="#">Read More →</a>
-                    </div>
-                    <div class="popular-post">
-                        <span class="popular-badge">⭐ Top</span>
-                        <h4>Fire Pump Sizing Guide</h4>
-                        <div class="post-meta-small">
-                            <span><i class="far fa-eye"></i> 2,150 views</span>
-                            <span><i class="far fa-share-alt"></i> 68 shares</span>
-                        </div>
-                        <a href="#">Read More →</a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Social Sharing Widget -->
-            <div class="sidebar-section">
-                <h3><i class="fas fa-share-alt"></i> Share Tools</h3>
-                <p>Help other engineers discover these free tools:</p>
-                <div class="sidebar-share">
-                    <button class="share-sidebar-btn facebook" onclick="socialSharing.shareContent('facebook')">
-                        <i class="fab fa-facebook-f"></i> Share
-                    </button>
-                    <button class="share-sidebar-btn twitter" onclick="socialSharing.shareContent('twitter')">
-                        <i class="fab fa-twitter"></i> Tweet
-                    </button>
-                    <button class="share-sidebar-btn linkedin" onclick="socialSharing.shareContent('linkedin')">
-                        <i class="fab fa-linkedin-in"></i> Share
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Newsletter -->
-            <div class="sidebar-section newsletter">
-                <h3><i class="fas fa-envelope"></i> Newsletter</h3>
-                <p>Get fire safety updates delivered to your inbox</p>
-                <input type="email" placeholder="Your email address">
-                <button class="subscribe-btn">Subscribe</button>
-                <small>No spam, unsubscribe anytime</small>
-            </div>
-            
-            <!-- Ad -->
-            <div class="sidebar-ad">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
-                <ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-6t+ed+2i-1n-4w" data-ad-client="ca-pub-6687860250561653" data-ad-slot="1234567895"></ins>
-                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-            </div>
-        </aside>
-
-        <!-- Main Blog Content -->
-        <main class="blog-content">
-            <!-- Social Sharing Section -->
-            <div class="post-share-section">
-                <h3><i class="fas fa-share-alt"></i> Share This Blog</h3>
-                <p>Help spread valuable fire safety knowledge to other engineers and professionals.</p>
-                
-                <div class="share-buttons">
-                    <button class="share-btn facebook" onclick="socialSharing.shareContent('facebook')">
-                        <i class="fab fa-facebook-f"></i> Share on Facebook
-                        <span class="share-count" data-platform="facebook">0</span>
-                    </button>
-                    
-                    <button class="share-btn twitter" onclick="socialSharing.shareContent('twitter')">
-                        <i class="fab fa-twitter"></i> Share on X/Twitter
-                        <span class="share-count" data-platform="twitter">0</span>
-                    </button>
-                    
-                    <button class="share-btn linkedin" onclick="socialSharing.shareContent('linkedin')">
-                        <i class="fab fa-linkedin-in"></i> Share on LinkedIn
-                        <span class="share-count" data-platform="linkedin">0</span>
-                    </button>
-                    
-                    <button class="share-btn whatsapp" onclick="socialSharing.shareContent('whatsapp')">
-                        <i class="fab fa-whatsapp"></i> Share on WhatsApp
-                        <span class="share-count" data-platform="whatsapp">0</span>
-                    </button>
-                    
-                    <button class="share-btn email" onclick="socialSharing.shareViaEmail()">
-                        <i class="fas fa-envelope"></i> Share via Email
-                    </button>
-                    
-                    <button class="share-btn copy-link" onclick="socialSharing.copyToClipboard()">
-                        <i class="fas fa-link"></i> Copy Link
-                    </button>
+    <!-- BLOG CONTENT -->
+    <div class="container main-container">
+        <div class="main-wrapper">
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h3><i class="fas fa-blog"></i> Blog Categories</h3>
+                    <p class="sidebar-subtitle">Browse by topic</p>
                 </div>
                 
-                <div class="share-stats">
-                    <div class="stat-item">
-                        <span class="stat-number" id="total-shares">0</span>
-                        <span class="stat-label">Total Shares</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" id="facebook-shares">0</span>
-                        <span class="stat-label">Facebook Shares</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" id="twitter-shares">0</span>
-                        <span class="stat-label">Twitter Shares</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" id="linkedin-shares">0</span>
-                        <span class="stat-label">LinkedIn Shares</span>
-                    </div>
+                <!-- Search Box -->
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search articles..." id="blog-search">
                 </div>
-            </div>
-
-            <!-- Featured Post -->
-            <div class="featured-post">
-                <div class="featured-badge">FEATURED</div>
-                <img src="https://images.unsplash.com/photo-1544098281-073ae35f5ac5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Fire Safety Engineering">
-                <div class="featured-content">
-                    <h2>Understanding NFPA 2025 Code Changes: What Engineers Need to Know</h2>
-                    <div class="post-meta">
-                        <span><i class="far fa-calendar"></i> December 18, 2025</span>
-                        <span><i class="far fa-user"></i> John Smith, PE</span>
-                        <span><i class="far fa-clock"></i> 8 min read</span>
-                        <span><i class="far fa-share-alt"></i> 45 shares</span>
-                    </div>
-                    <p>The 2025 edition of NFPA codes brings significant changes that will impact fire protection system design. In this comprehensive guide, we break down the key updates and provide practical implementation advice...</p>
-                    <div class="featured-actions">
-                        <a href="#" class="read-more">Read Full Article →</a>
-                        <div class="featured-share">
-                            <small>Share:</small>
-                            <button class="share-icon facebook" onclick="socialSharing.shareContent('facebook')">
-                                <i class="fab fa-facebook-f"></i>
-                            </button>
-                            <button class="share-icon twitter" onclick="socialSharing.shareContent('twitter')">
-                                <i class="fab fa-twitter"></i>
-                            </button>
-                            <button class="share-icon linkedin" onclick="socialSharing.shareContent('linkedin')">
-                                <i class="fab fa-linkedin-in"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Blog Posts Grid -->
-            <div class="blog-grid">
-                <!-- Post 1 -->
-                <article class="blog-post">
-                    <div class="post-category calculation-tips">Calculation Tips</div>
-                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Sprinkler Calculations">
-                    <div class="post-content">
-                        <h3>Sprinkler Hydraulic Calculations: Common Mistakes & Best Practices</h3>
-                        <div class="post-meta">
-                            <span><i class="far fa-calendar"></i> December 15, 2025</span>
-                            <span><i class="far fa-user"></i> Sarah Johnson</span>
-                            <span><i class="far fa-clock"></i> 6 min read</span>
-                        </div>
-                        <p>Avoid costly design errors with these essential tips for accurate sprinkler system hydraulic calculations. Learn how to properly account for elevation changes, friction losses, and water supply variables.</p>
-                        <div class="post-actions">
-                            <a href="#" class="read-more">Read More →</a>
-                            <div class="post-share">
-                                <button class="share-btn-mini" onclick="socialSharing.sharePost('sprinkler-calculations')">
-                                    <i class="fas fa-share-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Post 2 -->
-                <article class="blog-post">
-                    <div class="post-category industry-news">Industry News</div>
-                    <img src="https://images.unsplash.com/photo-1544098281-073ae35f5ac5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Fire Safety Technology">
-                    <div class="post-content">
-                        <h3>Emerging Fire Detection Technologies in 2025</h3>
-                        <div class="post-meta">
-                            <span><i class="far fa-calendar"></i> December 12, 2025</span>
-                            <span><i class="far fa-user"></i> Michael Chen</span>
-                            <span><i class="far fa-clock"></i> 5 min read</span>
-                        </div>
-                        <p>From AI-powered smoke detection to IoT-enabled monitoring systems, discover the latest innovations transforming fire safety technology and what they mean for your projects.</p>
-                        <div class="post-actions">
-                            <a href="#" class="read-more">Read More →</a>
-                            <div class="post-share">
-                                <button class="share-btn-mini" onclick="socialSharing.sharePost('detection-tech')">
-                                    <i class="fas fa-share-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Post 3 -->
-                <article class="blog-post">
-                    <div class="post-category case-studies">Case Studies</div>
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Fire Investigation">
-                    <div class="post-content">
-                        <h3>Warehouse Fire Analysis: Lessons in Compartmentation</h3>
-                        <div class="post-meta">
-                            <span><i class="far fa-calendar"></i> December 10, 2025</span>
-                            <span><i class="far fa-user"></i> Robert Williams</span>
-                            <span><i class="far fa-clock"></i> 7 min read</span>
-                        </div>
-                        <p>Detailed analysis of a major warehouse fire where proper compartmentation could have prevented $2M in damages. Learn the critical design considerations for large storage facilities.</p>
-                        <div class="post-actions">
-                            <a href="#" class="read-more">Read More →</a>
-                            <div class="post-share">
-                                <button class="share-btn-mini" onclick="socialSharing.sharePost('warehouse-fire')">
-                                    <i class="fas fa-share-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Post 4 -->
-                <article class="blog-post">
-                    <div class="post-category tools-guides">Tools & Guides</div>
-                    <img src="https://images.unsplash.com/photo-1581092580497-e0d4cb184827?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Fire Safety Tools">
-                    <div class="post-content">
-                        <h3>Free Fire Safety Calculators: Complete Guide</h3>
-                        <div class="post-meta">
-                            <span><i class="far fa-calendar"></i> December 8, 2025</span>
-                            <span><i class="far fa-user"></i> David Miller</span>
-                            <span><i class="far fa-clock"></i> 4 min read</span>
-                        </div>
-                        <p>Our comprehensive guide to the best free online calculators for fire protection engineers, including hydraulic calculators, egress analysis tools, and hazard classification helpers.</p>
-                        <div class="post-actions">
-                            <a href="#" class="read-more">Read More →</a>
-                            <div class="post-share">
-                                <button class="share-btn-mini" onclick="socialSharing.sharePost('calculators-guide')">
-                                    <i class="fas fa-share-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Post 5 -->
-                <article class="blog-post">
-                    <div class="post-category nfpa-updates">NFPA Updates</div>
-                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="NFPA Code Books">
-                    <div class="post-content">
-                        <h3>NFPA 101 2025: Changes to Means of Egress Requirements</h3>
-                        <div class="post-meta">
-                            <span><i class="far fa-calendar"></i> December 5, 2025</span>
-                            <span><i class="far fa-user"></i> Jennifer Lee</span>
-                            <span><i class="far fa-clock"></i> 6 min read</span>
-                        </div>
-                        <p>Significant updates to egress requirements in the latest NFPA 101 edition. Understand the new door width calculations, stair design changes, and emergency lighting requirements.</p>
-                        <div class="post-actions">
-                            <a href="#" class="read-more">Read More →</a>
-                            <div class="post-share">
-                                <button class="share-btn-mini" onclick="socialSharing.sharePost('nfpa-101')">
-                                    <i class="fas fa-share-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Post 6 -->
-                <article class="blog-post">
-                    <div class="post-category training">Training</div>
-                    <img src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Fire Safety Training">
-                    <div class="post-content">
-                        <h3>2026 Certification Changes for Fire Protection Engineers</h3>
-                        <div class="post-meta">
-                            <span><i class="far fa-calendar"></i> December 3, 2025</span>
-                            <span><i class="far fa-user"></i> Thomas Brown</span>
-                            <span><i class="far fa-clock"></i> 5 min read</span>
-                        </div>
-                        <p>Upcoming changes to PE certification requirements and continuing education credits for fire protection engineers. Plan your professional development for the coming year.</p>
-                        <div class="post-actions">
-                            <a href="#" class="read-more">Read More →</a>
-                            <div class="post-share">
-                                <button class="share-btn-mini" onclick="socialSharing.sharePost('certification-changes')">
-                                    <i class="fas fa-share-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <!-- Pagination -->
-            <div class="pagination">
-                <a href="#" class="page-btn active">1</a>
-                <a href="#" class="page-btn">2</a>
-                <a href="#" class="page-btn">3</a>
-                <a href="#" class="page-btn">4</a>
-                <a href="#" class="page-btn next">Next →</a>
-            </div>
-
-            <!-- Social Proof Section -->
-            <div class="social-proof">
-                <h3><i class="fas fa-users"></i> Join Our Community</h3>
-                <p>Over 5,000 fire protection professionals read our blog monthly. Share these articles with your colleagues!</p>
                 
-                <div class="community-stats">
-                    <div class="community-stat">
-                        <span class="stat-number">5,000+</span>
-                        <span class="stat-label">Monthly Readers</span>
-                    </div>
-                    <div class="community-stat">
-                        <span class="stat-number">1,200+</span>
-                        <span class="stat-label">Industry Professionals</span>
-                    </div>
-                    <div class="community-stat">
-                        <span class="stat-number">85%</span>
-                        <span class="stat-label">Share Rate</span>
+                <!-- Categories Widget -->
+                <div class="sidebar-widget">
+                    <h3><i class="fas fa-folder"></i> Categories</h3>
+                    <ul class="category-list">
+                        <li>
+                            <a href="#">
+                                <span>NFPA Updates</span>
+                                <span class="category-count">12</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>Calculation Tips</span>
+                                <span class="category-count">18</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>Case Studies</span>
+                                <span class="category-count">8</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>Industry News</span>
+                                <span class="category-count">15</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>Tool Tutorials</span>
+                                <span class="category-count">6</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>Code Compliance</span>
+                                <span class="category-count">9</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Recent Posts Widget -->
+                <div class="sidebar-widget">
+                    <h3><i class="fas fa-clock"></i> Recent Posts</h3>
+                    <div class="recent-posts">
+                        <div class="recent-post">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=150&h=150&fit=crop" alt="Recent Post">
+                            <div>
+                                <h4>NFPA 2024 Updates Summary</h4>
+                                <small>Jan 15, 2024</small>
+                            </div>
+                        </div>
+                        <div class="recent-post">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=150&h=150&fit=crop" alt="Recent Post">
+                            <div>
+                                <h4>Clean Agent Calculation Tips</h4>
+                                <small>Jan 10, 2024</small>
+                            </div>
+                        </div>
+                        <div class="recent-post">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=150&h=150&fit=crop" alt="Recent Post">
+                            <div>
+                                <h4>Fire Pump Selection Guide</h4>
+                                <small>Jan 5, 2024</small>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="community-cta">
-                    <p><strong>Found this helpful?</strong> Share it with your network to help other engineers!</p>
-                    <button class="cta-share-btn" onclick="socialSharing.shareContent('linkedin')">
-                        <i class="fab fa-linkedin"></i> Share on LinkedIn
-                    </button>
+                <!-- Newsletter Widget -->
+                <div class="sidebar-widget newsletter-widget">
+                    <h3><i class="fas fa-newspaper"></i> Newsletter</h3>
+                    <p>Get fire safety updates directly in your inbox</p>
+                    <input type="email" placeholder="Your email address">
+                    <button class="newsletter-btn">Subscribe</button>
+                    <p style="font-size: 0.9rem; margin-top: 10px; opacity: 0.8;">No spam, unsubscribe anytime</p>
                 </div>
-            </div>
+                
+                <!-- Explore Tools -->
+                <div class="sidebar-section explore-section">
+                    <h4><i class="fas fa-external-link-alt"></i> Explore Tools</h4>
+                    <div class="explore-tools">
+                        <a href="https://hse-toolkit.vercel.app/" target="_blank" class="explore-link">
+                            <i class="fas fa-toolbox"></i>
+                            <span>HSE Toolkit</span>
+                        </a>
+                        <a href="https://www.webtoolsdaily.com/" target="_blank" class="explore-link">
+                            <i class="fas fa-globe"></i>
+                            <span>Web Tools Daily</span>
+                        </a>
+                        <a href="https://www.hsecalculator.com/" target="_blank" class="explore-link">
+                            <i class="fas fa-calculator"></i>
+                            <span>HSE Calculators</span>
+                        </a>
+                    </div>
+                </div>
+            </aside>
 
-            <!-- Related Articles -->
-            <div class="related-articles">
-                <h3><i class="fas fa-book-open"></i> You Might Also Like</h3>
-                <div class="related-grid">
-                    <div class="related-post">
-                        <h4>Fire Pump Sizing: Step-by-Step Guide</h4>
-                        <a href="#">Read Now →</a>
+            <!-- MAIN BLOG CONTENT -->
+            <main class="main-content">
+                <!-- Blog Header -->
+                <div class="blog-header">
+                    <h1>Fire Safety Blog</h1>
+                    <p>Latest updates, professional tips, and industry insights for fire protection engineers</p>
+                </div>
+                
+                <!-- Featured Post -->
+                <div class="featured-post">
+                    <div class="featured-content">
+                        <span class="featured-badge">FEATURED</span>
+                        <h2>NFPA 2024 Updates: What Every Engineer Needs to Know</h2>
+                        <p>Comprehensive overview of the latest NFPA code changes affecting fire protection design, including NFPA 13, 72, 2001, and 2003 updates. Learn how these changes impact your calculations and designs.</p>
+                        <a href="#" class="read-more">
+                            Read Full Article <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
-                    <div class="related-post">
-                        <h4>Clean Agent System Design Considerations</h4>
-                        <a href="#">Read Now →</a>
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&h=400&fit=crop" alt="NFPA Updates" class="featured-image">
+                </div>
+                
+                <!-- Blog Grid -->
+                <div class="blog-grid">
+                    <!-- Article 1 -->
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=200&fit=crop" alt="Clean Agent" class="blog-image">
+                        <div class="blog-content">
+                            <span class="blog-category tips">Calculation Tips</span>
+                            <h3>Advanced Clean Agent Calculations: Beyond the Basics</h3>
+                            <p>Learn advanced techniques for clean agent system design, including altitude correction, temperature effects, and enclosure integrity testing.</p>
+                            <div class="blog-meta">
+                                <span class="blog-date">Jan 18, 2024</span>
+                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="related-post">
-                        <h4>Smoke Control System Calculations</h4>
-                        <a href="#">Read Now →</a>
+                    
+                    <!-- Article 2 -->
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=200&fit=crop" alt="Sprinkler Design" class="blog-image">
+                        <div class="blog-content">
+                            <span class="blog-category nfpa">NFPA Updates</span>
+                            <h3>NFPA 13 2024 Edition: Key Changes in Sprinkler Design</h3>
+                            <p>Detailed analysis of the latest NFPA 13 changes affecting sprinkler system design, hydraulic calculations, and installation requirements.</p>
+                            <div class="blog-meta">
+                                <span class="blog-date">Jan 12, 2024</span>
+                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Article 3 -->
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=200&fit=crop" alt="Case Study" class="blog-image">
+                        <div class="blog-content">
+                            <span class="blog-category case">Case Study</span>
+                            <h3>Data Center Fire Protection: A Real-World Case Study</h3>
+                            <p>Explore how clean agent systems were designed and implemented in a large-scale data center facility, with lessons learned and best practices.</p>
+                            <div class="blog-meta">
+                                <span class="blog-date">Jan 8, 2024</span>
+                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Article 4 -->
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=200&fit=crop" alt="Fire Alarm" class="blog-image">
+                        <div class="blog-content">
+                            <span class="blog-category tips">Calculation Tips</span>
+                            <h3>Fire Alarm Battery Standby Calculations Made Easy</h3>
+                            <p>Step-by-step guide to calculating battery standby requirements for fire alarm systems, including practical examples and common pitfalls.</p>
+                            <div class="blog-meta">
+                                <span class="blog-date">Jan 5, 2024</span>
+                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Article 5 -->
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=200&fit=crop" alt="Industry News" class="blog-image">
+                        <div class="blog-content">
+                            <span class="blog-category news">Industry News</span>
+                            <h3>Emerging Trends in Fire Protection Technology 2024</h3>
+                            <p>Latest innovations in fire detection, suppression systems, and smart building integration that are changing the fire protection industry.</p>
+                            <div class="blog-meta">
+                                <span class="blog-date">Jan 2, 2024</span>
+                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Article 6 -->
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=200&fit=crop" alt="Egress Design" class="blog-image">
+                        <div class="blog-content">
+                            <span class="blog-category tips">Calculation Tips</span>
+                            <h3>Egress Analysis: Advanced Occupant Load Calculations</h3>
+                            <p>Advanced techniques for calculating occupant loads, exit capacities, and egress requirements for complex building designs.</p>
+                            <div class="blog-meta">
+                                <span class="blog-date">Dec 28, 2023</span>
+                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </main>
+                
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="#" class="page-btn active">1</a>
+                    <a href="#" class="page-btn">2</a>
+                    <a href="#" class="page-btn">3</a>
+                    <a href="#" class="page-btn">4</a>
+                    <a href="#" class="page-btn">Next <i class="fas fa-chevron-right"></i></a>
+                </div>
+                
+                <!-- Newsletter CTA -->
+                <div class="calculator-box" style="text-align: center; background: linear-gradient(135deg, #0099e5, #0066cc); color: white;">
+                    <h2 style="color: white;"><i class="fas fa-newspaper"></i> Stay Updated</h2>
+                    <p style="font-size: 1.1rem; opacity: 0.9; margin: 20px 0;">Get the latest fire safety news, NFPA updates, and calculation tips delivered to your inbox.</p>
+                    <div style="display: flex; gap: 10px; max-width: 500px; margin: 30px auto;">
+                        <input type="email" placeholder="Your email address" style="flex: 1; padding: 12px; border: none; border-radius: 6px;">
+                        <button style="padding: 12px 30px; background: #ff4c4c; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Subscribe</button>
+                    </div>
+                    <p style="font-size: 0.9rem; opacity: 0.7;">No spam. Unsubscribe anytime.</p>
+                </div>
+            </main>
+        </div>
     </div>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <footer>
         <div class="footer-content">
-            <div class="footer-section">
-                <h3>Fire Safety Tools</h3>
-                <p>Free resources for fire protection engineers and safety professionals.</p>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h4>Fire Safety Blog</h4>
+                    <p>Professional insights, updates, and tips for fire protection engineers and designers.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="calculators.html">Calculators</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="resources.html">Resources</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Blog Categories</h4>
+                    <a href="#">NFPA Updates</a>
+                    <a href="#">Calculation Tips</a>
+                    <a href="#">Case Studies</a>
+                    <a href="#">Industry News</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="disclaimer.html">Disclaimer</a>
                 </div>
             </div>
             
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="/index.html">Home</a></li>
-                    <li><a href="/blog.html">Blog</a></li>
-                    <li><a href="/resources.html">Resources</a></li>
-                    <li><a href="/calculators.html">Calculators</a></li>
-                    <li><a href="/about.html">About Us</a></li>
-                </ul>
+            <div class="footer-warning">
+                <p><i class="fas fa-exclamation-triangle"></i> <strong>Disclaimer:</strong> Blog content is for informational purposes only. Always consult relevant codes and professionals.</p>
             </div>
             
-            <div class="footer-section">
-                <h3>Categories</h3>
-                <ul>
-                    <li><a href="#">NFPA Updates</a></li>
-                    <li><a href="#">Calculation Tips</a></li>
-                    <li><a href="#">Case Studies</a></li>
-                    <li><a href="#">Industry News</a></li>
-                    <li><a href="#">Training</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Newsletter</h3>
-                <p>Subscribe for weekly fire safety insights</p>
-                <input type="email" placeholder="Your email">
-                <button>Subscribe</button>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2025 FireSafetyTool.com. All rights reserved. | <a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Service</a></p>
-            <p>Disclaimer: This blog provides educational content only. Always consult local codes and a licensed professional for your specific project requirements.</p>
+            <p>&copy; 2025 FireSafetyTool.com. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- JavaScript Files -->
-    <script src="/js/social-sharing.js"></script>
-    <script src="/js/blog-navigation.js"></script>
-    <script src="/js/analytics.js"></script>
+    <script src="sidebar.js"></script>
+    <script src="script.js"></script>
     
+    <!-- Blog-specific JavaScript -->
     <script>
-        // Social Sharing Functionality
-        const socialSharing = {
-            shareContent: function(platform) {
-                const url = encodeURIComponent(window.location.href);
-                const title = encodeURIComponent(document.title);
-                const description = encodeURIComponent(document.querySelector('meta[name="description"]').content);
-                
-                let shareUrl = '';
-                
-                switch(platform) {
-                    case 'facebook':
-                        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-                        break;
-                    case 'twitter':
-                        shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
-                        break;
-                    case 'linkedin':
-                        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-                        break;
-                    case 'whatsapp':
-                        shareUrl = `https://api.whatsapp.com/send?text=${title} ${url}`;
-                        break;
-                }
-                
-                if (shareUrl) {
-                    window.open(shareUrl, '_blank', 'width=600,height=400');
-                    this.updateShareCount(platform);
-                }
-            },
-            
-            shareViaEmail: function() {
-                const subject = encodeURIComponent(document.title);
-                const body = encodeURIComponent(`Check out this fire safety article: ${window.location.href}`);
-                window.location.href = `mailto:?subject=${subject}&body=${body}`;
-            },
-            
-            copyToClipboard: function() {
-                navigator.clipboard.writeText(window.location.href)
-                    .then(() => alert('Link copied to clipboard!'))
-                    .catch(err => console.error('Copy failed:', err));
-            },
-            
-            updateShareCount: function(platform) {
-                // This would typically connect to a backend API
-                // For now, we'll just update the UI
-                const countElement = document.querySelector(`[data-platform="${platform}"]`);
-                if (countElement) {
-                    const currentCount = parseInt(countElement.textContent) || 0;
-                    countElement.textContent = currentCount + 1;
-                    
-                    // Update total
-                    const totalElement = document.getElementById('total-shares');
-                    if (totalElement) {
-                        const currentTotal = parseInt(totalElement.textContent) || 0;
-                        totalElement.textContent = currentTotal + 1;
-                    }
-                    
-                    // Update platform specific
-                    const platformElement = document.getElementById(`${platform}-shares`);
-                    if (platformElement) {
-                        const currentPlatform = parseInt(platformElement.textContent) || 0;
-                        platformElement.textContent = currentPlatform + 1;
-                    }
-                }
-            },
-            
-            sharePost: function(postId) {
-                // Share specific post functionality
-                const postTitle = document.querySelector(`[onclick*="${postId}"]`).closest('.blog-post').querySelector('h3').textContent;
-                const shareText = encodeURIComponent(`Check out this fire safety article: "${postTitle}"`);
-                const url = encodeURIComponent(`${window.location.href}#${postId}`);
-                
-                window.open(`https://twitter.com/intent/tweet?text=${shareText}&url=${url}`, '_blank', 'width=600,height=400');
-            }
-        };
-        
-        // Mobile Navigation Toggle
         document.addEventListener('DOMContentLoaded', function() {
-            const mobileToggle = document.getElementById('mobile-nav-toggle');
-            const blogNav = document.getElementById('blog-nav-enhanced');
+            // Blog search functionality
+            const blogSearch = document.getElementById('blog-search');
+            if (blogSearch) {
+                blogSearch.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    const blogCards = document.querySelectorAll('.blog-card');
+                    
+                    blogCards.forEach(card => {
+                        const title = card.querySelector('h3').textContent.toLowerCase();
+                        const content = card.querySelector('p').textContent.toLowerCase();
+                        
+                        if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            }
             
-            if (mobileToggle && blogNav) {
-                mobileToggle.addEventListener('click', function() {
-                    blogNav.classList.toggle('active');
-                    const icon = this.querySelector('i');
-                    if (icon.classList.contains('fa-bars')) {
-                        icon.classList.replace('fa-bars', 'fa-times');
+            // Newsletter subscription
+            const newsletterBtn = document.querySelector('.newsletter-btn');
+            if (newsletterBtn) {
+                newsletterBtn.addEventListener('click', function() {
+                    const email = this.parentElement.querySelector('input[type="email"]').value;
+                    if (email && email.includes('@')) {
+                        alert('Thank you for subscribing to our newsletter!');
+                        this.parentElement.querySelector('input[type="email"]').value = '';
                     } else {
-                        icon.classList.replace('fa-times', 'fa-bars');
+                        alert('Please enter a valid email address.');
                     }
                 });
             }
             
-            // Initialize share counts from localStorage (simulated)
-            const platforms = ['facebook', 'twitter', 'linkedin', 'whatsapp'];
-            platforms.forEach(platform => {
-                const count = localStorage.getItem(`${platform}_shares`) || 0;
-                const element = document.querySelector(`[data-platform="${platform}"]`);
-                if (element) element.textContent = count;
+            // Category filter
+            const categoryLinks = document.querySelectorAll('.category-list a');
+            categoryLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const category = this.querySelector('span').textContent;
+                    
+                    // Remove active class from all
+                    categoryLinks.forEach(l => l.style.background = '#f8f9fa');
+                    
+                    // Add active to clicked
+                    this.style.background = '#0099e5';
+                    this.style.color = 'white';
+                    
+                    // Filter blog posts (simplified)
+                    alert('Filtering by: ' + category);
+                });
             });
         });
     </script>
