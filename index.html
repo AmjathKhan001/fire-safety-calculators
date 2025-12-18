@@ -5,136 +5,604 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fire Safety Tools Suite | NFPA & IBC Calculators</title>
     <meta name="description" content="Professional NFPA & IBC fire safety calculators for engineers and designers. Free tools for sprinkler, egress, suppression, and hazard calculations.">
+    
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
+    
+    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="css/sidebar.css">
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Open Graph / Social Meta Tags -->
+    <meta property="og:title" content="Fire Safety Tools Suite | Professional Engineering Calculators">
+    <meta property="og:description" content="Free NFPA-compliant calculators for fire protection engineers and designers.">
+    <meta property="og:image" content="https://www.firesafetytool.com/logo.png">
+    <meta property="og:url" content="https://www.firesafetytool.com">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Fire Safety Tools Suite">
+    <meta name="twitter:description" content="Professional fire safety calculators for engineers.">
+    <meta name="twitter:image" content="https://www.firesafetytool.com/logo.png">
 </head>
+
 <body>
-    <!-- NAVIGATION - Exactly like blog.html -->
+    <!-- ===== MAIN HEADER & NAVIGATION ===== -->
     <header>
         <div class="header-container">
+            <!-- Logo and Site Title -->
             <div class="logo-title">
                 <img src="logo.png" alt="Fire Safety Tools Logo" class="logo">
                 <div>
                     <h1>Fire Safety Tools Suite</h1>
-                    <p>Professional NFPA & IBC tools for engineers and designers.</p>
+                    <p>Professional NFPA & IBC tools for engineers and designers</p>
                 </div>
             </div>
+            
+            <!-- Unit Toggle -->
+            <div class="unit-toggle-container">
+                <label for="unit-switch"><i class="fas fa-exchange-alt"></i> Units:</label>
+                <select id="unit-switch">
+                    <option value="imperial">Imperial (US)</option>
+                    <option value="metric">Metric (SI)</option>
+                </select>
+            </div>
+            
+            <!-- Social Icons -->
             <div class="header-social">
-                <a href="https://twitter.com/" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
-                <a href="https://linkedin.com/" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                <a href="https://facebook.com/" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a>
+                <a href="https://twitter.com/" target="_blank" class="social-icon" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://linkedin.com/" target="_blank" class="social-icon" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://facebook.com/" target="_blank" class="social-icon" aria-label="Facebook">
+                    <i class="fab fa-facebook"></i>
+                </a>
             </div>
         </div>
+        
         <!-- Main Navigation Bar -->
         <nav class="main-nav" id="mainNav">
-            <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
-            <a href="calculators.html"><i class="fas fa-calculator"></i> Calculators</a>
-            <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
-            <a href="resources.html"><i class="fas fa-book"></i> Resources</a>
-            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+            <a href="calculators.html" class="nav-link"><i class="fas fa-calculator"></i> Calculators</a>
+            <a href="blog.html" class="nav-link"><i class="fas fa-blog"></i> Blog</a>
+            <a href="resources.html" class="nav-link"><i class="fas fa-book"></i> Resources</a>
+            <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+            
+            <!-- Mobile Menu Toggle Button (Hidden on Desktop) -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+        
+        <!-- Mobile Navigation Menu (Hidden by default) -->
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="index.html" class="mobile-nav-link active"><i class="fas fa-home"></i> Home</a>
+            <a href="calculators.html" class="mobile-nav-link"><i class="fas fa-calculator"></i> Calculators</a>
+            <a href="blog.html" class="mobile-nav-link"><i class="fas fa-blog"></i> Blog</a>
+            <a href="resources.html" class="mobile-nav-link"><i class="fas fa-book"></i> Resources</a>
+            <a href="contact.html" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact</a>
         </nav>
     </header>
+    <!-- ===== END OF HEADER ===== -->
 
+    <!-- ===== MAIN CONTENT AREA ===== -->
     <div class="main-wrapper">
-        <!-- Sidebar (loaded by sidebar.js) -->
-        <aside class="sidebar" id="sidebar"></aside>
+        <!-- Sidebar (Will be populated by JavaScript) -->
+        <aside class="sidebar" id="sidebar">
+            <!-- Loading message - sidebar.js will replace this -->
+            <div class="sidebar-loading">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Loading calculator tools...</p>
+            </div>
+        </aside>
 
-        <!-- Main Content -->
-        <main class="main-content">
+        <!-- Main Content Area -->
+        <main class="main-content" id="mainContent">
+            <!-- Welcome Section -->
             <section class="welcome-section">
-                <h2>Clean Agent / Gas Suppression System Calculator</h2>
-                <p class="subtitle">Select a tool from the sidebar to get started</p>
-
-                <p>This suite provides professional fire safety calculation tools for engineers, designers, and safety professionals. All tools are based on NFPA and IBC standards and are continuously updated for code compliance.</p>
-
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <i class="fas fa-certificate"></i>
-                        <h4>NFPA Compliant</h4>
-                        <p>All calculations follow latest NFPA standards</p>
+                <div class="content-header">
+                    <h2>Fire Safety Tools Suite</h2>
+                    <p class="subtitle">Professional NFPA & IBC tools for engineers and designers</p>
+                </div>
+                
+                <!-- Main Tool Introduction -->
+                <div class="tool-intro active">
+                    <h3><i class="fas fa-fire-extinguisher"></i> Clean Agent / Gas Suppression System Calculator</h3>
+                    <p>Select a tool from the sidebar to get started. All calculations are based on the latest NFPA and IBC standards, providing professional-grade results for fire protection engineers, designers, and safety professionals.</p>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <h4>NFPA Compliant</h4>
+                            <p>All calculations follow latest NFPA standards including NFPA 13, 72, 101, and 2001</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <h4>Dual Units</h4>
+                            <p>Switch seamlessly between Imperial (US) and Metric (SI) systems</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <h4>Export Results</h4>
+                            <p>Save, print, or export calculations as professional PDF reports</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h4>Responsive Design</h4>
+                            <p>Works perfectly on desktop, tablet, and mobile devices</p>
+                        </div>
                     </div>
-                    <div class="feature-card">
-                        <i class="fas fa-exchange-alt"></i>
-                        <h4>Dual Units</h4>
-                        <p>Switch between Imperial and Metric systems</p>
+                    
+                    <!-- Calculator Preview -->
+                    <div class="calculator-preview">
+                        <h3><i class="fas fa-fire-extinguisher"></i> Featured Tool: Clean Agent Calculator</h3>
+                        <p>Calculates required agent quantity for FM-200, NOVEC 1230, CO₂, and other clean agent systems based on room size, temperature, altitude, and design concentration (NFPA 2001).</p>
+                        
+                        <div class="preview-params">
+                            <div class="parameter-group">
+                                <h4><i class="fas fa-ruler-combined"></i> Room Dimensions</h4>
+                                <p><em>Includes length, width, height, and ceiling void calculations</em></p>
+                            </div>
+                            <div class="parameter-group">
+                                <h4><i class="fas fa-sliders-h"></i> Design Parameters</h4>
+                                <p><em>Temperature, altitude, design concentration, and safety factors</em></p>
+                            </div>
+                            <div class="parameter-group">
+                                <h4><i class="fas fa-calculator"></i> Calculations</h4>
+                                <p><em>Volume, flooding factor, agent quantity, and cylinder sizing</em></p>
+                            </div>
+                        </div>
+                        
+                        <!-- Tool Selector -->
+                        <div class="tool-selector">
+                            <h4><i class="fas fa-rocket"></i> Quick Start</h4>
+                            <div class="quick-tools">
+                                <button class="quick-tool-btn" data-tool="clean-agent">
+                                    <i class="fas fa-fire-extinguisher"></i> Clean Agent Calculator
+                                </button>
+                                <button class="quick-tool-btn" data-tool="sprinkler">
+                                    <i class="fas fa-shower"></i> Sprinkler Hydraulics
+                                </button>
+                                <button class="quick-tool-btn" data-tool="egress">
+                                    <i class="fas fa-door-open"></i> Egress Analysis
+                                </button>
+                                <button class="quick-tool-btn" data-tool="fire-flow">
+                                    <i class="fas fa-tint"></i> Fire Flow Demand
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Important Notes -->
+                        <div class="important-notes">
+                            <h4><i class="fas fa-exclamation-triangle"></i> Important Notes</h4>
+                            <ul>
+                                <li><strong>Based on NFPA standards:</strong> All calculations follow latest edition requirements</li>
+                                <li><strong>Estimation tool only:</strong> For preliminary design and educational purposes</li>
+                                <li><strong>Professional verification required:</strong> Always consult manufacturer's software for final calculations</li>
+                                <li><strong>Local codes:</strong> Consider all applicable local, state, and national regulations</li>
+                                <li><strong>Safety factors:</strong> Include appropriate safety factors as required by your jurisdiction</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="feature-card">
-                        <i class="fas fa-file-pdf"></i>
-                        <h4>Export Results</h4>
-                        <p>Save/Print calculations as PDF documents</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-mobile-alt"></i>
-                        <h4>Responsive Design</h4>
-                        <p>Works perfectly on all devices</p>
+                    
+                    <!-- Recent Updates -->
+                    <div class="recent-updates">
+                        <h4><i class="fas fa-history"></i> Recent Updates</h4>
+                        <div class="updates-list">
+                            <div class="update-item">
+                                <span class="update-date">Dec 18, 2025</span>
+                                <span class="update-text">Added 5 new calculators including fire pump sizing and voltage drop</span>
+                            </div>
+                            <div class="update-item">
+                                <span class="update-date">Dec 15, 2025</span>
+                                <span class="update-text">Updated all calculators to 2025 NFPA code editions</span>
+                            </div>
+                            <div class="update-item">
+                                <span class="update-date">Dec 10, 2025</span>
+                                <span class="update-text">Improved mobile responsiveness and PDF export features</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Calculator Preview -->
-                <div class="calculator-preview">
-                    <h3><i class="fas fa-fire-extinguisher"></i> Clean Agent / Gas Suppression System Calculator</h3>
-                    <p>Calculates required agent quantity (e.g., FM-200, NOVEC 1230) based on room size, temperature, and design concentration (NFPA 2001).</p>
-
-                    <div class="preview-params">
-                        <div>
-                            <h4><i class="fas fa-ruler-combined"></i> Room Dimensions</h4>
-                            <p><em>Higher altitude requires more agent.</em></p>
-                        </div>
-                        <div>
-                            <h4><i class="fas fa-sliders-h"></i> Design Parameters</h4>
-                            <p><em>7.5% is common for Class A/C hazards using FM-200.</em></p>
-                        </div>
-                    </div>
-
-                    <div class="disclaimer">
-                        <p><strong><i class="fas fa-exclamation-triangle"></i> Important Notes:</strong> Based on NFPA 2001 standards. This is an estimation tool only. Always consult manufacturer's software for final calculations. Consider safety factors and local codes.</p>
-                    </div>
+                
+                <!-- Calculator Container (Will be populated when tool is selected) -->
+                <div id="calculator-container">
+                    <!-- Calculators will load here when selected from sidebar -->
                 </div>
             </section>
-        </main>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Fire Safety Tools</h3>
-                <p>Free resources for fire protection engineers and safety professionals.</p>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+            
+            <!-- Social Sharing Section -->
+            <div class="social-sharing">
+                <div class="sharing-header">
+                    <i class="fas fa-share-alt"></i>
+                    <h3>Share These Tools</h3>
+                </div>
+                <p>Help other engineers and safety professionals discover these free tools:</p>
+                <div class="share-buttons">
+                    <a href="#" class="share-btn facebook" onclick="shareOnPlatform('facebook')">
+                        <i class="fab fa-facebook-f"></i> Share on Facebook
+                    </a>
+                    <a href="#" class="share-btn twitter" onclick="shareOnPlatform('twitter')">
+                        <i class="fab fa-twitter"></i> Share on X/Twitter
+                    </a>
+                    <a href="#" class="share-btn linkedin" onclick="shareOnPlatform('linkedin')">
+                        <i class="fab fa-linkedin-in"></i> Share on LinkedIn
+                    </a>
+                    <a href="#" class="share-btn whatsapp" onclick="shareOnPlatform('whatsapp')">
+                        <i class="fab fa-whatsapp"></i> Share on WhatsApp
+                    </a>
                 </div>
             </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="index.html">Home</a>
-                <a href="calculators.html">Calculators</a>
-                <a href="blog.html">Blog</a>
-                <a href="resources.html">Resources</a>
+            
+            <!-- Affiliate/Support Banner -->
+            <div class="affiliate-banner">
+                <p>
+                    <i class="fas fa-heart"></i> 
+                    <strong>Support this project:</strong> These tools are completely free. If you find them useful, please share with colleagues and consider 
+                    <a href="#" onclick="showSupportOptions()">supporting the development</a>.
+                </p>
             </div>
+        </main>
+    </div>
+    <!-- ===== END OF MAIN CONTENT ===== -->
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="footer-content">
+            <!-- Column 1: About -->
             <div class="footer-section">
-                <h3>Legal</h3>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms of Service</a>
-                <a href="contact.html">Contact</a>
+                <img src="logo.png" alt="Fire Safety Tools Logo" class="footer-logo">
+                <h3>Fire Safety Tools Suite</h3>
+                <p>Free, professional-grade calculators for the fire protection community. Developed by engineers for engineers.</p>
+                <div class="social-links">
+                    <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="contact.html" aria-label="Contact"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <!-- Column 2: Quick Links -->
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="calculators.html"><i class="fas fa-calculator"></i> All Calculators</a></li>
+                    <li><a href="blog.html"><i class="fas fa-blog"></i> Blog & Articles</a></li>
+                    <li><a href="resources.html"><i class="fas fa-book"></i> Code Resources</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact & Support</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 3: Popular Tools -->
+            <div class="footer-section">
+                <h4>Popular Tools</h4>
+                <ul>
+                    <li><a href="#" data-tool="clean-agent"><i class="fas fa-fire-extinguisher"></i> Clean Agent Calculator</a></li>
+                    <li><a href="#" data-tool="sprinkler"><i class="fas fa-shower"></i> Sprinkler Hydraulics</a></li>
+                    <li><a href="#" data-tool="egress"><i class="fas fa-door-open"></i> Egress Analysis</a></li>
+                    <li><a href="#" data-tool="fire-flow"><i class="fas fa-tint"></i> Fire Flow Demand</a></li>
+                    <li><a href="#" data-tool="hazard"><i class="fas fa-flask"></i> Hazard Classification</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 4: Related Tools & Newsletter -->
+            <div class="footer-section">
+                <h4>Related Tools</h4>
+                <ul>
+                    <li><a href="https://hse-toolkit.vercel.app/" target="_blank"><i class="fas fa-toolbox"></i> HSE Toolkit</a></li>
+                    <li><a href="https://www.webtoolsdaily.com/" target="_blank"><i class="fas fa-globe"></i> Web Tools Daily</a></li>
+                    <li><a href="https://www.hsecalculator.com/" target="_blank"><i class="fas fa-calculator"></i> HSE Calculators</a></li>
+                    <li><a href="https://www.dailysmarttool.com/" target="_blank"><i class="fas fa-tools"></i> Utility Tools</a></li>
+                </ul>
+                
+                <div class="newsletter-section">
+                    <p><strong>Stay Updated</strong></p>
+                    <p class="newsletter-text">Get notified about new tools and updates</p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" placeholder="Your email address" required aria-label="Email for newsletter">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
             </div>
         </div>
+        
+        <!-- Footer Bottom -->
         <div class="footer-bottom">
-            <p>&copy; 2025 FireSafetyTool.com. All rights reserved. | This tool is for preliminary estimation only. Always consult relevant codes and a licensed professional for final design.</p>
+            <div class="footer-warning">
+                <p>
+                    <i class="fas fa-exclamation-circle"></i>
+                    <strong>Disclaimer:</strong> This tool is for preliminary estimation only. These calculators provide approximate values based on standard formulas and assumptions. Always consult relevant codes (NFPA, IBC, local regulations) and a licensed professional engineer for final design, specification, and compliance verification. The developers assume no liability for any errors, omissions, or damages resulting from the use of these tools.
+                </p>
+            </div>
+            
+            <div class="footer-links-bottom">
+                <a href="privacy.html">Privacy Policy</a> | 
+                <a href="terms.html">Terms of Service</a> | 
+                <a href="contact.html#disclaimer">Full Disclaimer</a> | 
+                <a href="contact.html">Contact Us</a>
+            </div>
+            
+            <p>&copy; 2025 FireSafetyTool.com. All rights reserved.</p>
+            <p class="footer-credits">
+                Made with <i class="fas fa-heart" style="color:#ff4c4c;"></i> for the fire safety community
+            </p>
         </div>
     </footer>
+    <!-- ===== END OF FOOTER ===== -->
 
-    <!-- JavaScript -->
+    <!-- ===== JAVASCRIPT FILES ===== -->
     <script src="sidebar.js"></script>
+    
     <script>
-        // Simple mobile menu toggle for nav
+        // Unit Toggle Functionality
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Page loaded with new navigation');
+            console.log('Fire Safety Tools - Main Script Initialized');
+            
+            // Unit System Toggle
+            const unitSwitch = document.getElementById('unit-switch');
+            if (unitSwitch) {
+                unitSwitch.addEventListener('change', function() {
+                    const selectedUnit = this.value;
+                    console.log('Unit system changed to:', selectedUnit);
+                    
+                    // Save preference
+                    localStorage.setItem('preferredUnit', selectedUnit);
+                    
+                    // Show notification
+                    showNotification(`Switched to ${selectedUnit === 'imperial' ? 'Imperial (US)' : 'Metric (SI)'} units`);
+                    
+                    // Update any visible calculators
+                    if (window.currentCalculator && window.updateCalculatorUnits) {
+                        window.updateCalculatorUnits(selectedUnit);
+                    }
+                });
+                
+                // Load saved preference
+                const savedUnit = localStorage.getItem('preferredUnit') || 'imperial';
+                unitSwitch.value = savedUnit;
+            }
+            
+            // Mobile Menu Toggle
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const mobileNav = document.getElementById('mobileNav');
+            
+            if (mobileToggle && mobileNav) {
+                mobileToggle.addEventListener('click', function() {
+                    mobileNav.classList.toggle('active');
+                    const icon = this.querySelector('i');
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                });
+            }
+            
+            // Close mobile menu when clicking a link
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileNav) mobileNav.classList.remove('active');
+                    if (mobileToggle) {
+                        const icon = mobileToggle.querySelector('i');
+                        icon.classList.replace('fa-times', 'fa-bars');
+                    }
+                });
+            });
+            
+            // Quick Tool Buttons
+            const quickToolBtns = document.querySelectorAll('.quick-tool-btn');
+            quickToolBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const toolId = this.dataset.tool;
+                    console.log('Quick tool selected:', toolId);
+                    
+                    // Show loading
+                    const container = document.getElementById('calculator-container');
+                    if (container) {
+                        container.innerHTML = `
+                            <div class="loading">
+                                <i class="fas fa-spinner fa-spin fa-3x"></i>
+                                <h3>Loading Calculator...</h3>
+                                <p>Preparing ${this.textContent.trim()}</p>
+                            </div>
+                        `;
+                        
+                        // Simulate loading (replace with actual tool loading)
+                        setTimeout(() => {
+                            container.innerHTML = `
+                                <div class="calculator-box">
+                                    <div class="calculator-header">
+                                        <h2><i class="${this.querySelector('i').className}"></i> ${this.textContent.trim()}</h2>
+                                        <p class="description">Select this tool from the sidebar for full functionality.</p>
+                                    </div>
+                                    <div class="info-message">
+                                        <p><i class="fas fa-info-circle"></i> This is a preview. Click the tool in the sidebar to access the full calculator.</p>
+                                    </div>
+                                </div>
+                            `;
+                        }, 1000);
+                    }
+                    
+                    // Highlight the corresponding sidebar item
+                    const sidebarItems = document.querySelectorAll('.tool-item');
+                    sidebarItems.forEach(item => {
+                        if (item.dataset.toolId === toolId) {
+                            item.classList.add('active-tool');
+                        } else {
+                            item.classList.remove('active-tool');
+                        }
+                    });
+                });
+            });
+            
+            // Newsletter Form
+            const newsletterForm = document.getElementById('newsletterForm');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input[type="email"]').value;
+                    
+                    // Simple validation
+                    if (email && email.includes('@')) {
+                        showNotification(`Thank you for subscribing with: ${email}`);
+                        this.reset();
+                        
+                        // You would typically send this to a server here
+                        console.log('Newsletter subscription:', email);
+                    } else {
+                        showNotification('Please enter a valid email address', 'error');
+                    }
+                });
+            }
+            
+            // Footer tool links
+            const footerToolLinks = document.querySelectorAll('.footer-section a[data-tool]');
+            footerToolLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const toolId = this.dataset.tool;
+                    const toolName = this.textContent.trim();
+                    
+                    showNotification(`Selecting ${toolName} from sidebar...`);
+                    
+                    // Find and click the corresponding sidebar item
+                    const sidebarItem = document.querySelector(`.tool-item[data-tool-id="${toolId}"]`);
+                    if (sidebarItem) {
+                        sidebarItem.click();
+                    }
+                });
+            });
+            
+            // Share functionality
+            window.shareOnPlatform = function(platform) {
+                const url = encodeURIComponent(window.location.href);
+                const title = encodeURIComponent(document.title);
+                const text = encodeURIComponent('Check out these free fire safety calculators!');
+                
+                let shareUrl = '';
+                
+                switch(platform) {
+                    case 'facebook':
+                        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                        break;
+                    case 'twitter':
+                        shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+                        break;
+                    case 'linkedin':
+                        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                        break;
+                    case 'whatsapp':
+                        shareUrl = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                        break;
+                }
+                
+                if (shareUrl) {
+                    window.open(shareUrl, '_blank', 'width=600,height=400');
+                    showNotification('Opened sharing dialog');
+                }
+            };
+            
+            // Support options
+            window.showSupportOptions = function() {
+                const options = `
+                    <div class="support-options">
+                        <h3><i class="fas fa-heart"></i> Support This Project</h3>
+                        <p>These tools are completely free and always will be. Here's how you can help:</p>
+                        <ul>
+                            <li><strong>Share with colleagues</strong> - Spread the word!</li>
+                            <li><strong>Report bugs</strong> - Help improve the tools</li>
+                            <li><strong>Suggest features</strong> - What calculators do you need?</li>
+                            <li><strong>Use our affiliate links</strong> - When purchasing fire safety equipment</li>
+                        </ul>
+                        <p>Thank you for using Fire Safety Tools!</p>
+                    </div>
+                `;
+                
+                // Create a modal or show in a dialog
+                alert('Support Options:\n\n1. Share with colleagues\n2. Report bugs\n3. Suggest new features\n4. Use affiliate links\n\nThank you for your support!');
+            };
+            
+            // Notification function
+            function showNotification(message, type = 'success') {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = `
+                    <i class="fas fa-${type === 'error' ? 'exclamation-circle' : 'check-circle'}"></i>
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.remove()">&times;</button>
+                `;
+                
+                // Add styles if not already present
+                if (!document.querySelector('#notification-styles')) {
+                    const styles = document.createElement('style');
+                    styles.id = 'notification-styles';
+                    styles.textContent = `
+                        .notification {
+                            position: fixed;
+                            top: 20px;
+                            right: 20px;
+                            padding: 15px 20px;
+                            border-radius: 8px;
+                            background: #10b981;
+                            color: white;
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                            z-index: 9999;
+                            animation: slideIn 0.3s ease;
+                        }
+                        .notification.error {
+                            background: #ef4444;
+                        }
+                        .notification i {
+                            font-size: 1.2rem;
+                        }
+                        .notification button {
+                            background: none;
+                            border: none;
+                            color: white;
+                            font-size: 1.5rem;
+                            cursor: pointer;
+                            margin-left: 10px;
+                        }
+                        @keyframes slideIn {
+                            from { transform: translateX(100%); opacity: 0; }
+                            to { transform: translateX(0); opacity: 1; }
+                        }
+                    `;
+                    document.head.appendChild(styles);
+                }
+                
+                // Add to page
+                document.body.appendChild(notification);
+                
+                // Auto-remove after 5 seconds
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 5000);
+            }
+            
+            // Initialize
+            console.log('Main script initialization complete');
         });
     </script>
 </body>
