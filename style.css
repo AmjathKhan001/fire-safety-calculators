@@ -739,3 +739,79 @@ footer {
 .mb-20 { margin-bottom: 20px; }
 .mb-30 { margin-bottom: 30px; }
 .mb-40 { margin-bottom: 40px; }
+
+/* Add to your existing style.css */
+
+/* Social Media Icons */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #f3f4f6;
+    border-radius: 50%;
+    color: #374151;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background: #dc2626;
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Visitor Counter Animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.visitor-counter {
+    animation: pulse 2s infinite;
+}
+
+/* Responsive Improvements */
+@media (max-width: 768px) {
+    .resources-categories {
+        grid-template-columns: 1fr;
+    }
+    
+    .main-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .main-nav a {
+        margin: 0.25rem;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .footer-links a {
+        margin: 0.25rem 0.5rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .visitor-counter,
+    .social-profiles,
+    .header-social {
+        display: none !important;
+    }
+}
